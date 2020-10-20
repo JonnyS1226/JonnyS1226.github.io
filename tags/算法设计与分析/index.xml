@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>算法设计与分析 on jonnyshao</title>
+    <link>http://www.example.com/tags/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/</link>
+    <description>Recent content in 算法设计与分析 on jonnyshao</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 18 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/tags/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>算法复习-动态规划</title>
+      <link>http://www.example.com/posts/%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</link>
+      <pubDate>Sat, 18 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</guid>
+      <description>算法简介   理论角度：
+ 动态规划是重要算法，基本设计思想是将待求解问题分解成若干个子问题，分阶段求解子问题，前一阶段的子问题的解成为后续阶段子问题的解的计算信息，最后用这些子问题的最优解构造出原问题的最优解 特征：子问题具有重叠性，有最优子结构 基本步骤：找出最优解的特征，按最优解的性质来划分子问题和演算阶段，求出递推式，自底向上或自顶向下计算求值，根据局部最优解构造出整体最优解  简单来说就是：设计状态 &amp;ndash;&amp;gt; 求状态转移方程 &amp;ndash;&amp;gt; 求出解      个人理解：
+ 从图论角度，本质上是形成一个有向无环图，然后使用循环、记忆化搜索、DFS或BFS求解都可以 从函数角度，动态规划其实这就像是高中数学的数列题的求解，求出递推式就成功了一大半    dp确实是相对比较困难的算法，为了加深学习，这里放上一个让我受益匪浅的讲述动态规划的博客：
+    博文链接：Dynamic Programming Patterns    上述博文作者将dp分为了5大类，基本涵盖大部分dp问题。主要是  达成某个目标的最大/最小值 达到目标的方法数 区间合并dp 字符串dp 做决定问题，即当前元素是否要选择的问题   而下面将根据博文中的分类，每一类选择1-2题进行分析其递推式或者状态转移方程。值得注意的是，每一类之间并非完全分离，比如背包问题，既可以作为第一类，也可以作为第五类来解决，但想法是相通的。  典型例题 1. 达成某个目标的最大最小值 1）题目描述
+ 题目描述常是：给出一个目标任务，找到实现这个任务的最大或最小开销/价值等  2）常见解决模式
+ 先选择出当前状态之前的某个状态（有些情况是选择出遍历之前的所有状态），查看其实现这个目标的最大/最小开销，然后加上从那个状态到当前状态的开销 常见解决模式：$f(i)=min(f(i-1),f(i-2),&amp;hellip;,f(i-k))+cost[i]$  3）例题&amp;ndash;剪绳子问题
+ 题目描述：给定一段长的绳子，切成若干长度，求这切出的各段长的乘积最大为多少？ 分析：不妨设要求解的绳子长度为$n$，记$f(n)$表示长度为n的绳子题设条件下的最大乘积。  这个问题则需要先查看绳子长度$L&amp;lt;n，($其中记 $L=n-i，0&amp;lt;i&amp;lt;n )$的绳子在题设条件下的最大乘积$f(n-i)$，然后从中选择出最大的。 再乘以从那个状态到当前状态的“开销” $f ( i )$，就可以得到$f(n)$.</description>
+    </item>
+    
+    <item>
+      <title>算法复习-回溯法</title>
+      <link>http://www.example.com/posts/2019-12-23-%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0-%E5%9B%9E%E6%BA%AF%E6%B3%95/</link>
+      <pubDate>Thu, 02 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/2019-12-23-%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0-%E5%9B%9E%E6%BA%AF%E6%B3%95/</guid>
+      <description>算法简介 回溯法，与分支限界法，都属于树的搜索技术，回溯法就是一个在约束条件下对解空间树进行深度优先搜索，并且在搜索的过程中剪枝：当搜索到某个结点，发现当前路径不满足条件时，回溯至祖先结点重新开始下一条路径的搜索。
+典型例题 1. n皇后问题 1) 题目描述
+在一个n*n的棋盘上放置n个皇后，任意两个皇后不能处在同一行、同一列、同一斜线。 对于用户输入的n，输出n皇后问题的解数。
+2) 分析
+  回溯法
+ 画出解空间树，实质就是从左向右，从上至下，顺序依次摆放皇后，每次摆放后都判断一下是否满足条件 若不满足条件，撤销这次摆放，将皇后摆放到下一个位置    位运算法
+  3) 代码
+private static int methodNum = 0; public static void solveNQueenBackTrack(int row, int[][] chessBoard){ if (row == chessBoard.length) { methodNum++; System.out.println(&amp;#34;第&amp;#34; + methodNum + &amp;#34;种：&amp;#34;); for (int i = 0; i &amp;lt; chessBoard.length; i++) { for (int j = 0; j &amp;lt; chessBoard[0].length; j++) { System.out.print(chessBoard[i][j] + &amp;#34; &amp;#34;); } System.</description>
+    </item>
+    
+    <item>
+      <title>算法复习-分治法</title>
+      <link>http://www.example.com/posts/2019-12-13-%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0-%E5%88%86%E6%B2%BB%E6%B3%95/</link>
+      <pubDate>Thu, 26 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/2019-12-13-%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0-%E5%88%86%E6%B2%BB%E6%B3%95/</guid>
+      <description>算法简介 分治策略是把一个较大的问题分解成几个与原问题相似的子问题，找到求出这几个子问题的解法后，再以适当的方法组织合并成完整问题的解法。
+分治策略往往使用递归解决问题，主要步骤分为：分解，解决，合并。故要使用分治策略，就需要适当地分解，同时设置好递归出口。
+典型例题 1. 找出数组中重复数字 1) 题目描述
+在一个长度为n+1的数组里的所有数字都在1-n的范围内，所以数组中至少有一个数字是重复的，找出一个重复的数字。
+2) 分析
+ 可以使用排序寻找(即蛮力法)，但时间复杂度较高。 使用Hash函数保存遍历的数字降低了时间复杂度，但空间复杂度较高。 使用分治策略，降低了时间和空间复杂度：  先确定一个中间值t，对于比t小的和比t大的进行分治考虑，重复的值一定在这两块范围中的某一块。 判断是否有重复：统计某范围内数字出现个数count，若count&amp;gt;该范围长度，则该范围一定有重复值。于是对该范围进行(递归)分治。 递归出口是当某一范围局限到一个数字时，则说明该数字就是重复值；当然也可以不使用递归。 需要指出的是，这种策略不能找出所有的重复数字。    3) 代码
+// 递归  public static int recursiveToFind(int[] array, int start, int end, int length) { if(end == start) { return start; } int middle = (end + start) / 2; int count = rangeCount(start, middle, array, length); if (count &amp;gt; (middle - start + 1)) { return recursiveToFind(array, start, middle, length); } else { return recursiveToFind(array, middle + 1, end, length); } } // 非递归  public static int noRecursiveToFind(int[] array, int length) { int start = 1; int end = length - 1; while (end &amp;gt;= start) { int middle = (end + start) / 2; int count = rangeCount(start, middle, array, length); if (end == start) { return start; } if (count &amp;gt; (middle - start + 1)) { end = middle; } else { start = middle + 1; } } throw new IllegalArgumentException(&amp;#34;没有重复的&amp;#34;); } //范围统计数字个数  public static int rangeCount(int start, int end, int[] array, int length) { if(length == 0) { return 0; } int cnt = 0; for (int i = 0; i &amp;lt; length; i++) { if(array[i] &amp;lt;= end &amp;amp;&amp;amp; array[i] &amp;gt;= start) { cnt++; } } return cnt; } 4) 复杂度分析</description>
+    </item>
+    
+    <item>
+      <title>算法复习-进阶算法</title>
+      <link>http://www.example.com/posts/2020-2-5-%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0-%E4%B8%80%E4%BA%9B%E8%BF%9B%E9%98%B6%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Sun, 08 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/2020-2-5-%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0-%E4%B8%80%E4%BA%9B%E8%BF%9B%E9%98%B6%E7%AE%97%E6%B3%95/</guid>
+      <description>前言  KMP算法用来解决字符串匹配问题，O(n)，本质上是对暴力字符串匹配的加速优化。 Manacher算法用来求解最长回文串问题，O(n)，本质上同样是对暴力法求最长回文串的加速优化。 BFPTR是用来解决TopK问题，最坏情况是O(n)，本质上是对于双指针解决Topk问题时的pivot选取进行处理，避免pivot选择过于偏而出现最坏情况  KMP算法及其应用 要点：  next数组的建立  next数组存放的是其前面的序列中的，最长的前缀和后缀相等的长度值 next数组的建立是通过递推，类似dp思想，辅以反证证明   根据next数组进行加速  简单来说就是对于长的那个数组的指针，一直前进 当匹配到某个字符不相等时，长的数组指针不变，短的数组指针直接回退到next值上，而非起点（可数学证明起点到这个next值之间 不可能匹配）   代码要点  判断str1中是否有str2为子串 KMP算法的要点  next数组的建立根据 next数组 在匹配的时候起到加速效果      代码 public static int Kmp(String str1, String str2){ int length1 = str1.length(); int length2 = str2.length(); if (length1 == 0 || length2 == 0 || length1 &amp;lt; length2) { return -1; } int index1 = 0; int index2 = 0; char[] chars1 = str1.</description>
+    </item>
+    
+  </channel>
+</rss>

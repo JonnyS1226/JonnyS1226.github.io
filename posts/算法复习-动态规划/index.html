@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+
+    <meta name="author" content="Jonny Shao">
+    <meta name="description" content="动态规划">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="算法复习-动态规划"/>
+<meta name="twitter:description" content="动态规划"/>
+
+    <meta property="og:title" content="算法复习-动态规划" />
+<meta property="og:description" content="动态规划" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.example.com/posts/%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" />
+<meta property="article:published_time" content="2020-01-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-01-18T00:00:00+00:00" />
+
+
+    <title>
+  算法复习-动态规划 · jonnyshao
+</title>
+
+    
+      <link rel="canonical" href="http://www.example.com/posts/%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.9836c03fe5c87d102278a33e86d0591ef36c89b1e17e8e547ebf84c05cee010e.css" integrity="sha256-mDbAP&#43;XIfRAieKM&#43;htBZHvNsibHhfo5Ufr&#43;EwFzuAQ4=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.717236c74e0a5208ef73964a9f44c6b443b689a95b270d8b2a40d0c012460dac.css" integrity="sha256-cXI2x04KUgjvc5ZKn0TGtEO2ialbJw2LKkDQwBJGDaw=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.76.5" />
+  </head>
+
+  
+  
+    
+  
+  <body class="colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      jonnyshao
+    </a>
+    
+      
+        <span id="dark-mode-toggle" class="float-right">
+          <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        </span>
+      
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact me</a>
+            </li>
+          
+        
+        
+        
+          <li class="navigation-item separator">
+            <span>|</span>
+          </li>
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">算法复习-动态规划</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2020-01-18T00:00:00Z'>
+                January 18, 2020
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              2-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/">算法设计与分析</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <a href="/tags/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/">算法设计与分析</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="算法简介">算法简介</h2>
+<ul>
+<li>
+<p>理论角度：</p>
+<ul>
+<li>动态规划是重要算法，基本设计思想是将待求解问题分解成若干个子问题，分阶段求解子问题，前一阶段的子问题的解成为后续阶段子问题的解的计算信息，最后用这些子问题的最优解构造出原问题的最优解</li>
+<li>特征：子问题具有重叠性，有最优子结构</li>
+<li>基本步骤：找出最优解的特征，按最优解的性质来划分子问题和演算阶段，求出递推式，自底向上或自顶向下计算求值，根据局部最优解构造出整体最优解
+<ul>
+<li>简单来说就是：设计状态 &ndash;&gt;  求状态转移方程 &ndash;&gt; 求出解</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>个人理解：</p>
+<ul>
+<li>从图论角度，本质上是形成一个有向无环图，然后使用循环、记忆化搜索、DFS或BFS求解都可以</li>
+<li>从函数角度，动态规划其实这就像是高中数学的数列题的求解，求出递推式就成功了一大半</li>
+</ul>
+</li>
+<li>
+<p>dp确实是相对比较困难的算法，为了加深学习，这里放上一个让我受益匪浅的讲述动态规划的博客：</p>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>博文链接：<a href="https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns">Dynamic Programming Patterns</a></li>
+</ul>
+</blockquote>
+<ul>
+<li>上述博文作者将dp分为了5大类，基本涵盖大部分dp问题。主要是
+<ul>
+<li>达成某个目标的最大/最小值</li>
+<li>达到目标的方法数</li>
+<li>区间合并dp</li>
+<li>字符串dp</li>
+<li>做决定问题，即当前元素是否要选择的问题</li>
+</ul>
+</li>
+<li>而下面将根据博文中的分类，每一类选择1-2题进行分析其递推式或者状态转移方程。值得注意的是，每一类之间并非完全分离，比如背包问题，既可以作为第一类，也可以作为第五类来解决，但想法是相通的。</li>
+</ul>
+<h2 id="典型例题">典型例题</h2>
+<h4 id="1-达成某个目标的最大最小值">1. 达成某个目标的最大最小值</h4>
+<p><strong>1）题目描述</strong></p>
+<ul>
+<li>题目描述常是：给出一个目标任务，找到实现这个任务的最大或最小开销/价值等</li>
+</ul>
+<p><strong>2）常见解决模式</strong></p>
+<ul>
+<li>先选择出当前状态之前的某个状态（有些情况是选择出遍历之前的所有状态），查看其实现这个目标的最大/最小开销，然后加上从那个状态到当前状态的开销</li>
+<li>常见解决模式：$f(i)=min(f(i-1),f(i-2),&hellip;,f(i-k))+cost[i]$</li>
+</ul>
+<p><strong>3）例题&ndash;剪绳子问题</strong></p>
+<ul>
+<li>题目描述：给定一段长的绳子，切成若干长度，求这切出的各段长的乘积最大为多少？</li>
+<li>分析：不妨设要求解的绳子长度为$n$，记$f(n)$表示长度为n的绳子题设条件下的最大乘积。
+<ul>
+<li>这个问题则需要先查看绳子长度$L&lt;n，($其中记 $L=n-i，0&lt;i&lt;n )$的绳子在题设条件下的最大乘积$f(n-i)$，然后从中选择出最大的。</li>
+<li>再乘以从那个状态到当前状态的“开销” $f ( i )$，就可以得到$f(n)$.</li>
+</ul>
+</li>
+<li>根据上述分析，状态转移方程为：$f(n)=max(f(n-i)\times f(i))$</li>
+</ul>
+<p><strong>4）例题&ndash;01背包问题</strong></p>
+<ul>
+<li>题目描述：给定背包承重量$W$，给出物品数$n$，各物品价值$V_i$，各物品重量$w_i$，求背包装物品得到的最大价值？</li>
+<li>分析：记承重为W，物品数为n的背包装物品最大价值为$f_n(W)$
+<ul>
+<li>先查看在当前状态之前的状态的最大价值，记为$f_{n-1}(W-w_i)$和$f_{n-1}(W)$，</li>
+<li>再分别加上“开销”：$V_i$和$0$，取更大的一个。</li>
+</ul>
+</li>
+<li>根据上述分析，状态转移方程为：$f_i(W)=max(f_{i-1}(W),  f_{i-1}(W-w_i)+V_i)$</li>
+</ul>
+<h4 id="2-达成目标的方法数">2. 达成目标的方法数</h4>
+<p><strong>1）题目描述</strong></p>
+<ul>
+<li>题目描述常是：给定要求，计算达成一个目标的方法数有多少</li>
+</ul>
+<p><strong>2）常见解决模式</strong></p>
+<ul>
+<li>对所有可能的方法作和，即有向无环图的到某个点的路径数求和</li>
+<li>常见解决模式：$routes[i] = routes[i-1] + routes[i-2], &hellip; , + routes[i-k]$</li>
+</ul>
+<p><strong>3）例题&ndash;跳台阶问题</strong></p>
+<ul>
+<li>题目描述：一次跳上1级台阶，也可以跳上2级台阶，求跳上一个n级台阶共有几种跳法</li>
+<li>分析：记$f(n)$表示跳n阶台阶的跳法数。
+<ul>
+<li>跳1级台阶只有1种方法，跳2级台阶有2种方法。</li>
+<li>跳&gt;2级台阶时，第一次可以跳一级，则一共跳法数是$f(n-1)$。第一次若跳两级，则是$f(n-2)$。</li>
+<li>故一共有$f(n-1)+f(n-2)$种。</li>
+</ul>
+</li>
+<li>根据上述分析，递推式是：$f(n)=f(n-1)+f(n-2)$</li>
+</ul>
+<p><strong>4）例题&ndash;Unique Paths</strong></p>
+<ul>
+<li>题目描述：<a href="https://leetcode.com/problems/unique-paths/">摘自leetcode</a></li>
+<li>分析：设 $dp[i][j]$ 表示 $i \times j$ 的矩形网格下，从左上走到右下的总方法数。
+<ul>
+<li>需要考虑全部的可行方法。考虑$ (i,j)$ 格，由于机器人只能向右或者向下走，若机器人走到该格上面一格，很显然就能走到这格。同理，若机器人走到该格左边一格，很显然也能走到这一格。</li>
+<li>所以到达 $ (i,j)$ 格的方法数是到达其上方和左方相邻方块的方法数之和</li>
+<li>其中对于 $dp[i][0]、dp[0][j]$ 需要初始化为1。因为这表示是一行或者一列，很显然只有一种走法。</li>
+</ul>
+</li>
+<li>根据上述分析，递推式是： $dp[i][j]=dp[i-1][j]+dp[i][j-1]$</li>
+</ul>
+<h4 id="3-区间合并dp">3. 区间合并DP</h4>
+<p><strong>1）题目描述</strong></p>
+<ul>
+<li>题目描述常是：在一段区间（或看成数轴）中，考虑当前和左右位置，合并小区间，来找到问题最优解</li>
+</ul>
+<p><strong>2）常见解决模式</strong></p>
+<ul>
+<li>对每个二维层面（即看成数轴或区间）上的每一段满足条件的间隔进行分析，得到合并小区间的最优解，进而得到整个区间的最优解</li>
+<li>常见解决模式：$dp[i][j] = dp[i][k] + result[k] + dp[k+1][j]$，$k$ 从 $i$ 到 $j$</li>
+</ul>
+<p><strong>3）例题&ndash;矩阵链乘法</strong></p>
+<ul>
+<li>
+<p>题目描述：给定n个矩阵（ $A_1,A_2,&hellip;,A_n$ ），矩阵 $A_i$ 的规模为 $p_{i-1} \times p_i$，求以何种次序进行运算（即通过不同的添括号方法），会使得矩阵乘法 $A_1A_2&hellip;A_n $所需要的标量乘法次数最少？</p>
+</li>
+<li>
+<p>分析：记 $dp[i][j]$ 表示矩阵乘法 $A_iA_{i+1}&hellip;A_j$所需要的标量乘法次数的最小值。</p>
+<ul>
+<li>可以将这个问题看成区间dp，对于$dp[i][j]$对应的 $A_iA_{i+1}&hellip;A_j$，假设一个最优分割点在 $A_k$和$A_{k+1}$之间，则有 $dp[i][j]=dp[i][k]+p_{i-1}p_kp_j+dp[k+1][j]$</li>
+<li>而需要对整个区间所有满足条件间隔进行分析，然后取最优值</li>
+</ul>
+</li>
+<li>
+<p>根据上述分析，递推式如下</p>
+<ul>
+<li>$$
+dp[i][j]=
+\begin{cases}
+0, &amp;\text{if i=j}\<br>
+\mathop{min}\limits_{i \leq k&lt;j}({dp[i][k]+dp[k+1][j]+p_{i-1}p_kp_j}), &amp;\text{if i&lt;j}
+\end{cases}
+$$</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-字符串dp">4. 字符串DP</h4>
+<p><strong>1）题目描述</strong></p>
+<ul>
+<li>常常是关于两个字符串（有限长度）之间的比较，修改，或者子串判定相关的dp问题</li>
+</ul>
+<p><strong>2）常见解决模式</strong></p>
+<ul>
+<li>主要是通过遍历两个字符串，若相同字符则转向一个情况，不同转向另一个情况</li>
+</ul>
+<p><strong>3）例题&ndash;最大公共子序列长度</strong></p>
+<ul>
+<li>
+<p>题目描述：给定两个字符串，求出它们的最长公共子序列的长度。</p>
+</li>
+<li>
+<p>分析：设 $dp[i][j]$ 表示对于字符串 $s_1[1&hellip;i]$ 和 $s_2[1&hellip;j]$，它们的最大公共子序列长度。设 $s_1[i]$表示 $s_1$中的第$i$个字符，$s_2$同理</p>
+<ul>
+<li>先初始化，显然 $dp[0][j]$ 和 $dp[i][0]$ 都初始化为0</li>
+<li>很显然，若$s_1[i] = s_2[j]$，则最大公共子序列长度很显然是之前的最大公共子序列长度＋1</li>
+<li>若 $s_1[i] \neq s_2[j]$，则最大公共子序列长度是 $s_1[i-1]$和$s_2[j]$ 的最大公共子序列长度以及 $s_1[i]$ 和 $s_2[j-1]$的最大公共子序列长度中的更大值</li>
+</ul>
+</li>
+<li>
+<p>根据上述分析，递推式如下：</p>
+<ul>
+<li>$$
+dp[i][j]=
+\begin{cases}
+dp[i-1][j-1]+1,   \ \text{if $s_1[i-1]=s_2[j-1]$}\<br>
+max(dp[i-1][j],dp[i][j-1]),\ \text{if $s_1[i-1] \neq s_2[j-1]$ }
+\end{cases}
+$$</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-做决定问题">5. 做决定问题</h4>
+<p><strong>1）题目描述</strong></p>
+<ul>
+<li>关于当前元素/状态取舍，基于一定目标，做出决定的问题</li>
+</ul>
+<p><strong>2）常见解决模式</strong></p>
+<ul>
+<li>
+<p>如果取当前元素，则需要更新临时dp数组；如果不取当前元素，则dp数组还是放置前一个元素时的值。在这些情况中，选择最优解</p>
+</li>
+<li>
+<p>常见解决模式如下：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#007f7f">// i - indexing a set of values
+</span><span style="color:#007f7f">// j - options to ignore j values
+</span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = 1; i &lt; n; i++) {
+   <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> j = 1; j &lt;= k; j++) {
+       dp[i][j] = max({dp[i][j], dp[i-1][j] + arr[i], dp[i-1][j-1]});
+       dp[i][j-1] = max({dp[i][j-1], dp[i-1][j-1] + arr[i], arr[i]});
+   }
+}
+</code></pre></div></li>
+</ul>
+<p><strong>3）例题&ndash;01背包问题</strong></p>
+<ul>
+<li>背包问题是这一类很典型的问题，同时也符合第一类，在第一类中已有[阐述](####1. 达成某个目标的最大最小值)</li>
+</ul>
+<p><strong>4）例题&ndash;最大子段和问题</strong></p>
+<ul>
+<li>
+<p>题目描述：求一个数组中，某连续一段子数组求和，求这个和的最大值？（也即股票买卖最佳时机问题，事实上看成股票问题更容易理解对应的算法）</p>
+</li>
+<li>
+<p>分析：设 $dp[i][j]$ 表示在索引为 $i$ 的这一天，持股状态为 $j$ 的最大利润。$j=0$ 表示不持股，且强调是卖出股票后的不持股状态；$j=1$ 表示持股.</p>
+<ul>
+<li>根据上述假设，显然$j$ 只能从1变为0，不能从0变为1</li>
+<li>对于不“取“这个元素，即 $j=0$，则考虑前一天也不持股，或者前一天持股而今天卖出，这两种情况中取最优</li>
+<li>对于”取“这个元素，即 $j=1$，则要通过”收益”看，是维持这个状态不持股，还是选择这个元素</li>
+<li>由于最晚到最后一天一定要卖出，所以最后返回 $dp[length-1][0]$ 即结果</li>
+</ul>
+</li>
+<li>
+<p>通过上述分析，递推式为</p>
+<ul>
+<li>$dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i])$</li>
+<li>$dp[i][1] = max(dp[i - 1][1], -prices[i])$</li>
+</ul>
+</li>
+</ul>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js" id="MathJax-script"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );">
+  </script>
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>You are my priority</p>
+      
+      
+        ©
+        
+          2019 -
+        
+        2020
+         Jonny Shao 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+        
+      
+    </section>
+  </footer>
+
+    </main>
+
+    
+      
+      <script src="/js/dark-mode.min.0213e1773e6d1c5a644f847c67a6f8abac49a3776e2976f6008038af8c5b76a1.js"></script>
+    
+
+    
+
+    
+
+    <script>
+(function(f, a, t, h, o, m){
+	a[h]=a[h]||function(){
+		(a[h].q=a[h].q||[]).push(arguments)
+	};
+	o=f.createElement('script'),
+	m=f.getElementsByTagName('script')[0];
+	o.async=1; o.src=t; o.id='fathom-script';
+	m.parentNode.insertBefore(o,m)
+})(document, window, '//analytics.example.com/tracker.js', 'fathom');
+fathom('set', 'siteId', 'ABCDE');
+fathom('trackPageview');
+</script>
+
+
+    <script async defer data-domain="example.com" src="https://analytics.example.com/js/plausible.js"></script>
+
+
+    <script data-goatcounter="https://code.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+  </body>
+
+</html>

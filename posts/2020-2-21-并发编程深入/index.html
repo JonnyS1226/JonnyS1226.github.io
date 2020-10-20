@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+
+    <meta name="author" content="Jonny Shao">
+    <meta name="description" content="JAVA并发编程">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JAVA并发编程深入"/>
+<meta name="twitter:description" content="JAVA并发编程"/>
+
+    <meta property="og:title" content="JAVA并发编程深入" />
+<meta property="og:description" content="JAVA并发编程" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.example.com/posts/2020-2-21-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E6%B7%B1%E5%85%A5/" />
+<meta property="article:published_time" content="2020-03-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-03-08T00:00:00+00:00" />
+
+
+    <title>
+  JAVA并发编程深入 · jonnyshao
+</title>
+
+    
+      <link rel="canonical" href="http://www.example.com/posts/2020-2-21-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E6%B7%B1%E5%85%A5/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.9836c03fe5c87d102278a33e86d0591ef36c89b1e17e8e547ebf84c05cee010e.css" integrity="sha256-mDbAP&#43;XIfRAieKM&#43;htBZHvNsibHhfo5Ufr&#43;EwFzuAQ4=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.717236c74e0a5208ef73964a9f44c6b443b689a95b270d8b2a40d0c012460dac.css" integrity="sha256-cXI2x04KUgjvc5ZKn0TGtEO2ialbJw2LKkDQwBJGDaw=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.76.5" />
+  </head>
+
+  
+  
+    
+  
+  <body class="colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      jonnyshao
+    </a>
+    
+      
+        <span id="dark-mode-toggle" class="float-right">
+          <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        </span>
+      
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact me</a>
+            </li>
+          
+        
+        
+        
+          <li class="navigation-item separator">
+            <span>|</span>
+          </li>
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">JAVA并发编程深入</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2020-03-08T00:00:00Z'>
+                March 8, 2020
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              3-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/java/">JAVA</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <a href="/tags/java/">JAVA</a>
+      <span class="separator">•</span>
+    <a href="/tags/concurrency/">Concurrency</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="前言">前言</h2>
+<ul>
+<li>进程：为使程序正确的并发，引入了<strong>进程</strong>的概念。</li>
+<li>线程：然而进程的切换开销很大，于是引入了<strong>线程</strong>（轻量级进程）的概念，多个线程共享大部分资源，切换时减小了开销。于是在大多数操作系统中，都是以线程为调度和分派的基本单位。
+<ul>
+<li>线程的优势有：发挥多处理器的优势，建模简单，异步事件简化，响应灵敏</li>
+<li>线程的风险：
+<ul>
+<li>安全性问题：程序推进的不可预测性可能导致糟糕后果</li>
+<li>活跃性问题：活跃性指<code>某件正确的事情一定会发生</code>，而多线程可能导致死锁等问题，导致得不到正确结论</li>
+<li>性能问题：频繁线程上下文切换带来额外开销</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>研究原因：由于一个进程中所有线程共享进程的内存地址空间，因此这些线程都能访问相同的变量，并在同一个堆上分配对象，于是需要有明确的协同</li>
+</ul>
+<p><em><strong>具体有关进程和线程的描述，属性和调度等 参考操作系统相关知识</strong></em></p>
+<h2 id="java中的多线程基础">Java中的多线程基础</h2>
+<h4 id="1-多线程编程">1. 多线程编程</h4>
+<p><strong>1) 多线程类的创建与运行</strong></p>
+<p>有三种常用方法，以下加入了匿名内部类和线程池创建多线程，本质上只有前三种：</p>
+<ul>
+<li>
+<p><strong>创建<code>Thread</code>类的子类</strong></p>
+<ul>
+<li>
+<p>步骤</p>
+<ul>
+<li>创建<code>Thread</code>类的子类</li>
+<li>在<code>Thread</code>类的子类中重写<code>Thread</code>类中的<code>run()</code>方法，设置线程任务</li>
+<li>创建<code>Thread</code>类的子类的对象</li>
+<li>调用<code>Thread</code>类中的**<code>start</code>方法**，开启新的线程，执行<code>run</code>方法</li>
+</ul>
+</li>
+<li>
+<p><code>Thread</code>类的其他方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>currentThread()</code></td>
+<td>获取当前正在执行的线程</td>
+</tr>
+<tr>
+<td><code>getName()</code></td>
+<td>获取线程名</td>
+</tr>
+<tr>
+<td><code>setName()</code>或使用带参构造方法</td>
+<td>设置线程名</td>
+</tr>
+<tr>
+<td><code>sleep()</code></td>
+<td>线程睡眠若干秒</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>声明实现类<code>Runnable</code>接口,重写<code>run</code>方法</strong></p>
+<ul>
+<li>步骤
+<ul>
+<li>创建一个<code>Runnable</code>接口的实现类，在实现类中重写<code>run</code>方法，设置线程任务</li>
+<li>创建一个<code>Runnable</code>接口的实现类的对象</li>
+<li>创建<code>Thread</code>类对象，构造方法中传递<code>Runnable</code>接口的实现类对象，</li>
+<li>调用<code>Thread</code>类对象的<code>start</code>方法执行任务</li>
+</ul>
+</li>
+<li>相比<code>Thread</code>类子类的优势（即接口相比继承的优势）
+<ul>
+<li>避免了单继承的局限性</li>
+<li>增加了程序的可扩展性，解耦</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>实现 <code>Callable</code> 接口</strong></p>
+<ul>
+<li>步骤
+<ul>
+<li>实现一个<code>Callable</code>接口的实现类，泛型是返回值类型，重写<code>call</code>方法，设置线程任务</li>
+<li>使用<code>FutureTask</code>实现类，构造函数传递<code>Callable</code>接口实现类对象，泛型是返回值类型</li>
+<li>调用<code>FutureTask</code>对象的<code>start</code>方法，执行任务</li>
+</ul>
+</li>
+<li>相比<code>Runnable</code>的优势
+<ul>
+<li>线程任务可以接收返回值（使用<code>FutureTask</code>对象的<code>get</code>方法），且可以抛出异常</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>匿名内部类实现多线程</strong></p>
+<ul>
+<li>
+<p>格式如下</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#fff;font-weight:bold">new</span> Thread(<span style="color:#fff;font-weight:bold">new</span> Runnable() {
+            @Override
+            <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">void</span> run() {
+                <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = 0; i &lt; 20; i++) {
+                    System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">println</span>(Thread.<span style="color:#007f7f">currentThread</span>().<span style="color:#007f7f">getName</span>());
+                }
+            }
+        }).<span style="color:#007f7f">start</span>();
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p><strong>使用线程池创建多线程</strong></p>
+<ul>
+<li>JDK1.5以后线程池编程步骤：
+<ul>
+<li>使用线程池的工厂类<code>Executors</code>里的静态方法<code>newFixedThreadPool</code>生产一个指定线程数量的线程池</li>
+<li>创建一个类，实现<code>Runnable</code>接口，重写<code>run</code>方法，设置线程任务</li>
+<li>调用<code>ExecutorService</code>中的方法<code>submit</code>，传递线程任务（实现类），开启线程</li>
+<li>结束后可以调用<code>shutdown</code>方法销毁，一般不建议使用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>2) 线程安全和同步机制的编程</strong></p>
+<ul>
+<li>
+<p><strong>同步代码块</strong></p>
+<ul>
+<li>格式</li>
+</ul>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#fff;font-weight:bold">synchronized</span>(锁对象)
+{
+    critical section;
+}
+</code></pre></div><ul>
+<li>锁对象可以是任意对象，但需要同步的多个线程必须用一个锁对象</li>
+</ul>
+</li>
+<li>
+<p><strong>同步方法</strong></p>
+<ul>
+<li>格式</li>
+</ul>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">synchronized</span> <span style="color:#fff;font-weight:bold">void</span> synchronizedMethod()
+{
+    critical section;
+}
+</code></pre></div><ul>
+<li>同步方法相当于锁对象是实现类对象，即<code>this</code>的同步代码块。</li>
+<li>若采用静态同步方法
+<ul>
+<li>锁对象不是<code>this</code>，因为<code>this</code>是创建对象后产生，静态方法优先于对象</li>
+<li>锁对象是本类的Class文件对象</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>锁机制</strong></p>
+<ul>
+<li><code>Lock</code>锁：jdk1.5以后出现，实现类是<code>ReentrantLock</code></li>
+<li>使用<code>Lock</code>锁的<code>void lock()</code>和<code>void unlock()</code>来获取和释放锁</li>
+</ul>
+</li>
+</ul>
+<p><strong>3) 线程状态与通信的编程</strong></p>
+<p><img src="/img/%E7%BA%BF%E7%A8%8B%E5%91%A8%E6%9C%9F.png" alt="线程周期"></p>
+<ul>
+<li><code>wait、sleep、notify</code>
+<ul>
+<li><code>wait(sec)</code>和<code>sleep(sec)</code>区别
+<ul>
+<li>这两个方法来自不同的类分别是<code>Object</code>和<code>Thread</code></li>
+<li>最主要是<code>sleep</code>方法没有释放锁，而<code>wait</code>方法释放了锁</li>
+<li><code>wait</code>，<code>notify</code>和<code>notifyAll</code>只能在同步控制方法或者同步控制块里面使用，而<code>sleep</code>可以在任何地方使用</li>
+</ul>
+</li>
+<li><code>wait</code>方法在毫秒值结束之后若还没有被<code>notify</code>，则会自动醒来</li>
+<li><code>notifyAll</code>唤醒对象监视器上等待的所有线程。<code>notify</code>：多个等待线程则随机唤醒一个</li>
+<li><code>wait</code>和<code>notify</code>必须由同一个锁对象调用。</li>
+</ul>
+</li>
+<li>关于<code>T2.join()</code>
+<ul>
+<li><code>join</code>方法的主要作用就是同步，它可以使得线程之间的并行执行变为串行执行。在A线程中调用了B线程的<code>join()</code>方法时，表示只有当B线程执行完毕时，A线程才能继续执行。</li>
+<li><code>join(t)</code>带参含义：等待t毫秒，t毫秒内等待的方法若完成，则正常向下执行，否则等待t毫秒后向下执行。注意：<code>join(0)</code>等同于<code>join()</code>。
+<ul>
+<li>与<code>sleep(t)</code>
+<ul>
+<li><code>sleep(t)</code>一定要等待t毫秒后向下执行</li>
+<li><code>join</code>会释放锁，这是因为<code>join</code>本质上是内部调用<code>wait</code>方法。<code>sleep</code>不会释放锁</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-java并发编程的内存模型">2. Java并发编程的内存模型</h4>
+<ul>
+<li>以下内容是《深入理解Java虚拟机》中第11章，作为并发编程基础在这里整理</li>
+</ul>
+<p><strong>1) 并发编程的三大性质</strong></p>
+<ul>
+<li><strong>原子性</strong>：一个整体，要么全部执行，要么全部不执行，不会被中断</li>
+<li><strong>可见性</strong>：当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看到修改的值</li>
+<li><strong>有序性</strong>：即程序执行的顺序按照代码的先后顺序执行</li>
+</ul>
+<p><strong>2) 内存间操作流程</strong></p>
+<p><img src="/img/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png" alt="image-20200201110736750"></p>
+<ul>
+<li>这与处理机&ndash;高速缓存&ndash;主内存的关系尽管并不是一个层次，但对应关系是一致的</li>
+</ul>
+<p><strong>3) 原子操作</strong></p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>功能</th>
+<th>作用于</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lock</td>
+<td>把一个变量变为线程独占</td>
+<td>主内存</td>
+</tr>
+<tr>
+<td>unlock</td>
+<td>释放一个被锁定的变量</td>
+<td>主内存</td>
+</tr>
+<tr>
+<td>read</td>
+<td>把一个变量的值从主内存转移到工作内存</td>
+<td>主内存</td>
+</tr>
+<tr>
+<td>load</td>
+<td>把read操作得到的值放入工作内存的变量副本中</td>
+<td>工作内存</td>
+</tr>
+<tr>
+<td>use</td>
+<td>把工作内存中一个变量的值交给执行引擎</td>
+<td>工作内存</td>
+</tr>
+<tr>
+<td>assign</td>
+<td>把一个从执行引擎接收的值给工作内存的变量</td>
+<td>工作内存</td>
+</tr>
+<tr>
+<td>store</td>
+<td>把工作内存一个值传递给主存</td>
+<td>工作内存</td>
+</tr>
+<tr>
+<td>write</td>
+<td>把store得到的变量放入主存的变量中</td>
+<td>主内存</td>
+</tr>
+</tbody>
+</table>
+<p><strong>4) Happen-Before规则</strong></p>
+<ul>
+<li><strong>程序次序规则</strong>：代码执行顺序规则</li>
+<li><strong>管程锁定规则</strong>：同一个锁，unlock操作先行于lock操作</li>
+<li><strong>volatile变量规则</strong>：volatile变量的写操作先于读操作</li>
+<li><strong>线程启动规则</strong>：线程的start方法先于此线程其他操作</li>
+<li><strong>线程终止规则</strong>：线程其他所有操作先于对该线程的终止检测（如join方法，isAlive方法）</li>
+<li><strong>线程中断规则</strong>：对线程interrupt方法调用先于被中断线程的代码检测到中断事件的发生（isInterrupted方法）</li>
+<li><strong>对象终结规则</strong>：一个对象的初始化完成先于其finalize方法的开始</li>
+<li><strong>传递性</strong>：先行性具有传递性</li>
+</ul>
+<h2 id="线程的安全性">线程的安全性</h2>
+<h4 id="1-线程安全性">1. 线程安全性</h4>
+<ul>
+<li><strong>定义</strong>：当多个线程访问某个类时，这个类始终能表现出正确行为，则称这个类线程安全</li>
+<li><strong>注意</strong>：完全由线程安全类构成的程序不一定是线程安全的，线程安全程序中可以包含非线程安全的类</li>
+<li><strong>结论</strong>：无状态对象一定线程安全。因为这种情况，多个线程没有共享状态，相当于访问不同的实例</li>
+</ul>
+<h4 id="2-原子性详解">2. 原子性详解</h4>
+<ul>
+<li>
+<p>诸如<code>++count</code>这样的紧凑语法，未必是原子的。并发编程中由于不恰当的执行时序而出现不正确的结果称为<strong>竞态条件</strong></p>
+</li>
+<li>
+<p><strong>竞态条件</strong>：其中一种典型模式是“先检查后执行”模式，如<strong>延迟初始化</strong>就是这其中一种</p>
+</li>
+<li>
+<p>Java中确保原子性的内置机制就是<strong>锁机制</strong>，此外还可以采取线程安全状态对象及其方法来代替复合操作，如用下面代码替代普通<code>Integet count</code>的<code>++count</code>：</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">private final AtomicLong count = new AtomicLong(0)
+count.incrementAndGet
+</code></pre></div></li>
+<li>
+<p>然而只使用线程安全状态变量不能保证线程安全！</p>
+</li>
+</ul>
+<h4 id="3-加锁机制">3. 加锁机制</h4>
+<ol>
+<li>内置锁<code>synchronized</code>，包括[同步代码块和同步方法](####1. 多线程编程)，这种方式可以使内部代码块成为原子的，但可能会降低并发度</li>
+<li>可重入：内置锁是可重入（递归锁、可重入锁）的，即获取锁的粒度是线程而非调用，拿到锁的线程仍能重复拿。实际情况中，即表现为：<strong>同一个线程在外层获取一个锁之后，进入内层方法，也能（且自动）获取同一个锁，而不会因为这个锁被外层获取后而阻塞。</strong>
+<ul>
+<li>实现：
+<ul>
+<li>为每个锁设定一个计数值和一个所有者线程。当计数值为0，该锁认为没有任何线程拥有。</li>
+<li>当一个线程请求锁时，计数值++。线程退出同步代码块时，计数值&ndash;。当计数值为0时，这个锁被释放</li>
+</ul>
+</li>
+<li>能增加封装性，同时一定程度上避免死锁</li>
+<li><code>synchronized</code>和<code>ReentrantLock</code>都是可重入的</li>
+</ul>
+</li>
+</ol>
+<h4 id="4-加锁的平衡性思考">4. 加锁的平衡性思考</h4>
+<ul>
+<li>将所有可变状态都封装在对象内部，并加上内置锁。这是一种常见加锁约定</li>
+<li>然而会降低并发度，所以要尽量减小同步代码块长度。尽量将不影响共享状态且执行时间长的操作从同步代码块中分出去。</li>
+<li>要判断同步代码块的合理大小，在各种设计需求间达到平衡，实现安全性，简单性和性能平衡。</li>
+</ul>
+<h2 id="对象的共享">对象的共享</h2>
+<h4 id="1-可见性">1. 可见性</h4>
+<ul>
+<li><strong>重排序</strong>现象：指令或代码执行的顺序可能并不是按照书写顺序的情况</li>
+<li>失去可见性的危害：读脏数据，非原子的64位操作被破坏等</li>
+<li>可见性的保证措施：在变量修改后要将修改后的值同步回主内存，读取变量时从主内存中获取，这样实现变量的修改对所有线程可见
+<ul>
+<li>保证可见性的关键字：volatile关键字，synchronized内置锁，final关键字</li>
+</ul>
+</li>
+<li><strong>volatile关键字</strong>
+<ul>
+<li>volatile关键字用来保证可见性，它使得每一次读取volatile变量时，都返回最新写入的值</li>
+<li>实现方式
+<ul>
+<li>即使用了lock指令，禁止指令重排序</li>
+<li>同时，lock 指令会将当前 CPU 的 Cache 写入内存，相当于对 Cache 中的变量做了一次 store -&gt; write 操作</li>
+<li>因为其他 CPU 在读取 volatile 变量前会先从主内存中读取 volatile 变量，即进行一次 read -&gt; load 操作，故该变量就可见了</li>
+</ul>
+</li>
+<li>与synchronized对比
+<ul>
+<li>volatile：仅保证可见性</li>
+<li>synchronized：保证可见性和原子性</li>
+</ul>
+</li>
+<li>应用场景：中断、结束标志等</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-发布与逸出">2. 发布与逸出</h4>
+<ul>
+<li>发布：使对象能在当前作用域之外使用
+<ul>
+<li>实现：
+<ul>
+<li>public</li>
+<li>保存引用，其他地方使用</li>
+<li>在某个非私有方法中返回该引用</li>
+<li>将引用传递到其他类的方法中</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>逸出：发布了不该发布的对象
+<ul>
+<li>this的逸出：在构造函数中创建了一个线程，this引用会被新线程共享。在新的对象没有完全构造之前，新线程就可以看见this，由此造成了逸出</li>
+<li>解决：构造函数中的线程不立即启动，而是使用start或initialize来启动。或者在构造函数中注册一个事件监听器或启动线程，使用一个私有的构造函数和一个公共的工厂方法。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-线程封闭">3. 线程封闭</h4>
+<ul>
+<li>栈封闭：使用局部变量，且这个变量不能逸出</li>
+<li><code>ThreadLocal</code>类：每一个线程维护一个自己的该变量对应值
+<ul>
+<li>实现原理：
+<ul>
+<li>每一个 <code>ThreadLocal</code> 都有一个唯一的的 <code>ThreadLocalHashCode</code></li>
+<li>每一个线程中有一个专门保存这个<code>HashCode</code>的 <code>Map&lt;ThreadLocalHashCode&gt;</code>对应变量的值</li>
+<li>当 <code>ThreadLocal.get()</code> 时，实际上是当前线程先拿到这个 <code>ThreadLocal </code>对象的 <code>ThreadLocalHashCode</code>，然后通过这个<code>ThreadLocalHashCode</code>去自己内部的 Map 中去取值。
+<ul>
+<li>即每个线程对应的变量不是存储在<code>ThreadLocal</code>对象中的，而是存在当前线程对象中的，线程自己保管封存在自己内部的变量，达到线程封闭的目的。</li>
+<li>也就是说，<code>ThreadLocal</code> 对象并不负责保存数据，它只是一个访问入口。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Ad-hoc线程封闭：维护线程封闭性的职责完全交给程序来承担</li>
+</ul>
+<h4 id="4-不变性">4. 不变性</h4>
+<ul>
+<li>不可变对象：对象创建后状态不能被修改的对象，要求对象是正确创建，无this逸出的。由于其不变性，多个线程可以大胆的访问。如果非要修改，只能先删除，再重新创建。</li>
+<li>Final域
+<ul>
+<li>若修饰对象引用，必须保证这个对象是不可变对象，否则只能保证这个引用一直指向一个固定的对象，但这个对象自己的状态是可以改变的</li>
+<li>一个所有域都是 final 的对象也不一定是不可变对象</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-安全发布对象">5. 安全发布对象</h4>
+<ul>
+<li>定义：保证发布的对象的初始化构造过程不受到其他线程干扰</li>
+<li>常见发布模式：
+<ul>
+<li>在静态块中初始化一个对象引用</li>
+<li>将对象引用保存到 volatile 类型的域或者 <code>AtomicReference</code> 对象中</li>
+<li>将对象引用保存到某个正确构造的对象的final域中</li>
+<li>将对象引用保存到一个被锁保护的域中</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-java-提供的可以安全发布对象的容器">6. Java 提供的可以安全发布对象的容器</h4>
+<ul>
+<li><code>Map</code>
+<ul>
+<li><code>HashTable</code></li>
+<li><code>ConcurrentMap</code></li>
+<li><code>Collections.SynchronizedMap</code>
+<ul>
+<li>使用<code>Collections.synchronizedMap(Map m)</code>获得</li>
+<li>所有方法都被 synchronized 修饰</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>List</code>
+<ul>
+<li><code>Vector</code></li>
+<li><code>CopyOnWriteArrayList</code></li>
+<li><code>CopyOnWriteSet</code></li>
+<li><code>Collections.SynchronizedSet</code>
+<ul>
+<li>使用<code>Collections.synchronizedSet(Set s)</code>获得</li>
+<li>所有方法都被 synchronized 修饰</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>Queue</code>
+<ul>
+<li><code>BlockQueue</code></li>
+<li><code>ConcurrentLinkedQueue</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>以上摘自TangBean整理，<a href="https://github.com/TangBean/Java-Concurrency-in-Practice">原博链接</a></li>
+</ul>
+<h2 id="对象的组合">对象的组合</h2>
+<h4 id="1-java线程安全和非线程安全的集合对象">1. Java线程安全和非线程安全的集合对象</h4>
+<ul>
+<li>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">Collection
+├ List
+|	├ LinkedList ----还实现了queue接口，提供peek，poll，offer等方法
+|	├ ArrayList
+|	└  Vector
+|		└ Stack
+└ Set
+  
+Map
+├ HashTable
+├ HashMap
+└  WeakHashMap
+</code></pre></div></li>
+<li>
+<p>线程安全的集合对象：</p>
+<ul>
+<li><code>Vector，HashTable，StringBuffer，Stack，ConcurrentHashMap</code></li>
+</ul>
+</li>
+<li>
+<p>非线程安全的集合对象：</p>
+<ul>
+<li><code>ArrayList，LinkedList，HashMap，HashSet，TreeMap，TreeSet，StringBulider，Set</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="2-设计线程安全的类">2. 设计线程安全的类</h4>
+<ul>
+<li>设计线程安全的类过程中，需要包含以下三个基本要素：
+<ul>
+<li>找出构成对象状态的所有变量</li>
+<li>找出约束状态变量的不变性条件</li>
+<li>建立对象状态的并发访问管理策略
+<ul>
+<li><strong>不变性</strong>是指变量的取值范围， <strong>后验条件</strong>是指状态改变的时候值是否合法</li>
+<li>不变的对象一定是线程安全的。</li>
+<li>一个良好的习惯：除非必要的可见性，否则所有的域声明为私有；除非某个域可变，否则应将其声明为final域</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>具体过程又可以分为：收集同步需求，依赖状态的操作，分析状态的所有权</li>
+</ul>
+<h4 id="3-实例封闭">3. 实例封闭</h4>
+<ul>
+<li>实例封闭（封闭、封装）是一种简单的线程安全类的实现过程
+<ul>
+<li>将数据封装在对象内部，可以将数据的访问限制在对象的方法上，从而更容易确保线程在访问数据时总能持有正确的锁</li>
+<li>简单来说，就是通过作为一个类的私有成员、作为一个局部变量（不超过约定作用域）、封闭在一个线程内（通过传递，而非共享）等方法，确保非线程安全的对象只能由单个线程访问。</li>
+</ul>
+</li>
+<li><strong>Java监视器模式</strong>：遵循Java监视器模式的对象会把对象的所有可变状态都封装起来，并由对象自己的内置锁来保护。常见使用Java监视器模式的类有<code>Vector</code>、<code>Hashtable</code>。主要优势在于其简单性
+<ul>
+<li>Java监视器模式仅仅是一种编写代码的约定：就是把类中所有能访问对象可变状态的方法都加上 synchronized 修饰。这样简单，但是费时，影响性能</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-线程安全性的委托">4. 线程安全性的委托</h4>
+<ul>
+<li>概念：将线程的安全性委托给一个状态变量或对象，利用这个状态变量的安全性来保证对象线程安全的需求</li>
+</ul>
+<h4 id="5-在现有的线程安全类中添加功能">5. 在现有的线程安全类中添加功能</h4>
+<ul>
+<li><strong>继承</strong>：由于有的状态并不对子类可见，故此方法不常用</li>
+<li><strong>装饰类</strong>：在装饰类中放个线程安全的List，然后在写个加锁的扩展方法，注意锁一致
+<ul>
+<li>缺点：通过添加一个原子操作的扩展类是脆弱的，因为它将类的加锁代码分布到了多个类中</li>
+</ul>
+</li>
+<li><strong>组合</strong>：将 List 的操作委托给底层的 list 实例，并把这些方法都实现为 synchronized 的，然后添加一个新的 synchronized 方法
+<ul>
+<li>客户代码不会再直接使用 list 对象，而是通过 <code>ImproveList</code> 来操纵它，这样加锁代码就都在一个类中了，同时底层的 list 实现也不用必须是线程安全的</li>
+</ul>
+</li>
+</ul>
+<h2 id="基础构建模块">基础构建模块</h2>
+<h4 id="1-同步容器类">1. 同步容器类</h4>
+<ul>
+<li>这些类实现线程安全的方式：将它们的状态封装起来，并对每个公有方法都进行同步，使得每次只有一个线程能够访问容器的状态。&mdash;-同步容器类包括<code>Vector</code>和<code>Hashtable</code></li>
+<li>对于并发修改问题，同步容器类的迭代器采用了<strong>及时失败</strong>的方法
+<ul>
+<li>将计数器的变化和容器关联起来，如果迭代期间计数器被修改，就抛出并发修改异常</li>
+<li>解决方法可以是外部调用时，手动给容器加锁；但部分迭代需要运行很久，若直接加锁，会降低并发度和CPU利用率</li>
+<li>若不希望手动加锁，可以使用<strong>克隆</strong>容器，并且在副本上进行迭代</li>
+</ul>
+</li>
+<li>尽管给容器迭代器加锁可以放置并发修改异常，但是很多迭代器都是隐藏的，是被隐式调用的。以下方法都会隐式调用Vector的迭代操作：
+<ul>
+<li><code>toString，hashCode，equals，containsAll，removeAll，retainAll</code>，以及容器作为参数的构造函数</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-并发容器类">2. 并发容器类</h4>
+<ul>
+<li>同步容器的性能太差，于是采用并发容器类替代同步容器类</li>
+<li><strong><code>ConcurrentHashMap</code></strong></li>
+</ul>
+<h2 id="专题1threadlocal">专题1：ThreadLocal</h2>
+<ol>
+<li>
+<p><strong>概述</strong></p>
+<ul>
+<li>ThreadLocal本质上就是 线程并发，传递变量，线程隔离</li>
+<li>正常并发情况下，线程任务设置为先set再get，会出现每个线程得到了本不属于它的数据</li>
+<li>而ThreadLocal本地线程变量可以绑定变量，起到线程隔离的效果</li>
+</ul>
+</li>
+<li>
+<p><strong>与synchronized对比</strong></p>
+<ul>
+<li>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>synchronized</th>
+<th>ThreadLocal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原理</td>
+<td>同步机制，以时间换空间方式，一份共享变量，不同线程排队取</td>
+<td>以空间换时间，为每个线程提供了共享变量的副本，从而实现线程隔离地访问</td>
+</tr>
+<tr>
+<td>侧重点</td>
+<td>多个线程之间访问资源的同步</td>
+<td>多线程中让每个线程之间的数据互相隔离</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>但是很显然，很多时候ThreadLocal的并发性会更好</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>ThreadLocal设计</strong></p>
+<ul>
+<li>
+<p><img src="/img/ThreadLocal.png" alt="ThreadLocal"></p>
+</li>
+<li>
+<p>早期的设计是每个ThreadLocal内部有一个Map，然后用线程作为Map的key，要绑定存储的值作为value。这个map由ThreadLocal来维护</p>
+</li>
+<li>
+<p>现在的设计：每个线程维护一个ThreadLocalMap，Map中的key是不同的ThreadLocal，值是要存储的值</p>
+<ul>
+<li>这样设计的好处
+<ul>
+<li>
+<ol>
+<li>每个Map的Entry数量减少。原来的数量由线程数决定，现在的数量由ThreadLocal数量决定</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>当Thread销毁时，ThreadLocalMap个数会减少，故能减少开销。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>执行流程</strong></p>
+<ul>
+<li>set方法
+<ul>
+<li>先获取当前线程，并根据当前线程获取一个Map</li>
+<li>如果获取的map不为空，则将参数设置进去（如HashMap一样）</li>
+<li>若为空，则创建Map</li>
+</ul>
+</li>
+<li>get方法
+<ul>
+<li>首先获取当前线程，并根据当前线程获取Map</li>
+<li>若map不为空，则以ThreadLocal的引用为key来获取entry</li>
+<li>若entry不为空，则返回entry.value</li>
+<li>map为空或者entry为空，则通过initialValue来获取初始值，并以threadlocal和value作为第一对（k，v），建立一个map</li>
+</ul>
+</li>
+<li>remove方法
+<ul>
+<li>首先获取当前线程，并根据当前线程获取Map</li>
+<li>如果获取的map不为空，则移除当前threadlocal对应的entry</li>
+</ul>
+</li>
+<li>initialValue方法
+<ul>
+<li>是一个延迟调用的方法，在set还未调用而先调用了get时才会执行，且只执行一次</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>ThreadLocal中的内存泄露</strong></p>
+<ul>
+<li>发生内存泄露的条件：1.currentThread仍然允许，2.没有手动删除这个Entry</li>
+<li>发生原因
+<ul>
+<li>当key是强引用时，满足上述条件故始终有一条引用链threadRef&ndash;&gt;currentThread&ndash;&gt;threadLocalMap&ndash;&gt;Entry，所以Entry部分是内存泄露</li>
+<li>当key是弱引用时，Entry部分的value会发生内存泄露</li>
+</ul>
+</li>
+<li>ThreadLocal内存泄漏的根源是：由于ThreadLocalMap生命周期和Thread一样长，如果没有手动删除对应key，就会发生内存泄漏</li>
+<li>如下图</li>
+<li><img src="/img/ThreadLocal%E5%BC%B1%E5%BC%95%E7%94%A8.png" alt="img"></li>
+<li><img src="/img/ThreadLocal%E5%BC%BA%E5%BC%95%E7%94%A8.png" alt="image-20200331150145079"></li>
+<li>那为什么ThreadLocal中key要使用弱引用？
+<ul>
+<li>因为在ThreadLocalMap中的set方法中，如果key为null，会把对应value也设置为null</li>
+<li>根据上述分析，弱引用的key是会被回收的，所以弱引用比强引用多了一次保障</li>
+<li>当下一次调用remove，set，get任一方法时，都会把这个key==null的entry回收掉，防止了内存泄露</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>​</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js" id="MathJax-script"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );">
+  </script>
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>You are my priority</p>
+      
+      
+        ©
+        
+          2019 -
+        
+        2020
+         Jonny Shao 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+        
+      
+    </section>
+  </footer>
+
+    </main>
+
+    
+      
+      <script src="/js/dark-mode.min.0213e1773e6d1c5a644f847c67a6f8abac49a3776e2976f6008038af8c5b76a1.js"></script>
+    
+
+    
+
+    
+
+    <script>
+(function(f, a, t, h, o, m){
+	a[h]=a[h]||function(){
+		(a[h].q=a[h].q||[]).push(arguments)
+	};
+	o=f.createElement('script'),
+	m=f.getElementsByTagName('script')[0];
+	o.async=1; o.src=t; o.id='fathom-script';
+	m.parentNode.insertBefore(o,m)
+})(document, window, '//analytics.example.com/tracker.js', 'fathom');
+fathom('set', 'siteId', 'ABCDE');
+fathom('trackPageview');
+</script>
+
+
+    <script async defer data-domain="example.com" src="https://analytics.example.com/js/plausible.js"></script>
+
+
+    <script data-goatcounter="https://code.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+  </body>
+
+</html>

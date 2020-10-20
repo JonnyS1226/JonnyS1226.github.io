@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+
+    <meta name="author" content="Jonny Shao">
+    <meta name="description" content="负载均衡基本原理">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="负载均衡入门"/>
+<meta name="twitter:description" content="负载均衡基本原理"/>
+
+    <meta property="og:title" content="负载均衡入门" />
+<meta property="og:description" content="负载均衡基本原理" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.example.com/posts/2020-4-21-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%85%A5%E9%97%A8/" />
+<meta property="article:published_time" content="2020-01-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-01-08T00:00:00+00:00" />
+
+
+    <title>
+  负载均衡入门 · jonnyshao
+</title>
+
+    
+      <link rel="canonical" href="http://www.example.com/posts/2020-4-21-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%85%A5%E9%97%A8/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.9836c03fe5c87d102278a33e86d0591ef36c89b1e17e8e547ebf84c05cee010e.css" integrity="sha256-mDbAP&#43;XIfRAieKM&#43;htBZHvNsibHhfo5Ufr&#43;EwFzuAQ4=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.717236c74e0a5208ef73964a9f44c6b443b689a95b270d8b2a40d0c012460dac.css" integrity="sha256-cXI2x04KUgjvc5ZKn0TGtEO2ialbJw2LKkDQwBJGDaw=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.76.5" />
+  </head>
+
+  
+  
+    
+  
+  <body class="colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      jonnyshao
+    </a>
+    
+      
+        <span id="dark-mode-toggle" class="float-right">
+          <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        </span>
+      
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact me</a>
+            </li>
+          
+        
+        
+        
+          <li class="navigation-item separator">
+            <span>|</span>
+          </li>
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">负载均衡入门</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2020-01-08T00:00:00Z'>
+                January 8, 2020
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%8A%80%E6%9C%AF/">中间件技术</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <a href="/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">负载均衡</a>
+      <span class="separator">•</span>
+    <a href="/tags/nginx/">nginx</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="负载均衡入门">负载均衡入门</h2>
+<h4 id="1-实现负载均衡的原因">1. 实现负载均衡的原因</h4>
+<ul>
+<li>访问流量快速增长，业务量不断提高，导致某服务器过于繁忙
+<ul>
+<li><strong>解决方式</strong>：服务器负载均衡&ndash;多台服务器组成群组，提供相似服务，群组前部署一个负载均衡设备，负责根据已配置均衡策略将用户的请求在群组中进行转发，为用户提供服务</li>
+</ul>
+</li>
+<li>访问流量快速增长，业务量不断提高，导致访问某服务器的链路过于繁忙
+<ul>
+<li><strong>解决方式</strong>：链路负载均衡&ndash;通过带宽或就近性等算法，在多条链路中进行负载均衡，选择最优的链路，提高访问速度</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-负载均衡部署方式">2. 负载均衡部署方式</h4>
+<ul>
+<li>三种部署方式：路由模式（灵活），桥接模式（不改变现有网络架构），服务直接返回模式（适合吞吐量大的内容分发的网络应用）</li>
+<li><strong>路由模式</strong>：服务器的网关须设置成负载均衡机的LAN口地址，且与WAN口分属不同逻辑网络</li>
+</ul>
+<p><img src="/img/image-20200421104147822.png" alt="image-20200421104147822"></p>
+<ul>
+<li>
+<p><strong>桥接模式</strong>：负载均衡的WAN和LAN口分别连接上行设备和下行服务器。LAN口不需要配置IP（WAN和LAN桥接），所有服务器与负载均衡都在同一逻辑网络中。</p>
+<ul>
+<li>
+<p>但这种方式容错性差，对广播风暴相关错误敏感，且不灵活</p>
+<p><img src="/img/image-20200421104559400.png" alt="image-20200421104559400"></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>服务直接返回模式</strong>：不使用LAN，WAN与服务器在同一个网络中。互联网的客户端访问负载均衡的虚IP(VIP)，虚IP对应负载均衡的WAN口，负载均衡分发流量，但是是用分配到的那个服务器IP用响应客户端。返回的流量不通过负载均衡，适合大流量高带宽要求的服务</p>
+<p><img src="/img/image-20200421105806069.png" alt="image-20200421105806069"></p>
+</li>
+</ul>
+<h4 id="3-负载均衡分类">3. 负载均衡分类</h4>
+<ul>
+<li>负载均衡按照其应用的地理结构可以分为<strong>本地负载均衡</strong>和<strong>全局负载均衡</strong></li>
+<li>本地负载均衡：对本地的服务器群做负载均衡
+<ul>
+<li>本地负载均衡能有效解决数据流量过大，网络负荷过重的问题</li>
+<li>其有灵活多样的均衡策略把数据流量合理的进行分配到不同服务器上，同时扩充方便（增加一个新服务器到服务群组中，不需要改变原有网络结构以及停止网络服务）</li>
+<li><strong>流量导向分配方法</strong>：Cyclic，least Users， least Traffic，snmp，hashing等</li>
+<li><strong>连接检测方式</strong>：ping，tcp/udp，http，radius等</li>
+<li>还需要进行<strong>页面和内容检测</strong>，以及<strong>高级健康检查</strong>（检查同一个服务器上的多个应用，通过ftp，tcp等）</li>
+</ul>
+</li>
+<li>全局负载均衡：对分别放置在不同的地理位置，有不同网络结构的服务器群间进行负载均衡
+<ul>
+<li>主要用于在一个多区域拥有自己服务器的站点，为了使全球用户只以一个IP地址或域名就能访问离自己最近的服务器。也可以用于子公司分散站点分布广的大公司通过Intranet来达到资源统一合理分配的目的</li>
+<li>特点有：<strong>地理位置无关性</strong>，<strong>可以避免单点失效</strong>，服务器就近提供、故可以<strong>解决网络拥塞问题</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="负载均衡策略与算法">负载均衡策略与算法</h2>
+<h4 id="1-负载均衡常见策略">1. 负载均衡常见策略</h4>
+<ol>
+<li>
+<p><strong>基于DNS的负载均衡</strong></p>
+<ul>
+<li>一个域名绑定多个IP，通过DNS服务中的随机域名解析实现</li>
+<li><strong>优点</strong>：实现简单，容易，成本低，适用于大多数TCP/IP应用</li>
+<li><strong>问题</strong>：一旦某个服务器出现故障，但即使及时更改了DNS设置，还是要等待一个刷新时间来能生效；</li>
+<li><strong>缺陷</strong>：这种方式不能得知服务器之间的差异和当前状态，所以不能合理有效分配</li>
+</ul>
+</li>
+<li>
+<p><strong>基于反向代理的负载均衡</strong></p>
+<ul>
+<li>代理服务器接收来自Internet上的连接请求，然后转发请求给内部网络上的服务器，并接收服务器返回值给客户端</li>
+<li><strong>优点</strong>：自带高速缓冲，减轻内容服务器压力，提高网络访问效率</li>
+<li><strong>问题</strong>：针对每一次代理，都需要打开两个连接（对内，对外），高并发下代理服务器可能就会成为限制服务的瓶颈</li>
+<li><strong>缺陷</strong>：反向代理基于应用层，所以对于每一个应用服务专门开发一个反向代理服务器，限制了这种反向代理的使用范围，一般用于web服务</li>
+</ul>
+</li>
+<li>
+<p><strong>基于特定服务器软件的负载均衡</strong></p>
+<ul>
+<li>主要利用网络协议的重定向功能实现（HTTP重定向：服务器无法处理浏览器发送过来的请求，服务器告诉浏览器跳转到可以处理请求的URL上。浏览器会自动访问该URL地址，对用户无感）</li>
+<li><strong>优点</strong>：服务可以定制，可以根据底层服务器状况进行负载调控</li>
+<li><strong>缺点</strong>：需要改动软件，成本高</li>
+</ul>
+</li>
+<li>
+<p><strong>基于NAT的负载均衡</strong></p>
+<ul>
+<li>将一个外部地址映射成多个内部IP地址。常常是NAT服务器通过轮询，将一个访问外部地址的请求，引到不同内部服务器上</li>
+<li><strong>优点</strong>：完善的负载均衡技术，均衡算法也灵活，如随机选择，最少连接数等</li>
+<li><strong>缺点</strong>：伸缩能力有限，当服务器结点数目过多时，调度器本身成为瓶颈</li>
+</ul>
+</li>
+<li>
+<p><strong>基于CDN的负载均衡</strong></p>
+<ul>
+<li>在现有的Internet结构中增加一层新的网络架构，将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取</li>
+<li><strong>优点</strong>：用户就近取，提高访问速度</li>
+</ul>
+<p><img src="/img/v2-5793aec83fc645e002a1cd70ab7209a3_r.jpg" alt="preview"></p>
+</li>
+</ol>
+<h4 id="2-负载均衡常见算法">2. 负载均衡常见算法</h4>
+<ol>
+<li>静态负载均衡算法
+<ol>
+<li><strong>轮询</strong>：循环连接。当其中某个服务器发生网络模型中第二层-第七层故障，就从循环队列拿出，直至其恢复正常</li>
+<li><strong>比率</strong>：给每个服务器分配一个加权值为比例，根据这个比例把用户的请求进行分配到每个服务器</li>
+<li><strong>优先权</strong>：给服务器进行分组，每个组定义优先权，用户请求优先分配给最高优先权。组内采用轮询或比率方式</li>
+</ol>
+</li>
+<li>动态负载均衡算法
+<ol>
+<li><strong>最少连接方式</strong>：传递新的连接给那些进行最少连接处理的服务器</li>
+<li><strong>最快模式</strong>：传递连接给响应最快的服务器</li>
+<li><strong>观察模式</strong>：连接数目和响应时间两项的最佳平衡为依据进行分配</li>
+<li><strong>预测模式</strong>：利用当前性能指标，预测下一个时间片内性能最优的服务器进行分配</li>
+<li><strong>动态性能分配</strong>：收集应用程序和应用服务器性能，动态分配</li>
+<li><strong>动态服务器补充</strong>：当主服务器群中有服务器出现故障，将备份服务器补充进去</li>
+<li><strong>服务质量</strong>：按不同优先级对数据流进行分配</li>
+<li><strong>服务类型</strong>：按不同服务类型分配</li>
+<li><strong>规则模式</strong>：对不同数据流进行设置导向规则</li>
+</ol>
+</li>
+<li>重点算法具体分析
+<ol>
+<li>轮询：
+<ul>
+<li><strong>优点</strong>：简洁，无状态调度</li>
+<li><strong>缺点</strong>：当请求服务间隔时间变化比较大时，轮询调度算法容易导致服务器间的负载不平衡</li>
+<li>适用于所有服务器都有相同的软硬件配置以及平均服务请求相对均衡情况</li>
+</ul>
+</li>
+<li>Hash（常使用一致性hash）
+<ul>
+<li>计算服务器Hash值（如根据IP计算），放入环中。再根据客户请求计算hash。比如hash环中有AB两个节点，若计算出hash在这中间，则最后访问顺时针的下一个</li>
+<li>为了避免<strong>Hash倾斜</strong>，可以放置很多hash虚拟节点，帮助找到访问的目标服务器</li>
+</ul>
+</li>
+<li>最少链接算法
+<ul>
+<li><strong>优点</strong>：简洁，大多数情况均有效</li>
+<li><strong>缺点</strong>：当各个服务器处理能力相差大时，不理想</li>
+<li>适用于长时处理的请求服务，如FTP</li>
+</ul>
+</li>
+<li>最快链接算法
+<ul>
+<li>均衡器记录自身到每一个集群节点的网络响应时间，并将下一个到达的连接请求分配给<strong>响应时间最短</strong>的节点</li>
+<li>适用于基于拓扑结构重定向的高级均衡策略</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>负载均衡产品中的关键指标：健康性检查算法
+<ol>
+<li>这是指通过某种探针机制，检查服务器群中的服务器健康状况，避免分发给故障服务器，从而提高业务能力</li>
+<li>常用健康性检查算法有：ping、tcp、http、ftp、dns (inbound 链路负载均衡)</li>
+</ol>
+</li>
+<li>常见负载均衡算法代码实现
+<ul>
+<li><a href="https://www.cnblogs.com/CodeBear/archive/2019/03/11/10508880.html">代码实现</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="nginx案例">Nginx案例</h2>
+<p>待补</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js" id="MathJax-script"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );">
+  </script>
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>You are my priority</p>
+      
+      
+        ©
+        
+          2019 -
+        
+        2020
+         Jonny Shao 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+        
+      
+    </section>
+  </footer>
+
+    </main>
+
+    
+      
+      <script src="/js/dark-mode.min.0213e1773e6d1c5a644f847c67a6f8abac49a3776e2976f6008038af8c5b76a1.js"></script>
+    
+
+    
+
+    
+
+    <script>
+(function(f, a, t, h, o, m){
+	a[h]=a[h]||function(){
+		(a[h].q=a[h].q||[]).push(arguments)
+	};
+	o=f.createElement('script'),
+	m=f.getElementsByTagName('script')[0];
+	o.async=1; o.src=t; o.id='fathom-script';
+	m.parentNode.insertBefore(o,m)
+})(document, window, '//analytics.example.com/tracker.js', 'fathom');
+fathom('set', 'siteId', 'ABCDE');
+fathom('trackPageview');
+</script>
+
+
+    <script async defer data-domain="example.com" src="https://analytics.example.com/js/plausible.js"></script>
+
+
+    <script data-goatcounter="https://code.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+  </body>
+
+</html>

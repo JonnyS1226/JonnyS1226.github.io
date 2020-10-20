@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Life on jonnyshao</title>
+    <link>http://www.example.com/categories/life/</link>
+    <description>Recent content in Life on jonnyshao</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 12 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/categories/life/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>腾讯暑期实习面经</title>
+      <link>http://www.example.com/posts/%E8%85%BE%E8%AE%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F/</link>
+      <pubDate>Sun, 12 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/%E8%85%BE%E8%AE%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F/</guid>
+      <description>腾讯暑期实习面经 临近秋招前的暑假，看到同学都在热火朝天找实习，自己就也想试一试，就在4月1日投递了自己找实习阶段第一份也是唯一一份简历，投给了腾讯，岗位是后台开发，并且自述是 Java 语言栈（尽管面试过程中被告知要转Golang，那我也是愿意的hh）
+4-5 15：00 一面 腾讯会议视频面 1h20min 整体比较基础，面试小姐姐超好，有几个不太清楚的点她都先给提示然后说没事没事，让我越说越有信心了哈哈，体验很不错。
+ 介绍项目 java垃圾回收算法，垃圾回收器，什么时候full gc，什么时候minor gc，还有内存分配策略，什么时候进老年代 ThreadLocal原理，内存泄漏问题，怎么解决 volatile性质，为什么不能保证原子性，和synchronized对比， JMM模型等 阻塞非阻塞与同步非同步各自概念和区别，乐观锁，悲观锁，synchronized和cas count(1)，count(*)，count(列名)以及执行效率 &amp;mdash;- 执行效率不太清楚。。count(1)也没说出来是包含null的 MVCC介绍 redis缓存穿透，缓存击穿，缓存雪崩，持久化处理 redis缓存一致性，项目中怎么用的 tcp，udp区别 http和https dns劫持以及解决方式 线程池底层，四种类型，参数含义等 协程有没有用过，用法 （我只用python写过一点协程，简单讲了下，不了解go的协程） spring两种代理，ORM是什么，mybatis为什么半ORM，mybatis如何防止sql注入 愿不愿意转golang 实习时间？ 手撕代码（现场写）：判断完全二叉树、求最长不重复子串，求链表有没有环 一面差不多就是这些吧，大概答了个80%-90%吧，面完10min状态就变复试了  4-6 16：00 电话二面 1h20min  怼项目，怼细节，不过问题并不刁钻（这一部分大概有30min），然后面试官觉得我项目偏简单了hh 说完项目说了一会儿其它的，家在哪，平时做什么，最近看了什么书，然后开始技术部分 mysql这一块问了好多，具体问题有些忘记了，但是基本上涵盖了范式、索引这一块、不同引擎区别和隔离级别，以及主从复制、分库分表、并发控制和锁，面试官表示数据库这块掌握还可以 问TopK问题多种实现方法，还有使用快排partition求TopK问题时的优化方案（我说的是用bfptr来规避最差情况，并分析了原因和时间复杂度） 前缀树的实现原理，怎么用前缀树屏蔽关键字，口述（电面感觉有点难讲清晰，不过面试官说他听懂了hh） 问死锁，要求先从理论角度讲死锁原因和解决方案，然后让描述自己在写Java时遇到的死锁和使用Mysql时遇到的死锁及解决方式 让简单说说对高并发高可用的理解，我就把分布式集群，缓存，负载均衡，消息队列，熔断降级这些宏观地说了下 因为提到消息队列，项目中又用到kafka，就问了kafka如何处理消息丢失和消费顺序问题 最后还问了linux常用命令，我linux用得不少，所以这一块问题不大 二面面完自我感觉比较良好，面完大概3h后变成hr面试  4-8 下午 HR面 15min 常规的问题，项目中难点和收获，实习时间，有没有其它offer之类的
+后续 大概HR面后2天，就收到了OC，由于自己仅投了腾讯一家，所以春招实习的过程就很顺利的结束了。令我受宠若惊的是，我的流程整个就走了大概5个工作日，非常迅速，让我免除了漫长的备胎期，所以暑期实习的时候，一定要好好努力，体验一下大厂，更重要的是继续提升自己！</description>
+    </item>
+    
+  </channel>
+</rss>

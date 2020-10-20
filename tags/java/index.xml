@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JAVA on jonnyshao</title>
+    <link>http://www.example.com/tags/java/</link>
+    <description>Recent content in JAVA on jonnyshao</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 08 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JAVA并发编程深入</title>
+      <link>http://www.example.com/posts/2020-2-21-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E6%B7%B1%E5%85%A5/</link>
+      <pubDate>Sun, 08 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/2020-2-21-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E6%B7%B1%E5%85%A5/</guid>
+      <description>前言  进程：为使程序正确的并发，引入了进程的概念。 线程：然而进程的切换开销很大，于是引入了线程（轻量级进程）的概念，多个线程共享大部分资源，切换时减小了开销。于是在大多数操作系统中，都是以线程为调度和分派的基本单位。  线程的优势有：发挥多处理器的优势，建模简单，异步事件简化，响应灵敏 线程的风险：  安全性问题：程序推进的不可预测性可能导致糟糕后果 活跃性问题：活跃性指某件正确的事情一定会发生，而多线程可能导致死锁等问题，导致得不到正确结论 性能问题：频繁线程上下文切换带来额外开销     研究原因：由于一个进程中所有线程共享进程的内存地址空间，因此这些线程都能访问相同的变量，并在同一个堆上分配对象，于是需要有明确的协同  具体有关进程和线程的描述，属性和调度等 参考操作系统相关知识
+Java中的多线程基础 1. 多线程编程 1) 多线程类的创建与运行
+有三种常用方法，以下加入了匿名内部类和线程池创建多线程，本质上只有前三种：
+  创建Thread类的子类
+  步骤
+ 创建Thread类的子类 在Thread类的子类中重写Thread类中的run()方法，设置线程任务 创建Thread类的子类的对象 调用Thread类中的**start方法**，开启新的线程，执行run方法    Thread类的其他方法
+   方法名 用途     currentThread() 获取当前正在执行的线程   getName() 获取线程名   setName()或使用带参构造方法 设置线程名   sleep() 线程睡眠若干秒        声明实现类Runnable接口,重写run方法</description>
+    </item>
+    
+    <item>
+      <title>深入理解Java虚拟机</title>
+      <link>http://www.example.com/posts/2020-2-11-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
+      <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/2020-2-11-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/</guid>
+      <description>基础概念   java方法：正常的java方法
+  native方法，即本地方法：是java调用非java代码（如C++代码）的接口，使用native方法可以用来使用底层的主机平台的某个特性，加快访问老系统或者已有的库，以及加快程序运行的速度
+  JDK： Java SE Development Kit（Java开发工具），提供了编译和运行Java程序所需的各种资源和工具，包括：JRE+java开发工具。
+  JRE： Java runtime environment（Java运行环境），包括：虚拟机+java的核心类库。
+  JVM： Java核心虚拟机，是一个可以执行Java字节码的虚拟机进程
+  hotspot VM：热点代码技术，是现在官方JDK采用的VM，也是使用最多的。
+  OOM：内存溢出异常。
+  JIT：即时编译器，一般情况下可以提高java程序编译速度。
+  C2 Java内存区域与内存溢出异常 2.1 java内存区域  java内存区域可以分为以下部分，一般认为是五部分，详见下图：  2.2 内存区域具体分析   程序计数器PCR
+ 对于native方法：undefined，为空 对于java方法：记录虚拟机正在执行的字节码指令地址  类似于计算机内部的PC，用于指向当前执行代码行，并通过修改指定下一条执行代码行 不会出现OOM   每个线程都需要一个独立的程序计数器，故线程私有    虚拟机栈
+  即所说的java栈内存，其生命周期与线程相同。
+  服务于java方法（即字节码），描述的是Java方法执行的内存模型：
+ 每个方法被执行时都会同时创建一个栈帧用于存储局部变量表、动态链接、方法出口等信息。  栈帧是java方法运行期的基础数据结构   每一个方法被调用直至完成的过程，对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。    可能抛出异常：</description>
+    </item>
+    
+  </channel>
+</rss>

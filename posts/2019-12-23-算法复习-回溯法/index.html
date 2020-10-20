@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+
+    <meta name="author" content="Jonny Shao">
+    <meta name="description" content="回溯法">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="算法复习-回溯法"/>
+<meta name="twitter:description" content="回溯法"/>
+
+    <meta property="og:title" content="算法复习-回溯法" />
+<meta property="og:description" content="回溯法" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.example.com/posts/2019-12-23-%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0-%E5%9B%9E%E6%BA%AF%E6%B3%95/" />
+<meta property="article:published_time" content="2020-01-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-01-02T00:00:00+00:00" />
+
+
+    <title>
+  算法复习-回溯法 · jonnyshao
+</title>
+
+    
+      <link rel="canonical" href="http://www.example.com/posts/2019-12-23-%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0-%E5%9B%9E%E6%BA%AF%E6%B3%95/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.9836c03fe5c87d102278a33e86d0591ef36c89b1e17e8e547ebf84c05cee010e.css" integrity="sha256-mDbAP&#43;XIfRAieKM&#43;htBZHvNsibHhfo5Ufr&#43;EwFzuAQ4=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.717236c74e0a5208ef73964a9f44c6b443b689a95b270d8b2a40d0c012460dac.css" integrity="sha256-cXI2x04KUgjvc5ZKn0TGtEO2ialbJw2LKkDQwBJGDaw=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.76.5" />
+  </head>
+
+  
+  
+    
+  
+  <body class="colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      jonnyshao
+    </a>
+    
+      
+        <span id="dark-mode-toggle" class="float-right">
+          <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        </span>
+      
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact me</a>
+            </li>
+          
+        
+        
+        
+          <li class="navigation-item separator">
+            <span>|</span>
+          </li>
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">算法复习-回溯法</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2020-01-02T00:00:00Z'>
+                January 2, 2020
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              3-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/">算法设计与分析</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <a href="/tags/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/">算法设计与分析</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="算法简介">算法简介</h2>
+<p>回溯法，与分支限界法，都属于树的搜索技术，回溯法就是一个在约束条件下对解空间树进行深度优先搜索，并且在搜索的过程中剪枝：当搜索到某个结点，发现当前路径不满足条件时，回溯至祖先结点重新开始下一条路径的搜索。</p>
+<h2 id="典型例题">典型例题</h2>
+<h4 id="1-n皇后问题">1. n皇后问题</h4>
+<p><strong>1) 题目描述</strong></p>
+<p>在一个n*n的棋盘上放置n个皇后，任意两个皇后不能处在同一行、同一列、同一斜线。
+对于用户输入的n，输出n皇后问题的解数。</p>
+<p><strong>2) 分析</strong></p>
+<ul>
+<li>
+<p>回溯法</p>
+<ul>
+<li>画出解空间树，实质就是从左向右，从上至下，顺序依次摆放皇后，每次摆放后都判断一下是否满足条件</li>
+<li>若不满足条件，撤销这次摆放，将皇后摆放到下一个位置</li>
+</ul>
+</li>
+<li>
+<p>位运算法</p>
+</li>
+</ul>
+<p><strong>3) 代码</strong></p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">int</span> methodNum = 0;
+	<span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">void</span> solveNQueenBackTrack(<span style="color:#fff;font-weight:bold">int</span> row, <span style="color:#fff;font-weight:bold">int</span>[][] chessBoard){
+        <span style="color:#fff;font-weight:bold">if</span> (row == chessBoard.<span style="color:#007f7f">length</span>)
+        {
+            methodNum++;
+            System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">println</span>(<span style="color:#0ff;font-weight:bold">&#34;第&#34;</span> + methodNum + <span style="color:#0ff;font-weight:bold">&#34;种：&#34;</span>);
+            <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = 0; i &lt; chessBoard.<span style="color:#007f7f">length</span>; i++) {
+                <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> j = 0; j &lt; chessBoard[0].<span style="color:#007f7f">length</span>; j++) {
+                    System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">print</span>(chessBoard[i][j] + <span style="color:#0ff;font-weight:bold">&#34; &#34;</span>);
+                }
+                System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">println</span>();
+            }
+            <span style="color:#fff;font-weight:bold">return</span>;
+        }
+        <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> j = 0; j &lt; chessBoard[0].<span style="color:#007f7f">length</span>; j++) {
+            <span style="color:#007f7f">// 如果采用二维数组的方式，一定要在摆放之前清空该列的之前的摆放
+</span><span style="color:#007f7f"></span>            <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> k = 0; k &lt; chessBoard[0].<span style="color:#007f7f">length</span>; k++)
+            {
+                chessBoard[row][k] = 0;
+            }
+            chessBoard[row][j] = 1;
+            <span style="color:#fff;font-weight:bold">if</span> (isSafe(chessBoard, row, j))
+            {
+                solveNQueenBackTrack(row + 1, chessBoard);
+            }
+        }
+    }
+
+    <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">boolean</span> isSafe(<span style="color:#fff;font-weight:bold">int</span>[][] chessBorad, <span style="color:#fff;font-weight:bold">int</span> row, <span style="color:#fff;font-weight:bold">int</span> col){
+        <span style="color:#fff;font-weight:bold">int</span> interval = 1;
+        <span style="color:#fff;font-weight:bold">while</span> (row - interval &gt;= 0)
+        {
+            <span style="color:#007f7f">//下面是行、列、左上、右上四种情况，&amp;操作符两端应用了短路，不能改变顺序，否则会造成数组越界
+</span><span style="color:#007f7f"></span>            <span style="color:#007f7f">//采用一维数组更方便，可以直接省去同一列的情况
+</span><span style="color:#007f7f"></span>            <span style="color:#fff;font-weight:bold">if</span> ((chessBorad[row - interval][col] == 1) 
+                ||
+                (col - interval &gt;= 0 &amp;&amp; chessBorad[row][col - interval] == 1) 
+                ||
+                (col + interval &lt; chessBorad.<span style="color:#007f7f">length</span> &amp;&amp; 
+                 chessBorad[row - interval][col + interval] == 1) 
+                ||
+                (col - interval &gt;= 0 &amp;&amp; chessBorad[row - interval][col - interval] == 1))
+            {
+
+                <span style="color:#fff;font-weight:bold">return</span> <span style="color:#fff;font-weight:bold">false</span>;
+            }
+            interval++;
+        }
+        <span style="color:#fff;font-weight:bold">return</span> <span style="color:#fff;font-weight:bold">true</span>;
+    }
+</code></pre></div><p><strong>4) 复杂度分析</strong></p>
+<p>根据解空间树，可知对于n*n棋盘的总的种类：$T_1(n) = 1+n+n^2+n^3+&hellip;+n^n \leq 2n^n$。</p>
+<p>对于<code>isSafe</code>函数，时间复杂度取决于row值，故：$T_2(n)=1+2+&hellip;+n=\frac{n(n+1)}{2}$。</p>
+<p>故总时间复杂度：$T(n) = T_1(n) \times T_2(n)=O(n^{n+2})$，由于过程中有剪枝，最终会远小于这个值。</p>
+<h4 id="2-0-1背包问题">2. 0-1背包问题</h4>
+<p><strong>1) 题目描述</strong></p>
+<p>已知有n件物品，物品i的重量为Wi，价值为Pi。背包最大承重为m。
+求能使背包所装物品价值总和最大的物品装包方法。</p>
+<p><strong>2) 分析</strong></p>
+<p>背包问题是一个经典问题，有多种解决方法，包括动态规划，回溯法，分支限界法，贪心算法等，此处着重说回溯法。</p>
+<ul>
+<li>
+<p>回溯法：</p>
+<ul>
+<li>
+<p>先将物品放入，然后判断是否满足重量要求，若不满足则再拿出。</p>
+</li>
+<li>
+<p>用这种回溯方法得到某种满足要求的放物品方法，并且记录其总价值，然后最后选取出最大价值的那种放置物品方法。</p>
+</li>
+<li>
+<p>对于解空间树，类似下图</p>
+<p><img src="/img/knapsack_problem.jpg" alt="knapsack_problem"></p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>3) 代码</strong></p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#fff;font-weight:bold">package</span> backTrack;
+<span style="color:#fff;font-weight:bold">import</span> java.util.Scanner;
+
+<span style="color:#007f7f">/**
+</span><span style="color:#007f7f"> * 01背包问题
+</span><span style="color:#007f7f"> */</span>
+<span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">class</span> knapsack_problem {
+    <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">int</span> currentMaxValue = 0;     <span style="color:#007f7f">//最大价值
+</span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">int</span> currentValue = 0;        <span style="color:#007f7f">//当前价值
+</span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">int</span> currentWeight = 0;       <span style="color:#007f7f">//当前重量
+</span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">int</span> n;                       <span style="color:#007f7f">//物品数
+</span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">int</span>[] currentrs;             <span style="color:#007f7f">//当前装物品结果
+</span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">int</span>[] rs;                    <span style="color:#007f7f">//最终装物品结果
+</span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">private</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">int</span> remainValue;             <span style="color:#007f7f">//当前剩余物品价值总和
+</span><span style="color:#007f7f"></span>    <span style="color:#007f7f">//i 为解空间树的深度
+</span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">void</span> knapsackBackTrack(<span style="color:#fff;font-weight:bold">int</span> i, <span style="color:#fff;font-weight:bold">int</span>[] weight, <span style="color:#fff;font-weight:bold">int</span>[] value, <span style="color:#fff;font-weight:bold">int</span> totalWeight){
+        <span style="color:#fff;font-weight:bold">if</span> (i == n)
+        {
+            <span style="color:#fff;font-weight:bold">if</span> (currentValue &gt; currentMaxValue)
+            {
+                currentMaxValue = currentValue;
+                <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> j = 0; j &lt; n; j++) {
+                    rs[j] = currentrs[j];
+                }
+            }
+            <span style="color:#fff;font-weight:bold">return</span>;
+        }
+<span style="color:#007f7f">//         *         下面本质是完整的回溯模型，只不过增加了剪枝的操作
+</span><span style="color:#007f7f">//         *         currentrs[i] = 1;
+</span><span style="color:#007f7f">//         *         currentWeight += weight[i];
+</span><span style="color:#007f7f">//         *         currentValue += value[i];
+</span><span style="color:#007f7f">//         *         knapsackBackTrack(i + 1, weight, value, totalWeight);
+</span><span style="color:#007f7f">//         *         currentrs[i] = 0;
+</span><span style="color:#007f7f">//         *         currentWeight -= weight[i];
+</span><span style="color:#007f7f">//         *         currentValue -= value[i];
+</span><span style="color:#007f7f">//         *         knapsackBackTrack(i + 1, weight, value, totalWeight);
+</span><span style="color:#007f7f"></span>        <span style="color:#007f7f">//对第i层，即第i个物品进行处理，先搜索左子树，即放入的情况
+</span><span style="color:#007f7f"></span>        remainValue -= value[i];
+        <span style="color:#fff;font-weight:bold">if</span> (currentWeight + weight[i] &lt;= totalWeight)
+        {
+            currentrs[i] = 1;
+            currentWeight += weight[i];
+            currentValue += value[i];
+            knapsackBackTrack(i + 1, weight, value, totalWeight);
+            currentWeight -= weight[i];
+            currentValue -= value[i];
+        }
+        <span style="color:#007f7f">//以下这步用于剪枝，将那些必然不会满足最大价值的装物品情况剪枝
+</span><span style="color:#007f7f"></span>        <span style="color:#fff;font-weight:bold">if</span> (remainValue + currentValue &gt; currentMaxValue)
+        {
+            currentrs[i] = 0;
+            knapsackBackTrack(i + 1, weight, value, totalWeight);
+        }
+        remainValue += value[i];
+    }
+
+    <span style="color:#fff;font-weight:bold">public</span> <span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">void</span> main(String[] args) {
+        System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">println</span>(<span style="color:#0ff;font-weight:bold">&#34;输入总承重量：&#34;</span>);
+        Scanner sc = <span style="color:#fff;font-weight:bold">new</span> Scanner(System.<span style="color:#007f7f">in</span>);
+        <span style="color:#fff;font-weight:bold">int</span> totalWeight = sc.<span style="color:#007f7f">nextInt</span>();
+        System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">println</span>(<span style="color:#0ff;font-weight:bold">&#34;输入物品数：&#34;</span>);
+        n = sc.<span style="color:#007f7f">nextInt</span>();
+        System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">println</span>(<span style="color:#0ff;font-weight:bold">&#34;依次输入各个物品的重量和价值&#34;</span>);
+        <span style="color:#fff;font-weight:bold">int</span>[] weight = <span style="color:#fff;font-weight:bold">new</span> <span style="color:#fff;font-weight:bold">int</span>[n];
+        <span style="color:#fff;font-weight:bold">int</span>[] value = <span style="color:#fff;font-weight:bold">new</span> <span style="color:#fff;font-weight:bold">int</span>[n];
+        <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = 0; i &lt; n; i++) {
+            weight[i] = sc.<span style="color:#007f7f">nextInt</span>();
+            value[i] = sc.<span style="color:#007f7f">nextInt</span>();
+            remainValue += value[i];
+        }
+        rs = <span style="color:#fff;font-weight:bold">new</span> <span style="color:#fff;font-weight:bold">int</span>[n];
+        currentrs = <span style="color:#fff;font-weight:bold">new</span> <span style="color:#fff;font-weight:bold">int</span>[n];
+        <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = 0; i &lt; n; i++) {
+            rs[i] = 0;
+            currentrs[i] = 0;
+        }
+        knapsackBackTrack(0, weight, value, totalWeight);
+        System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">println</span>(<span style="color:#0ff;font-weight:bold">&#34;结果是：&#34;</span>);
+        <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = 0; i &lt; n; i++) {
+            System.<span style="color:#007f7f">out</span>.<span style="color:#007f7f">print</span>(rs[i] + <span style="color:#0ff;font-weight:bold">&#34;  &#34;</span>);
+        }
+    }
+}
+
+</code></pre></div><p><strong>4) 复杂度分析</strong></p>
+<p>根据解空间树可以得到，最坏情况下$T(n)=O(2^n)$，其中$n$为解空间深度，也即物品数。</p>
+<p>而由于有剪枝，实际时间复杂度会小于$O(2^n)$。</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js" id="MathJax-script"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );">
+  </script>
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>You are my priority</p>
+      
+      
+        ©
+        
+          2019 -
+        
+        2020
+         Jonny Shao 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+        
+      
+    </section>
+  </footer>
+
+    </main>
+
+    
+      
+      <script src="/js/dark-mode.min.0213e1773e6d1c5a644f847c67a6f8abac49a3776e2976f6008038af8c5b76a1.js"></script>
+    
+
+    
+
+    
+
+    <script>
+(function(f, a, t, h, o, m){
+	a[h]=a[h]||function(){
+		(a[h].q=a[h].q||[]).push(arguments)
+	};
+	o=f.createElement('script'),
+	m=f.getElementsByTagName('script')[0];
+	o.async=1; o.src=t; o.id='fathom-script';
+	m.parentNode.insertBefore(o,m)
+})(document, window, '//analytics.example.com/tracker.js', 'fathom');
+fathom('set', 'siteId', 'ABCDE');
+fathom('trackPageview');
+</script>
+
+
+    <script async defer data-domain="example.com" src="https://analytics.example.com/js/plausible.js"></script>
+
+
+    <script data-goatcounter="https://code.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+  </body>
+
+</html>

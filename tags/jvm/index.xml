@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JVM on jonnyshao</title>
+    <link>http://www.example.com/tags/jvm/</link>
+    <description>Recent content in JVM on jonnyshao</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 08 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/tags/jvm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>深入理解Java虚拟机</title>
+      <link>http://www.example.com/posts/2020-2-11-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
+      <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/2020-2-11-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/</guid>
+      <description>基础概念   java方法：正常的java方法
+  native方法，即本地方法：是java调用非java代码（如C++代码）的接口，使用native方法可以用来使用底层的主机平台的某个特性，加快访问老系统或者已有的库，以及加快程序运行的速度
+  JDK： Java SE Development Kit（Java开发工具），提供了编译和运行Java程序所需的各种资源和工具，包括：JRE+java开发工具。
+  JRE： Java runtime environment（Java运行环境），包括：虚拟机+java的核心类库。
+  JVM： Java核心虚拟机，是一个可以执行Java字节码的虚拟机进程
+  hotspot VM：热点代码技术，是现在官方JDK采用的VM，也是使用最多的。
+  OOM：内存溢出异常。
+  JIT：即时编译器，一般情况下可以提高java程序编译速度。
+  C2 Java内存区域与内存溢出异常 2.1 java内存区域  java内存区域可以分为以下部分，一般认为是五部分，详见下图：  2.2 内存区域具体分析   程序计数器PCR
+ 对于native方法：undefined，为空 对于java方法：记录虚拟机正在执行的字节码指令地址  类似于计算机内部的PC，用于指向当前执行代码行，并通过修改指定下一条执行代码行 不会出现OOM   每个线程都需要一个独立的程序计数器，故线程私有    虚拟机栈
+  即所说的java栈内存，其生命周期与线程相同。
+  服务于java方法（即字节码），描述的是Java方法执行的内存模型：
+ 每个方法被执行时都会同时创建一个栈帧用于存储局部变量表、动态链接、方法出口等信息。  栈帧是java方法运行期的基础数据结构   每一个方法被调用直至完成的过程，对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。    可能抛出异常：</description>
+    </item>
+    
+  </channel>
+</rss>

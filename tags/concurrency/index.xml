@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Concurrency on jonnyshao</title>
+    <link>http://www.example.com/tags/concurrency/</link>
+    <description>Recent content in Concurrency on jonnyshao</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 08 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/tags/concurrency/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JAVA并发编程深入</title>
+      <link>http://www.example.com/posts/2020-2-21-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E6%B7%B1%E5%85%A5/</link>
+      <pubDate>Sun, 08 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/2020-2-21-%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E6%B7%B1%E5%85%A5/</guid>
+      <description>前言  进程：为使程序正确的并发，引入了进程的概念。 线程：然而进程的切换开销很大，于是引入了线程（轻量级进程）的概念，多个线程共享大部分资源，切换时减小了开销。于是在大多数操作系统中，都是以线程为调度和分派的基本单位。  线程的优势有：发挥多处理器的优势，建模简单，异步事件简化，响应灵敏 线程的风险：  安全性问题：程序推进的不可预测性可能导致糟糕后果 活跃性问题：活跃性指某件正确的事情一定会发生，而多线程可能导致死锁等问题，导致得不到正确结论 性能问题：频繁线程上下文切换带来额外开销     研究原因：由于一个进程中所有线程共享进程的内存地址空间，因此这些线程都能访问相同的变量，并在同一个堆上分配对象，于是需要有明确的协同  具体有关进程和线程的描述，属性和调度等 参考操作系统相关知识
+Java中的多线程基础 1. 多线程编程 1) 多线程类的创建与运行
+有三种常用方法，以下加入了匿名内部类和线程池创建多线程，本质上只有前三种：
+  创建Thread类的子类
+  步骤
+ 创建Thread类的子类 在Thread类的子类中重写Thread类中的run()方法，设置线程任务 创建Thread类的子类的对象 调用Thread类中的**start方法**，开启新的线程，执行run方法    Thread类的其他方法
+   方法名 用途     currentThread() 获取当前正在执行的线程   getName() 获取线程名   setName()或使用带参构造方法 设置线程名   sleep() 线程睡眠若干秒        声明实现类Runnable接口,重写run方法</description>
+    </item>
+    
+  </channel>
+</rss>
