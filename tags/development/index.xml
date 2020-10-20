@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>development on johndoe</title>
+    <title>development on jonnyshao</title>
     <link>http://www.example.com/tags/development/</link>
-    <description>Recent content in development on johndoe</description>
+    <description>Recent content in development on jonnyshao</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 17 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/tags/development/index.xml" rel="self" type="application/rss+xml" />
