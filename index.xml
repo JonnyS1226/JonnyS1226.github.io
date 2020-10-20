@@ -117,6 +117,7 @@ Follow the following steps:
       <description>关于博客  这是一个基于hugo 和 Leavelt，结合github Pages搭建而成的个人博客。
 （主要是因为之前用hexo搭建博客，感觉使用起来并不如hugo轻便快速）
 这个博客用于记录一下自己的学习点滴，心得体会，以及其它感悟等。
+$\sum\limits_{i=1}^k(2^i)$
 关于我  我目前是HIT的一枚菜鸡本科生，心中虽有远大理想，但无奈功力尚浅，很多都止于半步。
 作为一个不想在中年时期被优化的计算机行业从业者，唯有不断提升，抓住机遇，才可修成正果。
 所以，看到这个简陋博客的你，一起加油吧！</description>
@@ -132,15 +133,6 @@ Follow the following steps:
     </item>
     
     <item>
-      <title>Contato</title>
-      <link>http://www.example.com/contact/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://www.example.com/contact/</guid>
-      <description>Me siga em @joaoninguem.</description>
-    </item>
-    
-    <item>
       <title>First snippet</title>
       <link>http://www.example.com/snippets/first/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -151,24 +143,6 @@ pwd </description>
     </item>
     
     <item>
-      <title>Projects</title>
-      <link>http://www.example.com/projects/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://www.example.com/projects/</guid>
-      <description>Nothing to see here&amp;hellip; Move along!</description>
-    </item>
-    
-    <item>
-      <title>Projetos</title>
-      <link>http://www.example.com/projects/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://www.example.com/projects/</guid>
-      <description>Em construção&amp;hellip; Aguarde!</description>
-    </item>
-    
-    <item>
       <title>Second snippet</title>
       <link>http://www.example.com/snippets/second/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -176,15 +150,6 @@ pwd </description>
       <guid>http://www.example.com/snippets/second/</guid>
       <description>This content is in snippets/second/index.md
 ls -la </description>
-    </item>
-    
-    <item>
-      <title>Sobre Hugo</title>
-      <link>http://www.example.com/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://www.example.com/about/</guid>
-      <description>Em construção&amp;hellip; Aguarde!</description>
     </item>
     
   </channel>

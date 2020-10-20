@@ -171,19 +171,7 @@
   </url>
   
   <url>
-    <loc>http://www.example.com/contact/</loc>
-  </url>
-  
-  <url>
     <loc>http://www.example.com/snippets/first/</loc>
-  </url>
-  
-  <url>
-    <loc>http://www.example.com/projects/</loc>
-  </url>
-  
-  <url>
-    <loc>http://www.example.com/projects/</loc>
   </url>
   
   <url>
@@ -192,10 +180,6 @@
   
   <url>
     <loc>http://www.example.com/snippets/</loc>
-  </url>
-  
-  <url>
-    <loc>http://www.example.com/about/</loc>
   </url>
   
 </urlset>
