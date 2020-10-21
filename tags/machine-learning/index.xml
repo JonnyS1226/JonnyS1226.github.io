@@ -17,7 +17,7 @@
   $\theta = arg\min\limits_{\theta}L(\theta)$, $L$: loss function, $\theta$: parameters
   suppose $\theta$ is a set of 2 variables {${\theta_1, \theta_2}$}
   Randomly start at $\theta^0= \begin{bmatrix} \theta_1^{0} \ \theta_2^{0} \end{bmatrix}$
-  **compute the gradient at ** $\theta^0$: $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2} \end{bmatrix}$
+  compute the gradient at $\theta^0$: $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2} \end{bmatrix}$
   $\rightarrow \theta_1=\theta_0-\eta \Delta L(\theta^0)$</description>
     </item>
     
@@ -27,7 +27,7 @@
       <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>http://www.example.com/posts/regression-error/</guid>
-      <description>Bias v.s. Variance  error due to bias and variance  根据实验结果和讨论有：  simpler model， smaller variance，larger bias more complex model, large variance, smaller bias    large variance $\rightarrow$ overfitting large bias $\rightarrow$ underfitting  solution to error   how to know the error is more due to bias or variance?
+      <description>Bias v.s. Variance  error due to bias and variance ![xxac](&amp;quot;/img/截屏2020-10-19 下午7.10.54.png&amp;quot;) 根据实验结果和讨论有：  simpler model， smaller variance，larger bias more complex model, large variance, smaller bias   ![xxxa](&amp;quot;/img/截屏2020-10-19 下午7.11.53.png&amp;quot;) large variance $\rightarrow$ overfitting large bias $\rightarrow$ underfitting  solution to error   how to know the error is more due to bias or variance?
  if error on training data is large $\rightarrow$ bias is large, underfitting if error on testing data is large $\rightarrow$ variance is large, overfitting    large bias</description>
     </item>
     

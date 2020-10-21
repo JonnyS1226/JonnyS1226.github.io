@@ -11,7 +11,7 @@
   $\theta = arg\min\limits_{\theta}L(\theta)$, $L$: loss function, $\theta$: parameters
   suppose $\theta$ is a set of 2 variables {${\theta_1, \theta_2}$}
   Randomly start at $\theta^0= \begin{bmatrix} \theta_1^{0} \ \theta_2^{0} \end{bmatrix}$
-  **compute the gradient at ** $\theta^0$: $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2} \end{bmatrix}$
+  compute the gradient at $\theta^0$: $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2} \end{bmatrix}$
   $\rightarrow \theta_1=\theta_0-\eta \Delta L(\theta^0)$">
     <meta name="keywords" content="blog,developer,personal">
 
@@ -21,7 +21,7 @@
   $\theta = arg\min\limits_{\theta}L(\theta)$, $L$: loss function, $\theta$: parameters
   suppose $\theta$ is a set of 2 variables {${\theta_1, \theta_2}$}
   Randomly start at $\theta^0= \begin{bmatrix} \theta_1^{0} \ \theta_2^{0} \end{bmatrix}$
-  **compute the gradient at ** $\theta^0$: $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2} \end{bmatrix}$
+  compute the gradient at $\theta^0$: $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2} \end{bmatrix}$
   $\rightarrow \theta_1=\theta_0-\eta \Delta L(\theta^0)$"/>
 
     <meta property="og:title" content="Gradient Descent" />
@@ -29,7 +29,7 @@
   $\theta = arg\min\limits_{\theta}L(\theta)$, $L$: loss function, $\theta$: parameters
   suppose $\theta$ is a set of 2 variables {${\theta_1, \theta_2}$}
   Randomly start at $\theta^0= \begin{bmatrix} \theta_1^{0} \ \theta_2^{0} \end{bmatrix}$
-  **compute the gradient at ** $\theta^0$: $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2} \end{bmatrix}$
+  compute the gradient at $\theta^0$: $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2} \end{bmatrix}$
   $\rightarrow \theta_1=\theta_0-\eta \Delta L(\theta^0)$" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://www.example.com/posts/gradient-descent/" />
@@ -193,7 +193,7 @@
 <p><strong>Randomly start</strong> at $\theta^0= \begin{bmatrix} \theta_1^{0} \ \theta_2^{0} \end{bmatrix}$</p>
 </li>
 <li>
-<p>**compute the gradient at ** $\theta^0$:  $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2}  \end{bmatrix}$</p>
+<p><strong>compute the gradient at</strong> $\theta^0$:  $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2}  \end{bmatrix}$</p>
 </li>
 <li>
 <p>$\rightarrow \theta_1=\theta_0-\eta \Delta L(\theta^0)$</p>
@@ -228,13 +228,13 @@
 <li><strong>Adagrad</strong>
 <ul>
 <li>$w^{t+1}\leftarrow w^t-\frac{\eta^t}{\sigma^t} g^t$,   where $\sigma^t:$ RMS of the previous derivatives of parameter $w$</li>
-<li><!-- raw HTML omitted --></li>
+<li><img src="%22/img/Adagrad.png%22" alt="adagrad"></li>
 <li>As $\eta^t$ and $\sigma^t$ has a factor $\sqrt{\frac{1}{1+t}}$ , we can get:  $w^{t+1}=w^{t}-\frac{\eta}{\sum_{i=0}^t(g^i)^2}\cdot g^t$</li>
 </ul>
 </li>
 <li><strong>Explanation to the contradiction of Adagrad</strong>
 <ul>
-<li><strong>contradiction</strong>: <!-- raw HTML omitted --></li>
+<li><strong>contradiction</strong>: <img src="%22/img/contradiction.png%22" alt="contradiction"></li>
 <li><strong>explanation</strong>: Adagrad considered how surprise it is, the gap between the previous and the current one</li>
 </ul>
 </li>
@@ -242,7 +242,7 @@
 <ul>
 <li>considering the quadratic function $y=ax^2+bx+c$ , the min node $x=-\frac{b}{2a}$, 	for any $x_0$, the best step is $|x_0+\frac{b}{2a}|=|\frac{2ax_0+b}{2a}|$</li>
 <li>That is to say, the best step is $|\frac{y{'}}{y''}|$</li>
-<li>**Adagrad: **  $w^{t+1}=w^{t}-\frac{\eta}{\sum_{i=0}^t(g^i)^2}\cdot g^t$</li>
+<li><strong>Adagrad:</strong>  $w^{t+1}=w^{t}-\frac{\eta}{\sum_{i=0}^t(g^i)^2}\cdot g^t$</li>
 <li>$g^t$ is the first derivative,  $\sum_{i=0}^t(g^i)^2$ can be second derivative, $\eta$ is const.</li>
 </ul>
 </li>
@@ -256,10 +256,10 @@
 <p><strong>Random Gradient Descent</strong> can be faster as it updates after looking one sample. So, its loss function is not the $error^2$ of all the samples but the random sample</p>
 </li>
 <li>
-<p><!-- raw HTML omitted --></p>
+<p><img src="%22/img/stochastic1.png%22" alt="stochastic"></p>
 </li>
 <li>
-<p><!-- raw HTML omitted --></p>
+<p><img src="%22/img/stochastic2.png%22" alt="stochastic2"></p>
 </li>
 </ul>
 <h2 id="4-feature-scaling">4. Feature Scaling</h2>
@@ -268,7 +268,7 @@
 <p>When the range of many parameters are largely different, we need to do feature scaling</p>
 </li>
 <li>
-<p><!-- raw HTML omitted --></p>
+<p><img src="%22/img/feature-scaling1.png%22" alt="fs"></p>
 </li>
 <li>
 <p>As we can make the influence of different parameters to be relatively close</p>
@@ -283,7 +283,7 @@
 <li>
 <p><strong>how to do feature scaling?</strong></p>
 <ul>
-<li><!-- raw HTML omitted --></li>
+<li><img src="%22/img/feature-scaling2.png%22" alt="fs2"></li>
 <li>Actually, we normalize each parameter to obey normal distribution: $f(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x_i^2}{2}}$, where $x_i$ denoting the $i$-th parameter.</li>
 </ul>
 </li>
@@ -297,14 +297,14 @@
 </li>
 <li><strong>Induct to Gradient Descent from Taylor Series</strong>:
 <ul>
-<li><!-- raw HTML omitted --></li>
+<li><img src="%22/img/Taylor1.png%22" alt="ty1"></li>
 <li>For the red circle, the circle is small enough, so the loss function can be : $L(\theta) \approx L(a,b)+\frac{\partial L(a,b)}{\partial \theta_1}(\theta_1-a)+\frac{\partial L(a,b)}{\partial \theta_2}(\theta_2-b)$</li>
 <li>Let $s = L(a,b), u=\frac{\partial L(a,b)}{\partial \theta_1}, v=\frac{\partial L(a,b)}{\partial \theta_2}$</li>
 <li>$L(\theta)\approx s+ u \cdot (\theta_1-a)+v\cdot (\theta_2-b)$</li>
 <li>Cause the red circle&rsquo;s diameter is $d$, so, $(\theta_1-a)^2+(\theta_2-b)^2 \leq d^2$</li>
 <li>We can ge the $L(\theta)_{min}$</li>
-<li><!-- raw HTML omitted --></li>
-<li><!-- raw HTML omitted --></li>
+<li><img src="%22/img/Taylor2.png%22" alt="ty2"></li>
+<li><img src="%22/img/formula.png%22" alt="formula"></li>
 </ul>
 </li>
 </ul>

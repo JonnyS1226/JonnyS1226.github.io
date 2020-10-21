@@ -17,7 +17,7 @@
   $\theta = arg\min\limits_{\theta}L(\theta)$, $L$: loss function, $\theta$: parameters
   suppose $\theta$ is a set of 2 variables {${\theta_1, \theta_2}$}
   Randomly start at $\theta^0= \begin{bmatrix} \theta_1^{0} \ \theta_2^{0} \end{bmatrix}$
-  **compute the gradient at ** $\theta^0$: $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2} \end{bmatrix}$
+  compute the gradient at $\theta^0$: $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2} \end{bmatrix}$
   $\rightarrow \theta_1=\theta_0-\eta \Delta L(\theta^0)$</description>
     </item>
     
