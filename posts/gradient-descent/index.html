@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+
+    <meta name="author" content="Jonny Shao">
+    <meta name="description" content="1. review   in previous learning, we have to solve the following optimization problem:
+  $\theta = arg\min\limits_{\theta}L(\theta)$, $L$: loss function, $\theta$: parameters
+  suppose $\theta$ is a set of 2 variables {${\theta_1, \theta_2}$}
+  Randomly start at $\theta^0= \begin{bmatrix} \theta_1^{0} \ \theta_2^{0} \end{bmatrix}$
+  **compute the gradient at ** $\theta^0$: $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2} \end{bmatrix}$
+  $\rightarrow \theta_1=\theta_0-\eta \Delta L(\theta^0)$">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Gradient Descent"/>
+<meta name="twitter:description" content="1. review   in previous learning, we have to solve the following optimization problem:
+  $\theta = arg\min\limits_{\theta}L(\theta)$, $L$: loss function, $\theta$: parameters
+  suppose $\theta$ is a set of 2 variables {${\theta_1, \theta_2}$}
+  Randomly start at $\theta^0= \begin{bmatrix} \theta_1^{0} \ \theta_2^{0} \end{bmatrix}$
+  **compute the gradient at ** $\theta^0$: $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2} \end{bmatrix}$
+  $\rightarrow \theta_1=\theta_0-\eta \Delta L(\theta^0)$"/>
+
+    <meta property="og:title" content="Gradient Descent" />
+<meta property="og:description" content="1. review   in previous learning, we have to solve the following optimization problem:
+  $\theta = arg\min\limits_{\theta}L(\theta)$, $L$: loss function, $\theta$: parameters
+  suppose $\theta$ is a set of 2 variables {${\theta_1, \theta_2}$}
+  Randomly start at $\theta^0= \begin{bmatrix} \theta_1^{0} \ \theta_2^{0} \end{bmatrix}$
+  **compute the gradient at ** $\theta^0$: $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2} \end{bmatrix}$
+  $\rightarrow \theta_1=\theta_0-\eta \Delta L(\theta^0)$" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.example.com/posts/gradient-descent/" />
+<meta property="article:published_time" content="2020-09-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-12T00:00:00+00:00" />
+
+
+    <title>
+  Gradient Descent · jonnyshao
+</title>
+
+    
+      <link rel="canonical" href="http://www.example.com/posts/gradient-descent/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.9836c03fe5c87d102278a33e86d0591ef36c89b1e17e8e547ebf84c05cee010e.css" integrity="sha256-mDbAP&#43;XIfRAieKM&#43;htBZHvNsibHhfo5Ufr&#43;EwFzuAQ4=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.717236c74e0a5208ef73964a9f44c6b443b689a95b270d8b2a40d0c012460dac.css" integrity="sha256-cXI2x04KUgjvc5ZKn0TGtEO2ialbJw2LKkDQwBJGDaw=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.76.5" />
+  </head>
+
+  
+  
+    
+  
+  <body class="colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      jonnyshao
+    </a>
+    
+      
+        <span id="dark-mode-toggle" class="float-right">
+          <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        </span>
+      
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact me</a>
+            </li>
+          
+        
+        
+        
+          <li class="navigation-item separator">
+            <span>|</span>
+          </li>
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Gradient Descent</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2020-09-12T00:00:00Z'>
+                September 12, 2020
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              3-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/machine-learning/">Machine Learning</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <a href="/tags/machine-learning/">machine learning</a>
+      <span class="separator">•</span>
+    <a href="/tags/math/">math</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="1-review">1. review</h2>
+<ul>
+<li>
+<p>in previous learning, we have to solve the following optimization problem:</p>
+</li>
+<li>
+<p>$\theta = arg\min\limits_{\theta}L(\theta)$,  $L$: loss function, $\theta$: parameters</p>
+</li>
+<li>
+<p>suppose $\theta$ is a set of 2 variables {${\theta_1, \theta_2}$}</p>
+</li>
+<li>
+<p><strong>Randomly start</strong> at $\theta^0= \begin{bmatrix} \theta_1^{0} \ \theta_2^{0} \end{bmatrix}$</p>
+</li>
+<li>
+<p>**compute the gradient at ** $\theta^0$:  $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2}  \end{bmatrix}$</p>
+</li>
+<li>
+<p>$\rightarrow \theta_1=\theta_0-\eta \Delta L(\theta^0)$</p>
+</li>
+<li>
+<p>$\rightarrow \theta_2=\theta_1-\eta \Delta L(\theta^1)$</p>
+</li>
+</ul>
+<h2 id="2-adaptive-learning-rate">2. Adaptive learning rate</h2>
+<ul>
+<li>learning rate too small, too big &hellip;</li>
+<li>So we got adaptive learning rate</li>
+<li><strong>the basic principle</strong> is the learning rate is smaller as the update of the parameters
+<ul>
+<li>e.g.  $t-$th update, $\eta^t=\frac{\eta}{\sqrt{t+1}}$ , where $\eta$ is the initial learning rate</li>
+<li>Adagrad is one of these adaptive learning rate methods</li>
+</ul>
+</li>
+</ul>
+<h4 id="eg-adagrad">e.g. Adagrad</h4>
+<blockquote>
+<p>Divide the learning rate of each parameter by the root mean square(方均根) of its previous derivatives</p>
+</blockquote>
+<ul>
+<li>$\eta^t=\frac{\eta}{\sqrt{t+1}}$,    $g^t = \frac{\partial L(\theta^t)}{\partial w}$</li>
+<li>$w$ is one parameter</li>
+<li><strong>Vanilla Gradient descent</strong>
+<ul>
+<li>$w^{t+1}\leftarrow w^t-\eta^t g^t$</li>
+</ul>
+</li>
+<li><strong>Adagrad</strong>
+<ul>
+<li>$w^{t+1}\leftarrow w^t-\frac{\eta^t}{\sigma^t} g^t$,   where $\sigma^t:$ RMS of the previous derivatives of parameter $w$</li>
+<li><!-- raw HTML omitted --></li>
+<li>As $\eta^t$ and $\sigma^t$ has a factor $\sqrt{\frac{1}{1+t}}$ , we can get:  $w^{t+1}=w^{t}-\frac{\eta}{\sum_{i=0}^t(g^i)^2}\cdot g^t$</li>
+</ul>
+</li>
+<li><strong>Explanation to the contradiction of Adagrad</strong>
+<ul>
+<li><strong>contradiction</strong>: <!-- raw HTML omitted --></li>
+<li><strong>explanation</strong>: Adagrad considered how surprise it is, the gap between the previous and the current one</li>
+</ul>
+</li>
+<li><strong>The initial idea of Adagrad and some misunderstandings</strong>
+<ul>
+<li>considering the quadratic function $y=ax^2+bx+c$ , the min node $x=-\frac{b}{2a}$, 	for any $x_0$, the best step is $|x_0+\frac{b}{2a}|=|\frac{2ax_0+b}{2a}|$</li>
+<li>That is to say, the best step is $|\frac{y{'}}{y''}|$</li>
+<li>**Adagrad: **  $w^{t+1}=w^{t}-\frac{\eta}{\sum_{i=0}^t(g^i)^2}\cdot g^t$</li>
+<li>$g^t$ is the first derivative,  $\sum_{i=0}^t(g^i)^2$ can be second derivative, $\eta$ is const.</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-stochastic-gradient-descent">3. Stochastic gradient descent</h2>
+<ul>
+<li>
+<p><strong>Vanilla Gradient Descent</strong> is to update after looking at all the samples</p>
+</li>
+<li>
+<p><strong>Random Gradient Descent</strong> can be faster as it updates after looking one sample. So, its loss function is not the $error^2$ of all the samples but the random sample</p>
+</li>
+<li>
+<p><!-- raw HTML omitted --></p>
+</li>
+<li>
+<p><!-- raw HTML omitted --></p>
+</li>
+</ul>
+<h2 id="4-feature-scaling">4. Feature Scaling</h2>
+<ul>
+<li>
+<p>When the range of many parameters are largely different, we need to do feature scaling</p>
+</li>
+<li>
+<p><!-- raw HTML omitted --></p>
+</li>
+<li>
+<p>As we can make the influence of different parameters to be relatively close</p>
+</li>
+<li>
+<p><strong>how it contributes to Gradient descent?</strong></p>
+<ul>
+<li>after feature scaling, the error surface can be a relatively round circle not a ellipse</li>
+<li>Wherever the node currently is , it will head to the the center of the circle if the circle is a round one</li>
+</ul>
+</li>
+<li>
+<p><strong>how to do feature scaling?</strong></p>
+<ul>
+<li><!-- raw HTML omitted --></li>
+<li>Actually, we normalize each parameter to obey normal distribution: $f(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x_i^2}{2}}$, where $x_i$ denoting the $i$-th parameter.</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-math-proof-of-gradient-descent">5. Math proof of gradient descent</h2>
+<ul>
+<li><strong>Taylor Series</strong>:  $h(x) = \sum\limits_{k=0}^{\infty} \frac{h^{(k)}x_0}{k!}(x-x_0)^k=h(x_0)+h^{'}(x_0)(x-x_0)+\frac{h^{''}(x_0)}{2!}(x-x_0)^2 + &hellip;$, when $x$ is close to $x_0$,  $h(x)\approx h(x_0)+h^{'}(x_0)(x-x_0)$
+<ul>
+<li>For 2 parameters, when $x,y$ is close to $x_0,y_0$, $h(x,y)\approx h(x_0,y_0)+\frac{\partial h(x_0,y_0)}{\partial x}(x-x_0)+\frac{\partial h(x_0,y_0)}{\partial y}(y-y_0)$</li>
+</ul>
+</li>
+<li><strong>Induct to Gradient Descent from Taylor Series</strong>:
+<ul>
+<li><!-- raw HTML omitted --></li>
+<li>For the red circle, the circle is small enough, so the loss function can be : $L(\theta) \approx L(a,b)+\frac{\partial L(a,b)}{\partial \theta_1}(\theta_1-a)+\frac{\partial L(a,b)}{\partial \theta_2}(\theta_2-b)$</li>
+<li>Let $s = L(a,b), u=\frac{\partial L(a,b)}{\partial \theta_1}, v=\frac{\partial L(a,b)}{\partial \theta_2}$</li>
+<li>$L(\theta)\approx s+ u \cdot (\theta_1-a)+v\cdot (\theta_2-b)$</li>
+<li>Cause the red circle&rsquo;s diameter is $d$, so, $(\theta_1-a)^2+(\theta_2-b)^2 \leq d^2$</li>
+<li>We can ge the $L(\theta)_{min}$</li>
+<li><!-- raw HTML omitted --></li>
+<li><!-- raw HTML omitted --></li>
+</ul>
+</li>
+</ul>
+<h2 id="6--limitation-of-gradient-descent">6.  limitation of gradient descent</h2>
+<ul>
+<li>May be stuck at <strong>Saddle point</strong>, very slow or even stuck at the <strong>plateau</strong>, also, may be stuck at the local minimum</li>
+<li>But may be not <strong>global minimum</strong></li>
+</ul>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js" id="MathJax-script"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );">
+  </script>
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>You are my priority</p>
+      
+      
+        ©
+        
+          2019 -
+        
+        2020
+         Jonny Shao 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+        
+      
+    </section>
+  </footer>
+
+    </main>
+
+    
+      
+      <script src="/js/dark-mode.min.0213e1773e6d1c5a644f847c67a6f8abac49a3776e2976f6008038af8c5b76a1.js"></script>
+    
+
+    
+
+    
+
+    <script>
+(function(f, a, t, h, o, m){
+	a[h]=a[h]||function(){
+		(a[h].q=a[h].q||[]).push(arguments)
+	};
+	o=f.createElement('script'),
+	m=f.getElementsByTagName('script')[0];
+	o.async=1; o.src=t; o.id='fathom-script';
+	m.parentNode.insertBefore(o,m)
+})(document, window, '//analytics.example.com/tracker.js', 'fathom');
+fathom('set', 'siteId', 'ABCDE');
+fathom('trackPageview');
+</script>
+
+
+    <script async defer data-domain="example.com" src="https://analytics.example.com/js/plausible.js"></script>
+
+
+    <script data-goatcounter="https://code.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+  </body>
+
+</html>

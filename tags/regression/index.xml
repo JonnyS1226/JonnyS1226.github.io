@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>regression on jonnyshao</title>
+    <link>http://www.example.com/tags/regression/</link>
+    <description>Recent content in regression on jonnyshao</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 10 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/tags/regression/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Regression-error</title>
+      <link>http://www.example.com/posts/regression-error/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/regression-error/</guid>
+      <description>Bias v.s. Variance  error due to bias and variance  根据实验结果和讨论有：  simpler model， smaller variance，larger bias more complex model, large variance, smaller bias    large variance $\rightarrow$ overfitting large bias $\rightarrow$ underfitting  solution to error   how to know the error is more due to bias or variance?
+ if error on training data is large $\rightarrow$ bias is large, underfitting if error on testing data is large $\rightarrow$ variance is large, overfitting    large bias</description>
+    </item>
+    
+    <item>
+      <title>Regression-case study</title>
+      <link>http://www.example.com/posts/regression-case-study/</link>
+      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/regression-case-study/</guid>
+      <description>step 1 ： model step2： goodness  training data: $(x_1, \hat y_1), (x_2, \hat y_2) &amp;hellip; (x_{10}, \hat y_{10})$ $y = b + w \cdot x_{cp}$ we set a Loss function $L$:  input: a function output: how bad it is $L(f)=L(w,b)=\sum\limits_{n=1}^{10}(\hat y_n-(b+w\cdot x_{cp}^{n}))^2$ $(\hat y_n-(b+wx_{cp}^{n}))^2$ : estimation error    step 3: best function   pick the best function where : $w^, b^ = arg min_{w,b}L(w,b)$
+  we can use gradient descent, only if $L$ is differentiable</description>
+    </item>
+    
+  </channel>
+</rss>

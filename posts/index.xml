@@ -6,7 +6,50 @@
     <description>Recent content in Posts on jonnyshao</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 12 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gradient Descent</title>
+      <link>http://www.example.com/posts/gradient-descent/</link>
+      <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/gradient-descent/</guid>
+      <description>1. review   in previous learning, we have to solve the following optimization problem:
+  $\theta = arg\min\limits_{\theta}L(\theta)$, $L$: loss function, $\theta$: parameters
+  suppose $\theta$ is a set of 2 variables {${\theta_1, \theta_2}$}
+  Randomly start at $\theta^0= \begin{bmatrix} \theta_1^{0} \ \theta_2^{0} \end{bmatrix}$
+  **compute the gradient at ** $\theta^0$: $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2} \end{bmatrix}$
+  $\rightarrow \theta_1=\theta_0-\eta \Delta L(\theta^0)$</description>
+    </item>
+    
+    <item>
+      <title>Regression-error</title>
+      <link>http://www.example.com/posts/regression-error/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/regression-error/</guid>
+      <description>Bias v.s. Variance  error due to bias and variance  根据实验结果和讨论有：  simpler model， smaller variance，larger bias more complex model, large variance, smaller bias    large variance $\rightarrow$ overfitting large bias $\rightarrow$ underfitting  solution to error   how to know the error is more due to bias or variance?
+ if error on training data is large $\rightarrow$ bias is large, underfitting if error on testing data is large $\rightarrow$ variance is large, overfitting    large bias</description>
+    </item>
+    
+    <item>
+      <title>Regression-case study</title>
+      <link>http://www.example.com/posts/regression-case-study/</link>
+      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/regression-case-study/</guid>
+      <description>step 1 ： model step2： goodness  training data: $(x_1, \hat y_1), (x_2, \hat y_2) &amp;hellip; (x_{10}, \hat y_{10})$ $y = b + w \cdot x_{cp}$ we set a Loss function $L$:  input: a function output: how bad it is $L(f)=L(w,b)=\sum\limits_{n=1}^{10}(\hat y_n-(b+w\cdot x_{cp}^{n}))^2$ $(\hat y_n-(b+wx_{cp}^{n}))^2$ : estimation error    step 3: best function   pick the best function where : $w^, b^ = arg min_{w,b}L(w,b)$
+  we can use gradient descent, only if $L$ is differentiable</description>
+    </item>
+    
+    <item>
+      <title>Introduction to ML</title>
+      <link>http://www.example.com/posts/introduction/</link>
+      <pubDate>Wed, 02 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/introduction/</guid>
+      <description> model or function set  Linear Model Non-linear Model  deep-learning neural networks SVM, K-NN, Decision tree, e.t.c     Supervised Learning（监督学习）: label, input, output  regression（回归） classification（分类）  binary classification multi-class classification     semi-supervised Learning（半监督学习）: partly labeled data, partly unlabeled data Unsupervised Learning（非监督学习）: unlabeled data Structured Learning（结构化学习）: like GAN, get a structured object other frontier  anomaly detection（异常检测）: how can AI know that it don&amp;rsquo;t know transfer learning（迁移学习）: what can irrelevant data contribute to the results meta learning（元机器学习）: learn to learn life-long learning（持续学习）: continual learning Reinforcement Learning（强化学习） : learning from critics explainable AI（可解释性）: reason for AI results adversarial attack（对抗攻击）: how to address malicious attack to AI network compression（网络剪枝）: how to prune large model    </description>
+    </item>
+    
     <item>
       <title>腾讯暑期实习面经</title>
       <link>http://www.example.com/posts/%E8%85%BE%E8%AE%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F/</link>

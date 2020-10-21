@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>math on jonnyshao</title>
+    <link>http://www.example.com/tags/math/</link>
+    <description>Recent content in math on jonnyshao</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 12 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/tags/math/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gradient Descent</title>
+      <link>http://www.example.com/posts/gradient-descent/</link>
+      <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/gradient-descent/</guid>
+      <description>1. review   in previous learning, we have to solve the following optimization problem:
+  $\theta = arg\min\limits_{\theta}L(\theta)$, $L$: loss function, $\theta$: parameters
+  suppose $\theta$ is a set of 2 variables {${\theta_1, \theta_2}$}
+  Randomly start at $\theta^0= \begin{bmatrix} \theta_1^{0} \ \theta_2^{0} \end{bmatrix}$
+  **compute the gradient at ** $\theta^0$: $\Delta L(\theta)=\begin{bmatrix} \frac{\partial L(\theta_1)}{\partial \theta_1} \ \frac{\partial L(\theta_2)}{\partial \theta_2} \end{bmatrix}$
+  $\rightarrow \theta_1=\theta_0-\eta \Delta L(\theta^0)$</description>
+    </item>
+    
+  </channel>
+</rss>
