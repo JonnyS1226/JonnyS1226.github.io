@@ -251,10 +251,16 @@
 <li>
 <p>例如，使用三层神经网络进行如下的分类</p>
 <ul>
-<li><img src="/Users/jonnyshao/my_github/blog/static/images/%E4%B8%89%E5%86%B3%E7%AD%96%E9%9D%A2.JPG" alt="三决策面"></li>
+<li><figure>
+    <img src="/images/%e4%b8%89%e5%86%b3%e7%ad%96%e9%9d%a2.JPG" width="50%" height="50%"/> 
+</figure>
+</li>
 <li>我们定义这三条边对应三条直线：$w_{11}x_1+w_{12}x_2+b_1=0,w_{21}x_1+w_{22}x_2+b_2=0,w_{31}x_1+w_{32}x_2+b_3=0$，并不妨设中心区域是三者都大于0的区域</li>
 <li>那么可以画出如下的神经网络：</li>
-<li><img src="/Users/jonnyshao/my_github/blog/static/images/%E7%BB%93%E6%9E%9C.JPG" alt="结果"></li>
+<li><figure>
+    <img src="/images/%e7%bb%93%e6%9e%9c.JPG" width="50%" height="50%"/> 
+</figure>
+</li>
 <li>很显然，经过阶跃函数激活后，需要三个$\varphi(.)&gt;0$，才有 $y&gt;0$，因此我们定$w_1=w_2=w_3=1,b=-2.5$，就可以满足条件</li>
 </ul>
 </li>
@@ -267,9 +273,15 @@
 <li>
 <p>对于如下情况的分类：</p>
 <ul>
-<li><img src="/Users/jonnyshao/my_github/blog/static/images/%E5%86%B3%E7%AD%96%E9%9D%A22.JPG" alt="决策面2"></li>
+<li><figure>
+    <img src="/images/%e5%86%b3%e7%ad%96%e9%9d%a22.JPG" width="50%" height="50%"/> 
+</figure>
+</li>
 <li>同样定义直线，然后画出如下的神经网络</li>
-<li><img src="/Users/jonnyshao/my_github/blog/static/images/%E7%BB%93%E6%9E%9C2.JPG" alt="结果2"></li>
+<li><figure>
+    <img src="/images/%e7%bb%93%e6%9e%9c2.JPG" width="50%" height="50%"/> 
+</figure>
+</li>
 <li>根据要求，是需要满足：最后一层的两个神经元只要有一个取1，有 $y&gt;0$。因此可以定$w_1=w_2=1,b=-0.5$ ，就可以满足要求</li>
 </ul>
 </li>
