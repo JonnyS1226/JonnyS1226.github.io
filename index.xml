@@ -6,7 +6,32 @@
     <description>Recent content on jonnyshao</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 12 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Neural network - back propagation</title>
+      <link>http://www.example.com/posts/neural-network-bp-and-param/</link>
+      <pubDate>Mon, 12 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/neural-network-bp-and-param/</guid>
+      <description>Back Propagation 后向传播算法——案例  对于神经网络，我们同样定义一个Loss Function，定义方式有很多种，在进行bp算法推导时，我们设置为最简单的一种function：$E=\frac{1}{2}(y-Y)^2$，其中$Y$是从样本中可以得到的向量，$y$ 是神经网络的输出向量 有了Loss Function，我们使用Gradient Descent去求最优解，即需要对所有的$w$，求 $\frac{\partial E}{\partial w}$，对所有的$b$，求$\frac{\partial E}{\partial b}$，然后根据梯度下降进行调整 以上一节的多层神经网络为案例：    激活函数取阶跃函数（如果取了线性函数，可以证明最终同样无法处理线性不可分的），我们可以写出以下的式子：  $z_1=w_{11}x_1+w_{12}x_2+b_1$ $z_2=w_{21}x_1+w_{22}x_2+b_2$ $a_1=\varphi(z_1)$ $a_2=\varphi(z_2)$ $y=w_1a_1+w_2a_2+b$ 开始推导，本质就是复合函数求导的链式法则：  $\frac{\partial E}{\partial y} = y-Y$ $\frac{\partial E}{\partial a_1} = (y-Y)w_1$ $\frac{\partial E}{\partial a_2} = (y-Y)w_2$ $\frac{\partial E}{\partial z_1} = (y-Y)w_1\varphi^{&#39;}(z_1)$ $\frac{\partial E}{\partial z_2} = (y-Y)w_1\varphi^{&#39;}(z_2)$ $\frac{\partial E}{\partial b}=(y-Y)$ $\frac{\partial E}{\partial w_1}=(y-Y)a_1$ &amp;hellip; until all the $\frac{\partial E}{\partial w}$ and $\frac{\partial E}{\partial b}$ is calculated     可以发现，上面求解中需要知道$\varphi^{&#39;}(\cdot)$，这就涉及到激活函数的选取，那么这里说四种常见的选取方式  选取为阶跃函数，但很显然不适合bp算法，因为导数部分为0 选取为sigmoid函数：$\varphi(x)=\frac{1}{1+e^{-x}}, \varphi^{&#39;}(x)=\varphi(x)(1-\varphi(x))$ 选取为双曲正切函数：$\varphi(x)=\frac{e^x-e^{-x}}{e^x+e^{-x}}, \varphi^{&#39;}(x)=1-\varphi^2(x)$ 选取为ReLu（Rectified Linear Units）函数：$\varphi(x)=\left{\begin{array}{l}x &amp;amp;&amp;amp;x&amp;gt;0\ 0&amp;amp;&amp;amp;x\leq0 \end{array}\right.</description>
+    </item>
+    
+    <item>
+      <title>Neural network - introduction and perceptron algo.</title>
+      <link>http://www.example.com/posts/neural-network-introduction-and-perceptron/</link>
+      <pubDate>Sun, 11 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/neural-network-introduction-and-perceptron/</guid>
+      <description>1. 神经网络的基本数学模型    最基本的神经网络数学模型如上，激活函数记为$\varphi(\cdot)$，注意此处$w$下标的定义方式 表达式为：$y_k=\varphi(\sum\limits_{i=1}^mw_{ki}x_i+b_k)=\varphi(W_k^TX+b)$  2. 感知器算法   多层神经网络，区分几个概念：输入层，输出层，隐藏层(hidden layer)
+  感知器算法是两层神经网络（输入层$x_1,x_2$, 系数$w_1,w_2$, 偏置b, 输出层$y$）
+  activation function 取阶跃函数
+  感知器算法能实现逻辑与、或、非运算
+ $\bigcap$	$w_1=w_2=1,b=-2 \rightarrow y=\varphi(x_1+x_2-2)$; only if $x_1=x_2=1$, $y=1$ $\bigcup$ $w_1=w_2=1,b=-0.5\rightarrow y=\varphi(x_1+x_2-0.5)$; only if $x_1=1 $ OR $x_2=1,y=1$ $～$ $w_1=-0.6,w_2=0,b=0.5\rightarrow y=\varphi(-0.6x_1+0.6)$; only if $x_1=1,y=0$; only if $x_1=0,y=1$    感知器算法可以区分与或非，然而无法对异或问题进行分类
+  即对于非线性可分的问题（生活中大多数都是非线性可分问题），就要使用多层功能神经元，且同样要保证激活函数是非线性的，本文第3点将简单证明使用三层神经网络能模拟任意决策面
+  3. 多层神经网络   以如下的多层神经网络为例
+      激活函数取阶跃函数（如果取了线性函数，可以证明最终同样无法处理线性不可分的），我们可以写出以下的式子：</description>
+    </item>
+    
     <item>
       <title>Gradient Descent</title>
       <link>http://www.example.com/posts/gradient-descent/</link>

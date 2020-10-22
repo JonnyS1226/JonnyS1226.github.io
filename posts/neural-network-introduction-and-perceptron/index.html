@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+
+    <meta name="author" content="Jonny Shao">
+    <meta name="description" content="1. 神经网络的基本数学模型    最基本的神经网络数学模型如上，激活函数记为$\varphi(\cdot)$，注意此处$w$下标的定义方式 表达式为：$y_k=\varphi(\sum\limits_{i=1}^mw_{ki}x_i&#43;b_k)=\varphi(W_k^TX&#43;b)$  2. 感知器算法   多层神经网络，区分几个概念：输入层，输出层，隐藏层(hidden layer)
+  感知器算法是两层神经网络（输入层$x_1,x_2$, 系数$w_1,w_2$, 偏置b, 输出层$y$）
+  activation function 取阶跃函数
+  感知器算法能实现逻辑与、或、非运算
+ $\bigcap$	$w_1=w_2=1,b=-2 \rightarrow y=\varphi(x_1&#43;x_2-2)$; only if $x_1=x_2=1$, $y=1$ $\bigcup$ $w_1=w_2=1,b=-0.5\rightarrow y=\varphi(x_1&#43;x_2-0.5)$; only if $x_1=1 $ OR $x_2=1,y=1$ $～$ $w_1=-0.6,w_2=0,b=0.5\rightarrow y=\varphi(-0.6x_1&#43;0.6)$; only if $x_1=1,y=0$; only if $x_1=0,y=1$    感知器算法可以区分与或非，然而无法对异或问题进行分类
+  即对于非线性可分的问题（生活中大多数都是非线性可分问题），就要使用多层功能神经元，且同样要保证激活函数是非线性的，本文第3点将简单证明使用三层神经网络能模拟任意决策面
+  3. 多层神经网络   以如下的多层神经网络为例
+      激活函数取阶跃函数（如果取了线性函数，可以证明最终同样无法处理线性不可分的），我们可以写出以下的式子：">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Neural network - introduction and perceptron algo."/>
+<meta name="twitter:description" content="1. 神经网络的基本数学模型    最基本的神经网络数学模型如上，激活函数记为$\varphi(\cdot)$，注意此处$w$下标的定义方式 表达式为：$y_k=\varphi(\sum\limits_{i=1}^mw_{ki}x_i&#43;b_k)=\varphi(W_k^TX&#43;b)$  2. 感知器算法   多层神经网络，区分几个概念：输入层，输出层，隐藏层(hidden layer)
+  感知器算法是两层神经网络（输入层$x_1,x_2$, 系数$w_1,w_2$, 偏置b, 输出层$y$）
+  activation function 取阶跃函数
+  感知器算法能实现逻辑与、或、非运算
+ $\bigcap$	$w_1=w_2=1,b=-2 \rightarrow y=\varphi(x_1&#43;x_2-2)$; only if $x_1=x_2=1$, $y=1$ $\bigcup$ $w_1=w_2=1,b=-0.5\rightarrow y=\varphi(x_1&#43;x_2-0.5)$; only if $x_1=1 $ OR $x_2=1,y=1$ $～$ $w_1=-0.6,w_2=0,b=0.5\rightarrow y=\varphi(-0.6x_1&#43;0.6)$; only if $x_1=1,y=0$; only if $x_1=0,y=1$    感知器算法可以区分与或非，然而无法对异或问题进行分类
+  即对于非线性可分的问题（生活中大多数都是非线性可分问题），就要使用多层功能神经元，且同样要保证激活函数是非线性的，本文第3点将简单证明使用三层神经网络能模拟任意决策面
+  3. 多层神经网络   以如下的多层神经网络为例
+      激活函数取阶跃函数（如果取了线性函数，可以证明最终同样无法处理线性不可分的），我们可以写出以下的式子："/>
+
+    <meta property="og:title" content="Neural network - introduction and perceptron algo." />
+<meta property="og:description" content="1. 神经网络的基本数学模型    最基本的神经网络数学模型如上，激活函数记为$\varphi(\cdot)$，注意此处$w$下标的定义方式 表达式为：$y_k=\varphi(\sum\limits_{i=1}^mw_{ki}x_i&#43;b_k)=\varphi(W_k^TX&#43;b)$  2. 感知器算法   多层神经网络，区分几个概念：输入层，输出层，隐藏层(hidden layer)
+  感知器算法是两层神经网络（输入层$x_1,x_2$, 系数$w_1,w_2$, 偏置b, 输出层$y$）
+  activation function 取阶跃函数
+  感知器算法能实现逻辑与、或、非运算
+ $\bigcap$	$w_1=w_2=1,b=-2 \rightarrow y=\varphi(x_1&#43;x_2-2)$; only if $x_1=x_2=1$, $y=1$ $\bigcup$ $w_1=w_2=1,b=-0.5\rightarrow y=\varphi(x_1&#43;x_2-0.5)$; only if $x_1=1 $ OR $x_2=1,y=1$ $～$ $w_1=-0.6,w_2=0,b=0.5\rightarrow y=\varphi(-0.6x_1&#43;0.6)$; only if $x_1=1,y=0$; only if $x_1=0,y=1$    感知器算法可以区分与或非，然而无法对异或问题进行分类
+  即对于非线性可分的问题（生活中大多数都是非线性可分问题），就要使用多层功能神经元，且同样要保证激活函数是非线性的，本文第3点将简单证明使用三层神经网络能模拟任意决策面
+  3. 多层神经网络   以如下的多层神经网络为例
+      激活函数取阶跃函数（如果取了线性函数，可以证明最终同样无法处理线性不可分的），我们可以写出以下的式子：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.example.com/posts/neural-network-introduction-and-perceptron/" />
+<meta property="article:published_time" content="2020-10-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-11T00:00:00+00:00" />
+
+
+    <title>
+  Neural network - introduction and perceptron algo. · jonnyshao
+</title>
+
+    
+      <link rel="canonical" href="http://www.example.com/posts/neural-network-introduction-and-perceptron/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.9836c03fe5c87d102278a33e86d0591ef36c89b1e17e8e547ebf84c05cee010e.css" integrity="sha256-mDbAP&#43;XIfRAieKM&#43;htBZHvNsibHhfo5Ufr&#43;EwFzuAQ4=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.717236c74e0a5208ef73964a9f44c6b443b689a95b270d8b2a40d0c012460dac.css" integrity="sha256-cXI2x04KUgjvc5ZKn0TGtEO2ialbJw2LKkDQwBJGDaw=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.76.5" />
+  </head>
+
+  
+  
+    
+  
+  <body class="colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      jonnyshao
+    </a>
+    
+      
+        <span id="dark-mode-toggle" class="float-right">
+          <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        </span>
+      
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact me</a>
+            </li>
+          
+        
+        
+        
+          <li class="navigation-item separator">
+            <span>|</span>
+          </li>
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Neural network - introduction and perceptron algo.</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2020-10-11T00:00:00Z'>
+                October 11, 2020
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/machine-learning/">Machine Learning</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <a href="/tags/machine-learning/">machine learning</a>
+      <span class="separator">•</span>
+    <a href="/tags/classification/">classification</a>
+      <span class="separator">•</span>
+    <a href="/tags/neural-network/">neural network</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="1-神经网络的基本数学模型">1. 神经网络的基本数学模型</h2>
+<figure>
+    <img src="/images/%e7%a5%9e%e7%bb%8f%e7%bd%91%e7%bb%9c%e5%9f%ba%e6%9c%ac%e6%a8%a1%e5%9e%8b.jpg" width="50%" height="50%"/> 
+</figure>
+
+<ul>
+<li>最基本的神经网络数学模型如上，激活函数记为$\varphi(\cdot)$，注意此处$w$下标的定义方式</li>
+<li>表达式为：$y_k=\varphi(\sum\limits_{i=1}^mw_{ki}x_i+b_k)=\varphi(W_k^TX+b)$</li>
+</ul>
+<h2 id="2-感知器算法">2. 感知器算法</h2>
+<ul>
+<li>
+<p>多层神经网络，区分几个概念：输入层，输出层，隐藏层(hidden layer)</p>
+</li>
+<li>
+<p>感知器算法是两层神经网络（输入层$x_1,x_2$, 系数$w_1,w_2$, 偏置b, 输出层$y$）</p>
+</li>
+<li>
+<p>activation function 取<strong>阶跃函数</strong></p>
+</li>
+<li>
+<p>感知器算法能实现<strong>逻辑与、或、非运算</strong></p>
+<ul>
+<li>$\bigcap$	$w_1=w_2=1,b=-2 \rightarrow y=\varphi(x_1+x_2-2)$;   only if $x_1=x_2=1$, $y=1$</li>
+<li>$\bigcup$    $w_1=w_2=1,b=-0.5\rightarrow y=\varphi(x_1+x_2-0.5)$;  only if $x_1=1 $ OR $x_2=1,y=1$</li>
+<li>$～$    $w_1=-0.6,w_2=0,b=0.5\rightarrow y=\varphi(-0.6x_1+0.6)$;  only if $x_1=1,y=0$;   only if $x_1=0,y=1$</li>
+</ul>
+</li>
+<li>
+<p>感知器算法可以区分与或非，然而无法对异或问题进行分类</p>
+</li>
+<li>
+<p>即对于非线性可分的问题（生活中大多数都是非线性可分问题），就要使用多层功能神经元，且同样要保证激活函数是非线性的，本文第3点将简单证明使用三层神经网络能模拟任意决策面</p>
+</li>
+</ul>
+<h2 id="3-多层神经网络">3. 多层神经网络</h2>
+<ul>
+<li>
+<p>以如下的多层神经网络为例</p>
+</li>
+<li>
+<figure>
+    <img src="/images/%e5%a4%9a%e5%b1%82%e7%a5%9e%e7%bb%8f%e7%bd%91%e7%bb%9c.png" width="50%" height="50%"/> 
+</figure>
+
+</li>
+<li>
+<p>激活函数取阶跃函数（如果取了线性函数，可以证明最终同样无法处理线性不可分的），我们可以写出以下的式子：</p>
+<ul>
+<li>$z_1=w_{11}x_1+w_{12}x_2+b_1$</li>
+<li>$z_2=w_{21}x_1+w_{22}x_2+b_2$</li>
+<li>$a_1=\varphi(z_1)$</li>
+<li>$a_2=\varphi(z_2)$</li>
+<li>$y=w_1a_1+w_2a_2+b$</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-三层神经网络模拟任意决策面">4. 三层神经网络模拟任意决策面</h2>
+<ul>
+<li>
+<p><strong>以下证明，以二维两变量为例，且激活函数仍然取阶跃函数</strong></p>
+</li>
+<li>
+<p>例如，使用三层神经网络进行如下的分类</p>
+<ul>
+<li><img src="/Users/jonnyshao/my_github/blog/static/images/%E4%B8%89%E5%86%B3%E7%AD%96%E9%9D%A2.JPG" alt="三决策面"></li>
+<li>我们定义这三条边对应三条直线：$w_{11}x_1+w_{12}x_2+b_1=0,w_{21}x_1+w_{22}x_2+b_2=0,w_{31}x_1+w_{32}x_2+b_3=0$，并不妨设中心区域是三者都大于0的区域</li>
+<li>那么可以画出如下的神经网络：</li>
+<li><img src="/Users/jonnyshao/my_github/blog/static/images/%E7%BB%93%E6%9E%9C.JPG" alt="结果"></li>
+<li>很显然，经过阶跃函数激活后，需要三个$\varphi(.)&gt;0$，才有 $y&gt;0$，因此我们定$w_1=w_2=w_3=1,b=-2.5$，就可以满足条件</li>
+</ul>
+</li>
+<li>
+<p>当对四边形的决策面分类时，只需要把神经元个数改为4个，进行赋值即可</p>
+</li>
+<li>
+<p>对于圆，曲边等情况，则使用大量的直线边进行拟合即可，这是因为一层的神经元个数理论上是可以无限多的</p>
+</li>
+<li>
+<p>对于如下情况的分类：</p>
+<ul>
+<li><img src="/Users/jonnyshao/my_github/blog/static/images/%E5%86%B3%E7%AD%96%E9%9D%A22.JPG" alt="决策面2"></li>
+<li>同样定义直线，然后画出如下的神经网络</li>
+<li><img src="/Users/jonnyshao/my_github/blog/static/images/%E7%BB%93%E6%9E%9C2.JPG" alt="结果2"></li>
+<li>根据要求，是需要满足：最后一层的两个神经元只要有一个取1，有 $y&gt;0$。因此可以定$w_1=w_2=1,b=-0.5$ ，就可以满足要求</li>
+</ul>
+</li>
+<li>
+<p>以上就是通过构造的方式证明了三层神经网络可以模拟任意决策面，然而实际情况下单层神经元个数不能太多，因此一般是通过更多层深度学习进行处理。</p>
+</li>
+</ul>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js" id="MathJax-script"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );">
+  </script>
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>You are my priority</p>
+      
+      
+        ©
+        
+          2019 -
+        
+        2020
+         Jonny Shao 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+        
+      
+    </section>
+  </footer>
+
+    </main>
+
+    
+      
+      <script src="/js/dark-mode.min.0213e1773e6d1c5a644f847c67a6f8abac49a3776e2976f6008038af8c5b76a1.js"></script>
+    
+
+    
+
+    
+
+    <script>
+(function(f, a, t, h, o, m){
+	a[h]=a[h]||function(){
+		(a[h].q=a[h].q||[]).push(arguments)
+	};
+	o=f.createElement('script'),
+	m=f.getElementsByTagName('script')[0];
+	o.async=1; o.src=t; o.id='fathom-script';
+	m.parentNode.insertBefore(o,m)
+})(document, window, '//analytics.example.com/tracker.js', 'fathom');
+fathom('set', 'siteId', 'ABCDE');
+fathom('trackPageview');
+</script>
+
+
+    <script async defer data-domain="example.com" src="https://analytics.example.com/js/plausible.js"></script>
+
+
+    <script data-goatcounter="https://code.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+  </body>
+
+</html>

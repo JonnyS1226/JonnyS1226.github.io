@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+
+    <meta name="author" content="Jonny Shao">
+    <meta name="description" content="Back Propagation 后向传播算法——案例  对于神经网络，我们同样定义一个Loss Function，定义方式有很多种，在进行bp算法推导时，我们设置为最简单的一种function：$E=\frac{1}{2}(y-Y)^2$，其中$Y$是从样本中可以得到的向量，$y$ 是神经网络的输出向量 有了Loss Function，我们使用Gradient Descent去求最优解，即需要对所有的$w$，求 $\frac{\partial E}{\partial w}$，对所有的$b$，求$\frac{\partial E}{\partial b}$，然后根据梯度下降进行调整 以上一节的多层神经网络为案例：    激活函数取阶跃函数（如果取了线性函数，可以证明最终同样无法处理线性不可分的），我们可以写出以下的式子：  $z_1=w_{11}x_1&#43;w_{12}x_2&#43;b_1$ $z_2=w_{21}x_1&#43;w_{22}x_2&#43;b_2$ $a_1=\varphi(z_1)$ $a_2=\varphi(z_2)$ $y=w_1a_1&#43;w_2a_2&#43;b$ 开始推导，本质就是复合函数求导的链式法则：  $\frac{\partial E}{\partial y} = y-Y$ $\frac{\partial E}{\partial a_1} = (y-Y)w_1$ $\frac{\partial E}{\partial a_2} = (y-Y)w_2$ $\frac{\partial E}{\partial z_1} = (y-Y)w_1\varphi^{&#39;}(z_1)$ $\frac{\partial E}{\partial z_2} = (y-Y)w_1\varphi^{&#39;}(z_2)$ $\frac{\partial E}{\partial b}=(y-Y)$ $\frac{\partial E}{\partial w_1}=(y-Y)a_1$ &hellip; until all the $\frac{\partial E}{\partial w}$ and $\frac{\partial E}{\partial b}$ is calculated     可以发现，上面求解中需要知道$\varphi^{&#39;}(\cdot)$，这就涉及到激活函数的选取，那么这里说四种常见的选取方式  选取为阶跃函数，但很显然不适合bp算法，因为导数部分为0 选取为sigmoid函数：$\varphi(x)=\frac{1}{1&#43;e^{-x}}, \varphi^{&#39;}(x)=\varphi(x)(1-\varphi(x))$ 选取为双曲正切函数：$\varphi(x)=\frac{e^x-e^{-x}}{e^x&#43;e^{-x}}, \varphi^{&#39;}(x)=1-\varphi^2(x)$ 选取为ReLu（Rectified Linear Units）函数：$\varphi(x)=\left{\begin{array}{l}x &amp;&amp;x&gt;0\ 0&amp;&amp;x\leq0 \end{array}\right.">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Neural network - back propagation"/>
+<meta name="twitter:description" content="Back Propagation 后向传播算法——案例  对于神经网络，我们同样定义一个Loss Function，定义方式有很多种，在进行bp算法推导时，我们设置为最简单的一种function：$E=\frac{1}{2}(y-Y)^2$，其中$Y$是从样本中可以得到的向量，$y$ 是神经网络的输出向量 有了Loss Function，我们使用Gradient Descent去求最优解，即需要对所有的$w$，求 $\frac{\partial E}{\partial w}$，对所有的$b$，求$\frac{\partial E}{\partial b}$，然后根据梯度下降进行调整 以上一节的多层神经网络为案例：    激活函数取阶跃函数（如果取了线性函数，可以证明最终同样无法处理线性不可分的），我们可以写出以下的式子：  $z_1=w_{11}x_1&#43;w_{12}x_2&#43;b_1$ $z_2=w_{21}x_1&#43;w_{22}x_2&#43;b_2$ $a_1=\varphi(z_1)$ $a_2=\varphi(z_2)$ $y=w_1a_1&#43;w_2a_2&#43;b$ 开始推导，本质就是复合函数求导的链式法则：  $\frac{\partial E}{\partial y} = y-Y$ $\frac{\partial E}{\partial a_1} = (y-Y)w_1$ $\frac{\partial E}{\partial a_2} = (y-Y)w_2$ $\frac{\partial E}{\partial z_1} = (y-Y)w_1\varphi^{&#39;}(z_1)$ $\frac{\partial E}{\partial z_2} = (y-Y)w_1\varphi^{&#39;}(z_2)$ $\frac{\partial E}{\partial b}=(y-Y)$ $\frac{\partial E}{\partial w_1}=(y-Y)a_1$ &hellip; until all the $\frac{\partial E}{\partial w}$ and $\frac{\partial E}{\partial b}$ is calculated     可以发现，上面求解中需要知道$\varphi^{&#39;}(\cdot)$，这就涉及到激活函数的选取，那么这里说四种常见的选取方式  选取为阶跃函数，但很显然不适合bp算法，因为导数部分为0 选取为sigmoid函数：$\varphi(x)=\frac{1}{1&#43;e^{-x}}, \varphi^{&#39;}(x)=\varphi(x)(1-\varphi(x))$ 选取为双曲正切函数：$\varphi(x)=\frac{e^x-e^{-x}}{e^x&#43;e^{-x}}, \varphi^{&#39;}(x)=1-\varphi^2(x)$ 选取为ReLu（Rectified Linear Units）函数：$\varphi(x)=\left{\begin{array}{l}x &amp;&amp;x&gt;0\ 0&amp;&amp;x\leq0 \end{array}\right."/>
+
+    <meta property="og:title" content="Neural network - back propagation" />
+<meta property="og:description" content="Back Propagation 后向传播算法——案例  对于神经网络，我们同样定义一个Loss Function，定义方式有很多种，在进行bp算法推导时，我们设置为最简单的一种function：$E=\frac{1}{2}(y-Y)^2$，其中$Y$是从样本中可以得到的向量，$y$ 是神经网络的输出向量 有了Loss Function，我们使用Gradient Descent去求最优解，即需要对所有的$w$，求 $\frac{\partial E}{\partial w}$，对所有的$b$，求$\frac{\partial E}{\partial b}$，然后根据梯度下降进行调整 以上一节的多层神经网络为案例：    激活函数取阶跃函数（如果取了线性函数，可以证明最终同样无法处理线性不可分的），我们可以写出以下的式子：  $z_1=w_{11}x_1&#43;w_{12}x_2&#43;b_1$ $z_2=w_{21}x_1&#43;w_{22}x_2&#43;b_2$ $a_1=\varphi(z_1)$ $a_2=\varphi(z_2)$ $y=w_1a_1&#43;w_2a_2&#43;b$ 开始推导，本质就是复合函数求导的链式法则：  $\frac{\partial E}{\partial y} = y-Y$ $\frac{\partial E}{\partial a_1} = (y-Y)w_1$ $\frac{\partial E}{\partial a_2} = (y-Y)w_2$ $\frac{\partial E}{\partial z_1} = (y-Y)w_1\varphi^{&#39;}(z_1)$ $\frac{\partial E}{\partial z_2} = (y-Y)w_1\varphi^{&#39;}(z_2)$ $\frac{\partial E}{\partial b}=(y-Y)$ $\frac{\partial E}{\partial w_1}=(y-Y)a_1$ &hellip; until all the $\frac{\partial E}{\partial w}$ and $\frac{\partial E}{\partial b}$ is calculated     可以发现，上面求解中需要知道$\varphi^{&#39;}(\cdot)$，这就涉及到激活函数的选取，那么这里说四种常见的选取方式  选取为阶跃函数，但很显然不适合bp算法，因为导数部分为0 选取为sigmoid函数：$\varphi(x)=\frac{1}{1&#43;e^{-x}}, \varphi^{&#39;}(x)=\varphi(x)(1-\varphi(x))$ 选取为双曲正切函数：$\varphi(x)=\frac{e^x-e^{-x}}{e^x&#43;e^{-x}}, \varphi^{&#39;}(x)=1-\varphi^2(x)$ 选取为ReLu（Rectified Linear Units）函数：$\varphi(x)=\left{\begin{array}{l}x &amp;&amp;x&gt;0\ 0&amp;&amp;x\leq0 \end{array}\right." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.example.com/posts/neural-network-bp-and-param/" />
+<meta property="article:published_time" content="2020-10-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-12T00:00:00+00:00" />
+
+
+    <title>
+  Neural network - back propagation · jonnyshao
+</title>
+
+    
+      <link rel="canonical" href="http://www.example.com/posts/neural-network-bp-and-param/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.9836c03fe5c87d102278a33e86d0591ef36c89b1e17e8e547ebf84c05cee010e.css" integrity="sha256-mDbAP&#43;XIfRAieKM&#43;htBZHvNsibHhfo5Ufr&#43;EwFzuAQ4=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.717236c74e0a5208ef73964a9f44c6b443b689a95b270d8b2a40d0c012460dac.css" integrity="sha256-cXI2x04KUgjvc5ZKn0TGtEO2ialbJw2LKkDQwBJGDaw=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.76.5" />
+  </head>
+
+  
+  
+    
+  
+  <body class="colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      jonnyshao
+    </a>
+    
+      
+        <span id="dark-mode-toggle" class="float-right">
+          <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        </span>
+      
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact me</a>
+            </li>
+          
+        
+        
+        
+          <li class="navigation-item separator">
+            <span>|</span>
+          </li>
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Neural network - back propagation</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2020-10-12T00:00:00Z'>
+                October 12, 2020
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/machine-learning/">Machine Learning</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <a href="/tags/machine-learning/">machine learning</a>
+      <span class="separator">•</span>
+    <a href="/tags/classification/">classification</a>
+      <span class="separator">•</span>
+    <a href="/tags/neural-network/">neural network</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="back-propagation-后向传播算法案例">Back Propagation 后向传播算法——案例</h2>
+<ul>
+<li>对于神经网络，我们同样定义一个Loss Function，定义方式有很多种，在进行bp算法推导时，我们设置为最简单的一种function：$E=\frac{1}{2}(y-Y)^2$，其中$Y$是从样本中可以得到的向量，$y$ 是神经网络的输出向量</li>
+<li>有了Loss Function，我们使用Gradient Descent去求最优解，即需要对所有的$w$，求 $\frac{\partial E}{\partial w}$，对所有的$b$，求$\frac{\partial E}{\partial b}$，然后根据梯度下降进行调整</li>
+<li>以上一节的多层神经网络为案例：</li>
+<li><figure>
+    <img src="/images/%e5%a4%9a%e5%b1%82%e7%a5%9e%e7%bb%8f%e7%bd%91%e7%bb%9c.png" width="50%" height="50%"/> 
+</figure>
+</li>
+<li>激活函数取阶跃函数（如果取了线性函数，可以证明最终同样无法处理线性不可分的），我们可以写出以下的式子：
+<ul>
+<li>$z_1=w_{11}x_1+w_{12}x_2+b_1$</li>
+<li>$z_2=w_{21}x_1+w_{22}x_2+b_2$</li>
+<li>$a_1=\varphi(z_1)$</li>
+<li>$a_2=\varphi(z_2)$</li>
+<li>$y=w_1a_1+w_2a_2+b$</li>
+<li>开始推导，本质就是复合函数求导的链式法则：
+<ul>
+<li>$\frac{\partial E}{\partial y} = y-Y$</li>
+<li>$\frac{\partial E}{\partial a_1} = (y-Y)w_1$</li>
+<li>$\frac{\partial E}{\partial a_2} = (y-Y)w_2$</li>
+<li>$\frac{\partial E}{\partial z_1} = (y-Y)w_1\varphi^{'}(z_1)$</li>
+<li>$\frac{\partial E}{\partial z_2} = (y-Y)w_1\varphi^{'}(z_2)$</li>
+<li>$\frac{\partial E}{\partial b}=(y-Y)$</li>
+<li>$\frac{\partial E}{\partial w_1}=(y-Y)a_1$</li>
+<li>&hellip; until all the $\frac{\partial E}{\partial w}$ and $\frac{\partial E}{\partial b}$ is calculated</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>可以发现，上面求解中需要知道$\varphi^{'}(\cdot)$，这就涉及到激活函数的选取，那么这里说四种常见的选取方式
+<ul>
+<li>选取为阶跃函数，但很显然不适合bp算法，因为导数部分为0</li>
+<li>选取为sigmoid函数：$\varphi(x)=\frac{1}{1+e^{-x}}, \varphi^{'}(x)=\varphi(x)(1-\varphi(x))$</li>
+<li>选取为双曲正切函数：$\varphi(x)=\frac{e^x-e^{-x}}{e^x+e^{-x}}, \varphi^{'}(x)=1-\varphi^2(x)$</li>
+<li>选取为ReLu（Rectified Linear Units）函数：$\varphi(x)=\left{\begin{array}{l}x &amp;&amp;x&gt;0\ 0&amp;&amp;x\leq0 \end{array}\right. ,\varphi^{'}(x)=\left{\begin{array}{l}1 &amp;&amp; x&gt;0 \ 0 &amp;&amp; x &lt; 0 \end{array}\right.$， 这个函数的选取涉及到了梯度消失和梯度爆炸问题</li>
+</ul>
+</li>
+</ul>
+<h2 id="back-propagation-后向传播算法一般式">Back Propagation 后向传播算法——一般式</h2>
+<p>对于一个一般的神经网络，输入为 $X$ 向量，网络共 $l$ 层，以下都是向量形式：</p>
+<p>$X=a^{(0)} \Longrightarrow z^{(1)}=w^{(1)}a^{(0)}+b^{(1)} \xrightarrow{\varphi(\cdot)}a^{(1)}=\varphi(z^{(1)}) \Longrightarrow&hellip;$</p>
+<p>$\Longrightarrow z^{(m)}=w^{(m)}a^{(m-1)}+b^{(m)} \xrightarrow{\varphi}a^{(m)}=\varphi(z^{(m)})\Longrightarrow z^{(m+1)}=w^{(m+1)}a^{(m)}+b^{(m+1)]} \Longrightarrow &hellip;$</p>
+<p>$\Longrightarrow z^{(l)}=w^{(l)}a^{(l-1)}+b^{l}\Longrightarrow y=a^{(l)}=\varphi(z^{(l)})$</p>
+<ul>
+<li>
+<p>BP算法流程</p>
+<ul>
+<li>随即初始化所有的 $(w,b)$</li>
+<li>训练样本 $（X,Y）$，代入网络，前向传播，求出所有的$(z,a,y)$</li>
+<li>最小化 $E=\frac{1}{2}(y-Y)^2=\frac{1}{2}(\sum\limits_{i=1}^{m}(y_i-Y_i))$， 求偏导，梯度下降</li>
+</ul>
+</li>
+<li>
+<p>BP推导，本质上是求导的链式法则：</p>
+<p>set $\delta_i^{(m)}=\frac{\partial E}{\partial z_i^{(m)}}$</p>
+<ol>
+<li>$\delta_i^{(l)}=\frac{\partial E}{\partial z_i^{(l)}}=(y_i-Y_i)\varphi^{'}(z_i^{(l)})$</li>
+<li>$\delta_i^{(m)}=\frac{\partial E}{\partial z_i^{(m)}}=\frac{\partial E}{a_i^{(m)}}\frac{\partial a_i^{(m)}}{\partial z_i^{(m)}}=\varphi^{'}(z_i^{(m)})\cdot \sum\limits_{j=1}^{S_{m+1}}w_{ji}\frac{\partial E}{\partial z_j^{m+1}}=\varphi^{'}(z_i^{(m)})\cdot \sum\limits_{j=1}^{S_{m+1}}w_{ji}\delta_j^{m+1}$</li>
+</ol>
+<ul>
+<li>这个第二步的 $\frac{\partial E}{a_i^{(m)}}$，$a$  和 $z$ 有关系，而有 $S_{m+1}$ 个$ z$， 某个 $a$ 会有 $S_{m+1}$ 个 $w$ 连线与这 $S_{m+1}$ 个 $z$ 相连，所以出现了上述的结果</li>
+</ul>
+<ol start="3">
+<li>$\frac{\partial E}{\partial w_{ji}^{(m)}} = \delta_j^{(m)} \cdot a_j^{(m-1)}$</li>
+<li>$\frac{\partial E}{\partial b_i^{(m)}}=\delta_i^{(m)}$</li>
+</ol>
+</li>
+<li>
+<p>根据上述1，2，3，4四个公式，就实现了bp求出所有对 $w,b$ 的偏导</p>
+</li>
+</ul>
+<h2 id="bp算法中目标函数的选择">bp算法中目标函数的选择</h2>
+<ul>
+<li>增加Regulation Term，$\alpha \sum \sum w_{k,l}^2$</li>
+<li>改造loss function为softmax函数和交叉熵函数的组合，可以满足求导后结果依旧很简单</li>
+<li>如改造成：</li>
+<li>$E=-\frac{1}{m}[\sum\limits_{i=1}^m\sum\limits_{k=1}^kY_k^{(i)}log(y_k^{(i)})+(1-Y_k^{(i)})log(1-y_k^{(i)})]+\frac{\lambda}{2m}\sum\limits_{l=1}^{L-1}\sum\limits_{i=1}^{s_l}\sum\limits_{j=1}^{s_l+1}(w_{ji}^{(l)})^2$</li>
+</ul>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js" id="MathJax-script"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );">
+  </script>
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>You are my priority</p>
+      
+      
+        ©
+        
+          2019 -
+        
+        2020
+         Jonny Shao 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+        
+      
+    </section>
+  </footer>
+
+    </main>
+
+    
+      
+      <script src="/js/dark-mode.min.0213e1773e6d1c5a644f847c67a6f8abac49a3776e2976f6008038af8c5b76a1.js"></script>
+    
+
+    
+
+    
+
+    <script>
+(function(f, a, t, h, o, m){
+	a[h]=a[h]||function(){
+		(a[h].q=a[h].q||[]).push(arguments)
+	};
+	o=f.createElement('script'),
+	m=f.getElementsByTagName('script')[0];
+	o.async=1; o.src=t; o.id='fathom-script';
+	m.parentNode.insertBefore(o,m)
+})(document, window, '//analytics.example.com/tracker.js', 'fathom');
+fathom('set', 'siteId', 'ABCDE');
+fathom('trackPageview');
+</script>
+
+
+    <script async defer data-domain="example.com" src="https://analytics.example.com/js/plausible.js"></script>
+
+
+    <script data-goatcounter="https://code.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+  </body>
+
+</html>
