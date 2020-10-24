@@ -6,7 +6,25 @@
     <description>Recent content on jonnyshao</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 12 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 24 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SVM-linear separable</title>
+      <link>http://www.example.com/posts/svm-linear-problem/</link>
+      <pubDate>Sat, 24 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/svm-linear-problem/</guid>
+      <description>SVM求解线性可分问题 SVM适合小样本的分类问题，可以处理线性可分和非线性可分问题，本节以二分类问题为例，讨论处理线性可分问题的基本型。
+1. 定义和线性可分   输入：{$(x_i, y_i)$}, $i=1 \thicksim N$, 其中 $x$ 为向量， $x_i$ 为向量的每一个分量，$y_i$ 为标量，在这里可以规定只能取-1或者+1，代表两类
+  线性：对于二维，线性表现为直线；对于三维，线性表现为平面；对于四维，线性表现为超平面。
+但上述不同表现形式都可以用一个数学形式表示：$w^Tx+b=0$，其中 $w$ 是和 $x$ 一样维度的向量，因此 $w^Tx$ 结果是一个常数，$b$ 也是一个常数
+通常，ml中最终都会化为求 $(w,b)$。
+  一个训练集线性可分可表示为如下命题：
+{$(x_i,y_i)$}, $i=1\thicksim N \Longrightarrow \exist (w,b), \forall i=1\thicksim N$, 有
+ 若 $y_i=1$, 则有 $w^Tx+b \geqslant 0$ 若 $y_i=-1$, 则有 $w^Tx+b &amp;lt; 0$  上述两点通常合并写为 $y_i[w^Tx_i+b] \geqslant 0$
+  2. SVM的处理 ​	对于二分类问题，基于training set是可以在样本空间上找到很多划分超平面的，然而需要从这些超平面中找到最合适的一个，直观上来说，应该找到位于两类训练样本“正中间”的划分超平面，这可能是因为不偏向任何一类，同时有较强的鲁棒性和容错率，对于噪声不会太敏感。
+​	然而，严格上，我们需要定义一个performance measure。</description>
+    </item>
+    
     <item>
       <title>Neural network - back propagation</title>
       <link>http://www.example.com/posts/neural-network-bp-and-param/</link>
