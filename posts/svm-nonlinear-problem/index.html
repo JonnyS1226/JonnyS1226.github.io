@@ -14,10 +14,9 @@ $\min\limits_{w,b,\xi_i} $ $\frac{1}{2}||w||^2 &#43; C\sum\limits_{i=0}^m\xi_i$ 
 非线性可分问题处理 对于非线性可分的问题，通常的处理如下：在低维情况下展现出非线性不可分，但若将其升维至高维，就有可能实现线性可分。
 即通过 $x\rightarrow \varphi(x)$， 使低维上非线性可分在高维上大概率线性可分。
 以一个异或问题分类说明：
-  有四个样本点： $x_1=\begin{bmatrix} 0\ 0 \end{bmatrix},x_2=\begin{bmatrix} 1 \1\end{bmatrix},x_3=\begin{bmatrix}1\0 \end{bmatrix},x_4=\begin{bmatrix}0 \1 \end{bmatrix}$
+  有四个样本点： $x_1=\begin{bmatrix} 0 \ 0 \end{bmatrix},x_2=\begin{bmatrix} 1 \ 1\end{bmatrix},x_3=\begin{bmatrix}1 \ 0 \end{bmatrix},x_4=\begin{bmatrix}0 \ 1 \end{bmatrix}$
   要将其按异或结果进行分类，很显然，$x_1,x_2 \in C1,x_3,x_4\in C2$ , 然而表示在二维坐标下，很显然这是一个非线性可分的问题，即无法找到 $(w,b) \rightarrow y_i(w^Tx&#43;b) \geqslant 0$
-  这时进行升维度，令 $\varphi(x)：x_i=\begin{bmatrix}a \b\end{bmatrix} \longrightarrow \varphi(x_i)=\begin{bmatrix}a^2\b^2\a\b\ab \end{bmatrix}$
-  此时是可以找到这样的 $(w,b)$ ，使得 $w^T\varphi(x_1)&#43;b\geqslant 0 ,\quad w^T\varphi(x_2)&#43;b\geqslant0,\quad, w^T\varphi(x_3)&#43;b&lt;0,\quad w^T\varphi(x_4)&#43;b&lt;0$ 。代入进去计算，可以找到这样的 $w=\begin{bmatrix}-1\-1\-1\-1\6\end{bmatrix},\quad b=1$ 。（不止一个）">
+  这时进行升维度，令 $\varphi(x)：x_i=\begin{bmatrix}a \ b\end{bmatrix} \longrightarrow \varphi(x_i)=\begin{bmatrix} a^2 \ b^2 \ a\ b\ ab \end{bmatrix}$">
     <meta name="keywords" content="blog,developer,personal">
 
     <meta name="twitter:card" content="summary"/>
@@ -29,10 +28,9 @@ $\min\limits_{w,b,\xi_i} $ $\frac{1}{2}||w||^2 &#43; C\sum\limits_{i=0}^m\xi_i$ 
 非线性可分问题处理 对于非线性可分的问题，通常的处理如下：在低维情况下展现出非线性不可分，但若将其升维至高维，就有可能实现线性可分。
 即通过 $x\rightarrow \varphi(x)$， 使低维上非线性可分在高维上大概率线性可分。
 以一个异或问题分类说明：
-  有四个样本点： $x_1=\begin{bmatrix} 0\ 0 \end{bmatrix},x_2=\begin{bmatrix} 1 \1\end{bmatrix},x_3=\begin{bmatrix}1\0 \end{bmatrix},x_4=\begin{bmatrix}0 \1 \end{bmatrix}$
+  有四个样本点： $x_1=\begin{bmatrix} 0 \ 0 \end{bmatrix},x_2=\begin{bmatrix} 1 \ 1\end{bmatrix},x_3=\begin{bmatrix}1 \ 0 \end{bmatrix},x_4=\begin{bmatrix}0 \ 1 \end{bmatrix}$
   要将其按异或结果进行分类，很显然，$x_1,x_2 \in C1,x_3,x_4\in C2$ , 然而表示在二维坐标下，很显然这是一个非线性可分的问题，即无法找到 $(w,b) \rightarrow y_i(w^Tx&#43;b) \geqslant 0$
-  这时进行升维度，令 $\varphi(x)：x_i=\begin{bmatrix}a \b\end{bmatrix} \longrightarrow \varphi(x_i)=\begin{bmatrix}a^2\b^2\a\b\ab \end{bmatrix}$
-  此时是可以找到这样的 $(w,b)$ ，使得 $w^T\varphi(x_1)&#43;b\geqslant 0 ,\quad w^T\varphi(x_2)&#43;b\geqslant0,\quad, w^T\varphi(x_3)&#43;b&lt;0,\quad w^T\varphi(x_4)&#43;b&lt;0$ 。代入进去计算，可以找到这样的 $w=\begin{bmatrix}-1\-1\-1\-1\6\end{bmatrix},\quad b=1$ 。（不止一个）"/>
+  这时进行升维度，令 $\varphi(x)：x_i=\begin{bmatrix}a \ b\end{bmatrix} \longrightarrow \varphi(x_i)=\begin{bmatrix} a^2 \ b^2 \ a\ b\ ab \end{bmatrix}$"/>
 
     <meta property="og:title" content="SVM-nonlinear separable" />
 <meta property="og:description" content="1. SVM处理非线性可分问题 用软间隔和正则项改写基本型 先前在处理线性可分问题时，是基于“硬间隔”的，一直假定训练样本在样本空间中是线性可分的，且要求所有样本都必须分类正确。然而现实任务中，往往很难确定某个函数是否是真正准确地分类，还是由于过拟合所造成的。
@@ -42,10 +40,9 @@ $\min\limits_{w,b,\xi_i} $ $\frac{1}{2}||w||^2 &#43; C\sum\limits_{i=0}^m\xi_i$ 
 非线性可分问题处理 对于非线性可分的问题，通常的处理如下：在低维情况下展现出非线性不可分，但若将其升维至高维，就有可能实现线性可分。
 即通过 $x\rightarrow \varphi(x)$， 使低维上非线性可分在高维上大概率线性可分。
 以一个异或问题分类说明：
-  有四个样本点： $x_1=\begin{bmatrix} 0\ 0 \end{bmatrix},x_2=\begin{bmatrix} 1 \1\end{bmatrix},x_3=\begin{bmatrix}1\0 \end{bmatrix},x_4=\begin{bmatrix}0 \1 \end{bmatrix}$
+  有四个样本点： $x_1=\begin{bmatrix} 0 \ 0 \end{bmatrix},x_2=\begin{bmatrix} 1 \ 1\end{bmatrix},x_3=\begin{bmatrix}1 \ 0 \end{bmatrix},x_4=\begin{bmatrix}0 \ 1 \end{bmatrix}$
   要将其按异或结果进行分类，很显然，$x_1,x_2 \in C1,x_3,x_4\in C2$ , 然而表示在二维坐标下，很显然这是一个非线性可分的问题，即无法找到 $(w,b) \rightarrow y_i(w^Tx&#43;b) \geqslant 0$
-  这时进行升维度，令 $\varphi(x)：x_i=\begin{bmatrix}a \b\end{bmatrix} \longrightarrow \varphi(x_i)=\begin{bmatrix}a^2\b^2\a\b\ab \end{bmatrix}$
-  此时是可以找到这样的 $(w,b)$ ，使得 $w^T\varphi(x_1)&#43;b\geqslant 0 ,\quad w^T\varphi(x_2)&#43;b\geqslant0,\quad, w^T\varphi(x_3)&#43;b&lt;0,\quad w^T\varphi(x_4)&#43;b&lt;0$ 。代入进去计算，可以找到这样的 $w=\begin{bmatrix}-1\-1\-1\-1\6\end{bmatrix},\quad b=1$ 。（不止一个）" />
+  这时进行升维度，令 $\varphi(x)：x_i=\begin{bmatrix}a \ b\end{bmatrix} \longrightarrow \varphi(x_i)=\begin{bmatrix} a^2 \ b^2 \ a\ b\ ab \end{bmatrix}$" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://www.example.com/posts/svm-nonlinear-problem/" />
 <meta property="article:published_time" content="2020-10-25T00:00:00+00:00" />
@@ -207,16 +204,16 @@ $\min\limits_{w,b,\xi_i} $ $\frac{1}{2}||w||^2 &#43; C\sum\limits_{i=0}^m\xi_i$ 
 <p>以一个异或问题分类说明：</p>
 <ul>
 <li>
-<p>有四个样本点： $x_1=\begin{bmatrix} 0\ 0 \end{bmatrix},x_2=\begin{bmatrix} 1 \1\end{bmatrix},x_3=\begin{bmatrix}1\0 \end{bmatrix},x_4=\begin{bmatrix}0 \1 \end{bmatrix}$</p>
+<p>有四个样本点： $x_1=\begin{bmatrix} 0 \ 0 \end{bmatrix},x_2=\begin{bmatrix} 1 \ 1\end{bmatrix},x_3=\begin{bmatrix}1 \ 0 \end{bmatrix},x_4=\begin{bmatrix}0 \ 1 \end{bmatrix}$</p>
 </li>
 <li>
 <p>要将其按异或结果进行分类，很显然，$x_1,x_2 \in C1,x_3,x_4\in C2$ , 然而表示在二维坐标下，很显然这是一个非线性可分的问题，即无法找到 $(w,b) \rightarrow y_i(w^Tx+b) \geqslant 0$</p>
 </li>
 <li>
-<p>这时进行升维度，令 $\varphi(x)：x_i=\begin{bmatrix}a \b\end{bmatrix} \longrightarrow \varphi(x_i)=\begin{bmatrix}a^2\b^2\a\b\ab \end{bmatrix}$</p>
+<p>这时进行升维度，令 $\varphi(x)：x_i=\begin{bmatrix}a \ b\end{bmatrix} \longrightarrow \varphi(x_i)=\begin{bmatrix} a^2 \ b^2 \ a\ b\ ab \end{bmatrix}$</p>
 </li>
 <li>
-<p>此时是可以找到这样的 $(w,b)$ ，使得 $w^T\varphi(x_1)+b\geqslant 0 ,\quad w^T\varphi(x_2)+b\geqslant0,\quad, w^T\varphi(x_3)+b&lt;0,\quad w^T\varphi(x_4)+b&lt;0$ 。代入进去计算，可以找到这样的 $w=\begin{bmatrix}-1\-1\-1\-1\6\end{bmatrix},\quad b=1$ 。（不止一个）</p>
+<p>此时是可以找到这样的 $(w,b)$ ，使得 $w^T\varphi(x_1)+b\geqslant 0 ,\quad w^T\varphi(x_2)+b\geqslant0,\quad, w^T\varphi(x_3)+b&lt;0,\quad w^T\varphi(x_4)+b&lt;0$ 。代入进去计算，可以找到这样的 $w=\begin{bmatrix}-1 \ -1 \ -1 \ -1 \ 6 \end{bmatrix},\quad b=1$ 。（不止一个）</p>
 </li>
 </ul>
 <p>如何取 $\varphi$ ？通过证明，可知无限维的 $\varphi$ 一定是符合要求的，然而不现实。而事实上，在SVM处理非线性可分问题时，不一定需要知道 $\varphi$ 的具体表达式，而通过知道<strong>核函数</strong> $K: K(x_1,x_2)=\varphi(x_1)^T\varphi(x_2)$， 这样上述方式就可以解决。</p>
@@ -233,7 +230,7 @@ $\min\limits_{w,b,\xi_i} $ $\frac{1}{2}||w||^2 &#43; C\sum\limits_{i=0}^m\xi_i$ 
 <h4 id="原问题">原问题</h4>
 <p>原问题prime problem，是一个非常普适的问题，可以发现SVM的基本型就是一个原问题。其描述：
 $$
-\min \quad f(w) \<br>
+\min \quad f(w) \
 s.t. \quad g_i(w) \leqslant 0 , \quad i=1,2&hellip;,k\ \qquad \quad h_j(w) = 0, \quad j=1,2,&hellip;.,m
 $$</p>
 <h4 id="对偶问题">对偶问题</h4>
