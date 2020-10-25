@@ -258,22 +258,22 @@ $$</p>
 <h4 id="原问题与对偶问题关系">原问题与对偶问题关系</h4>
 <p>$Lemma$：
 $$
-若w^<em>是原问题的解，\alpha^</em>  和  \beta^* 是 对偶问题的解，那么一定有：  \\
-f(w^*) \geqslant \theta(\alpha^*,\beta^*)
+若w^*  是原问题的解，\alpha^*   和  \beta^*  是 对偶问题的解，那么一定有：  \\
+f(w^*  ) \geqslant \theta(\alpha^*  ,\beta^*  )
 $$
-$proof.$
+*proof:*
 $$
-\theta(\alpha^*,\beta^*)=\inf\limits_{w}{L(w,\alpha^*,\beta^*)} \\
-\quad \quad \leqslant L(w^*,\alpha^*,\beta^*) \\
-\qquad \qquad\qquad\qquad\qquad\qquad=f(w^*)+\sum\limits_{i=1}^k\alpha_i^*g_i(w^*)+\sum\limits_{i=1}^m\beta_i^*h_i(w^*)
-\\  \quad \quad \quad \quad\because \alpha_i \geqslant 0, g_i(w^*)\leqslant 0,h_i(w^*)=0
-\\  \therefore \quad \theta(\alpha^*,\beta^*) \leqslant f(w^*)
+\theta(\alpha^*  ,\beta^*  )=\inf\limits_{w}{L(w,\alpha^*  ,\beta^*   )} \\
+\quad \quad \leqslant L(w^*  ,\alpha^*  ,\beta^*  ) \\
+\qquad \qquad\qquad\qquad\qquad\qquad=f(w^*  )+\sum\limits_{i=1}^k\alpha_i^*  g_i(w^*  )+\sum\limits_{i=1}^m\beta_i^*  h_i(w^*  )
+\\  \quad \quad \quad \quad\because \alpha_i \geqslant 0, g_i(w^*  )\leqslant 0,h_i(w^*  )=0
+\\  \therefore \quad \theta(\alpha^*  ,\beta^*  ) \leqslant f(w^*  )
 $$</p>
 <ul>
 <li>定义 $G$ 是原问题和对偶问题的间隔   (duality gap):</li>
 </ul>
 <p>$$
-G=f(w^<em>)-\theta(\alpha^</em>,\beta^*) \geqslant 0
+G=f(w^*  )-\theta(\alpha^*  ,\beta^*  ) \geqslant 0
 $$</p>
 <ul>
 <li>对于某些特定条件的优化问题，可以证明这个间隔等于0，即原问题和对偶问题间隔为0，互相转化。（<strong>Slater条件</strong>）</li>
@@ -281,13 +281,13 @@ $$</p>
 <li><strong>强对偶定理</strong>：</li>
 </ul>
 <p>$$
-若f(w)是凸的（convex），g(w)是线性函数，h(w)=cw+d，则此时 G=0，即 f(w^<em>) = \theta(\alpha^</em>,\beta^*)
+若f(w)是凸的（convex），g(w)是线性函数，h(w)=cw+d，则此时 G=0，即 f(w^*  ) = \theta(\alpha^*  ,\beta^*  )
 $$</p>
 <ul>
 <li>强对偶定理又能推出<strong>KKT条件</strong>：</li>
 </ul>
 <p>$$
-\forall i=1-k, 或者\alpha^<em>=0，或者g_i(w^</em>)=0
+\forall i=1-k, \alpha^*  =0，or \quad g_i(w^*  )=0
 $$</p>
 <p><strong>下一步就是把SVM改写后的基本型（prime problem），转化成对偶问题（dual problem）（用slater条件，G=0），然后用KKT条件求参数结果</strong></p>
 <h3 id="3-转化基本型">3. 转化基本型</h3>
