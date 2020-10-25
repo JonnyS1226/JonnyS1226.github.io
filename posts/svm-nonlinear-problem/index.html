@@ -228,9 +228,9 @@ $\min\limits_{w,b,\xi_i} $ $\frac{1}{2}||w||^2 &#43; C\sum\limits_{i=0}^m\xi_i$ 
 <p>满足这样要求的核函数有很多现成的，如高斯核，多项式核等。<strong>因此下一步是，不知道</strong> $\varphi$  <strong>只知道</strong>$K$<strong>，而要实现优化目标。</strong></p>
 <h3 id="2-一些数学基础">2. 一些数学基础</h3>
 <h4 id="原问题">原问题</h4>
-<p>原问题prime problem，是一个非常普适的问题，可以发现SVM的基本型就是一个原问题。其描述：
-$$
-\min \quad f(w)  \<br>
+<p>原问题prime problem，是一个非常普适的问题，可以发现SVM的基本型就是一个原问题。其描述：</p>
+<p>$$
+min \quad f(w)  \<br>
 s.t. \quad g_i(w) \leqslant 0 , \quad i=1,2&hellip;,k ,
 \qquad \qquad h_j(w) = 0, \quad j=1,2,&hellip;.,m
 $$</p>
