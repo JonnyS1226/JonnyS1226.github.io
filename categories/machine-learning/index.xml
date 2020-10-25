@@ -20,9 +20,9 @@ $\min\limits_{w,b,\xi_i} $ $\frac{1}{2}||w||^2 + C\sum\limits_{i=0}^m\xi_i$ , $s
 非线性可分问题处理 对于非线性可分的问题，通常的处理如下：在低维情况下展现出非线性不可分，但若将其升维至高维，就有可能实现线性可分。
 即通过 $x\rightarrow \varphi(x)$， 使低维上非线性可分在高维上大概率线性可分。
 以一个异或问题分类说明：
-  有四个样本点： $x_1=\begin{bmatrix} 0 \ 0 \end{bmatrix},x_2=\begin{bmatrix} 1 \ 1\end{bmatrix},x_3=\begin{bmatrix}1 \ 0 \end{bmatrix},x_4=\begin{bmatrix}0 \ 1 \end{bmatrix}$
+  有四个样本点： $x_1=\begin{bmatrix} 0 \\ 0 \end{bmatrix},x_2=\begin{bmatrix} 1 \\ 1\end{bmatrix},x_3=\begin{bmatrix}1 \\ 0 \end{bmatrix},x_4=\begin{bmatrix}0 \\ 1 \end{bmatrix}$
   要将其按异或结果进行分类，很显然，$x_1,x_2 \in C1,x_3,x_4\in C2$ , 然而表示在二维坐标下，很显然这是一个非线性可分的问题，即无法找到 $(w,b) \rightarrow y_i(w^Tx+b) \geqslant 0$
-  这时进行升维度，令 $\varphi(x)：x_i=\begin{bmatrix}a \ b\end{bmatrix} \longrightarrow \varphi(x_i)=\begin{bmatrix} a^2 \ b^2 \ a\ b\ ab \end{bmatrix}$</description>
+  这时进行升维度，令 $\varphi(x)：x_i=\begin{bmatrix}a \\ b\end{bmatrix} \longrightarrow \varphi(x_i)=\begin{bmatrix} a^2 \\ b^2 \\ a \\ b \\ ab \end{bmatrix}$</description>
     </item>
     
     <item>
