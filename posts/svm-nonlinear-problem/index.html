@@ -230,7 +230,8 @@ $\min\limits_{w,b,\xi_i} $ $\frac{1}{2}||w||^2 &#43; C\sum\limits_{i=0}^m\xi_i$ 
 <h4 id="原问题">原问题</h4>
 <p>原问题prime problem，是一个非常普适的问题，可以发现SVM的基本型就是一个原问题。其描述：</p>
 <p>$$
-L(w,\alpha,\beta)=f(w)+\sum\limits_{i=1}^k\alpha_ig_i(w)+\sum\limits_{i=1}^m\beta_ih_i(w)  \\  \quad=f(w)+\alpha^Tg(w)+\beta^Th(w))
+\min \quad f(w)  \\
+s.t. \quad g_i(w)\geqslant 0, i=1,2,&hellip;,k, \quad h_j(w)=0,j=1,&hellip;,m
 $$</p>
 <h4 id="对偶问题">对偶问题</h4>
 <ul>
