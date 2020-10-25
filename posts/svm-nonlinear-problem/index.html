@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+
+    <meta name="author" content="Jonny Shao">
+    <meta name="description" content="1. SVM处理非线性可分问题 用软间隔和正则项改写基本型 先前在处理线性可分问题时，是基于“硬间隔”的，一直假定训练样本在样本空间中是线性可分的，且要求所有样本都必须分类正确。然而现实任务中，往往很难确定某个函数是否是真正准确地分类，还是由于过拟合所造成的。
+解决这个问题就是通过“软间隔”，引入了松弛变量（slack variable）和正则项（regularization term），表现为如下的优化目标命题：
+$\min\limits_{w,b,\xi_i} $ $\frac{1}{2}||w||^2 &#43; C\sum\limits_{i=0}^m\xi_i$ , $s.t.$ $y_i[w^Tx&#43;b]\geqslant 1-\xi_i,$ $\xi_i \geqslant 0, i=1,2,&hellip;,m$
+其中 $\xi_i$ 就是松弛变量， 整个 $C\sum\limits_{i=0}^m\xi_i$ 是正则项，$C$ 是事先设定好的参数（通过尝试得到最优的设置值）。 这样的效果是允许SVM在一些样本上出错，从而解决“硬间隔”的一些问题。
+非线性可分问题处理 对于非线性可分的问题，通常的处理如下：在低维情况下展现出非线性不可分，但若将其升维至高维，就有可能实现线性可分。
+即通过 $x\rightarrow \varphi(x)$， 使低维上非线性可分在高维上大概率线性可分。
+以一个异或问题分类说明：
+  有四个样本点： $x_1=\begin{bmatrix} 0\ 0 \end{bmatrix},x_2=\begin{bmatrix} 1 \1\end{bmatrix},x_3=\begin{bmatrix}1\0 \end{bmatrix},x_4=\begin{bmatrix}0 \1 \end{bmatrix}$
+  要将其按异或结果进行分类，很显然，$x_1,x_2 \in C1,x_3,x_4\in C2$ , 然而表示在二维坐标下，很显然这是一个非线性可分的问题，即无法找到 $(w,b) \rightarrow y_i(w^Tx&#43;b) \geqslant 0$
+  这时进行升维度，令 $\varphi(x)：x_i=\begin{bmatrix}a \b\end{bmatrix} \longrightarrow \varphi(x_i)=\begin{bmatrix}a^2\b^2\a\b\ab \end{bmatrix}$
+  此时是可以找到这样的 $(w,b)$ ，使得 $w^T\varphi(x_1)&#43;b\geqslant 0 ,\quad w^T\varphi(x_2)&#43;b\geqslant0,\quad, w^T\varphi(x_3)&#43;b&lt;0,\quad w^T\varphi(x_4)&#43;b&lt;0$ 。代入进去计算，可以找到这样的 $w=\begin{bmatrix}-1\-1\-1\-1\6\end{bmatrix},\quad b=1$ 。（不止一个）">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SVM-nonlinear separable"/>
+<meta name="twitter:description" content="1. SVM处理非线性可分问题 用软间隔和正则项改写基本型 先前在处理线性可分问题时，是基于“硬间隔”的，一直假定训练样本在样本空间中是线性可分的，且要求所有样本都必须分类正确。然而现实任务中，往往很难确定某个函数是否是真正准确地分类，还是由于过拟合所造成的。
+解决这个问题就是通过“软间隔”，引入了松弛变量（slack variable）和正则项（regularization term），表现为如下的优化目标命题：
+$\min\limits_{w,b,\xi_i} $ $\frac{1}{2}||w||^2 &#43; C\sum\limits_{i=0}^m\xi_i$ , $s.t.$ $y_i[w^Tx&#43;b]\geqslant 1-\xi_i,$ $\xi_i \geqslant 0, i=1,2,&hellip;,m$
+其中 $\xi_i$ 就是松弛变量， 整个 $C\sum\limits_{i=0}^m\xi_i$ 是正则项，$C$ 是事先设定好的参数（通过尝试得到最优的设置值）。 这样的效果是允许SVM在一些样本上出错，从而解决“硬间隔”的一些问题。
+非线性可分问题处理 对于非线性可分的问题，通常的处理如下：在低维情况下展现出非线性不可分，但若将其升维至高维，就有可能实现线性可分。
+即通过 $x\rightarrow \varphi(x)$， 使低维上非线性可分在高维上大概率线性可分。
+以一个异或问题分类说明：
+  有四个样本点： $x_1=\begin{bmatrix} 0\ 0 \end{bmatrix},x_2=\begin{bmatrix} 1 \1\end{bmatrix},x_3=\begin{bmatrix}1\0 \end{bmatrix},x_4=\begin{bmatrix}0 \1 \end{bmatrix}$
+  要将其按异或结果进行分类，很显然，$x_1,x_2 \in C1,x_3,x_4\in C2$ , 然而表示在二维坐标下，很显然这是一个非线性可分的问题，即无法找到 $(w,b) \rightarrow y_i(w^Tx&#43;b) \geqslant 0$
+  这时进行升维度，令 $\varphi(x)：x_i=\begin{bmatrix}a \b\end{bmatrix} \longrightarrow \varphi(x_i)=\begin{bmatrix}a^2\b^2\a\b\ab \end{bmatrix}$
+  此时是可以找到这样的 $(w,b)$ ，使得 $w^T\varphi(x_1)&#43;b\geqslant 0 ,\quad w^T\varphi(x_2)&#43;b\geqslant0,\quad, w^T\varphi(x_3)&#43;b&lt;0,\quad w^T\varphi(x_4)&#43;b&lt;0$ 。代入进去计算，可以找到这样的 $w=\begin{bmatrix}-1\-1\-1\-1\6\end{bmatrix},\quad b=1$ 。（不止一个）"/>
+
+    <meta property="og:title" content="SVM-nonlinear separable" />
+<meta property="og:description" content="1. SVM处理非线性可分问题 用软间隔和正则项改写基本型 先前在处理线性可分问题时，是基于“硬间隔”的，一直假定训练样本在样本空间中是线性可分的，且要求所有样本都必须分类正确。然而现实任务中，往往很难确定某个函数是否是真正准确地分类，还是由于过拟合所造成的。
+解决这个问题就是通过“软间隔”，引入了松弛变量（slack variable）和正则项（regularization term），表现为如下的优化目标命题：
+$\min\limits_{w,b,\xi_i} $ $\frac{1}{2}||w||^2 &#43; C\sum\limits_{i=0}^m\xi_i$ , $s.t.$ $y_i[w^Tx&#43;b]\geqslant 1-\xi_i,$ $\xi_i \geqslant 0, i=1,2,&hellip;,m$
+其中 $\xi_i$ 就是松弛变量， 整个 $C\sum\limits_{i=0}^m\xi_i$ 是正则项，$C$ 是事先设定好的参数（通过尝试得到最优的设置值）。 这样的效果是允许SVM在一些样本上出错，从而解决“硬间隔”的一些问题。
+非线性可分问题处理 对于非线性可分的问题，通常的处理如下：在低维情况下展现出非线性不可分，但若将其升维至高维，就有可能实现线性可分。
+即通过 $x\rightarrow \varphi(x)$， 使低维上非线性可分在高维上大概率线性可分。
+以一个异或问题分类说明：
+  有四个样本点： $x_1=\begin{bmatrix} 0\ 0 \end{bmatrix},x_2=\begin{bmatrix} 1 \1\end{bmatrix},x_3=\begin{bmatrix}1\0 \end{bmatrix},x_4=\begin{bmatrix}0 \1 \end{bmatrix}$
+  要将其按异或结果进行分类，很显然，$x_1,x_2 \in C1,x_3,x_4\in C2$ , 然而表示在二维坐标下，很显然这是一个非线性可分的问题，即无法找到 $(w,b) \rightarrow y_i(w^Tx&#43;b) \geqslant 0$
+  这时进行升维度，令 $\varphi(x)：x_i=\begin{bmatrix}a \b\end{bmatrix} \longrightarrow \varphi(x_i)=\begin{bmatrix}a^2\b^2\a\b\ab \end{bmatrix}$
+  此时是可以找到这样的 $(w,b)$ ，使得 $w^T\varphi(x_1)&#43;b\geqslant 0 ,\quad w^T\varphi(x_2)&#43;b\geqslant0,\quad, w^T\varphi(x_3)&#43;b&lt;0,\quad w^T\varphi(x_4)&#43;b&lt;0$ 。代入进去计算，可以找到这样的 $w=\begin{bmatrix}-1\-1\-1\-1\6\end{bmatrix},\quad b=1$ 。（不止一个）" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.example.com/posts/svm-nonlinear-problem/" />
+<meta property="article:published_time" content="2020-10-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-25T00:00:00+00:00" />
+
+
+    <title>
+  SVM-nonlinear separable · jonnyshao
+</title>
+
+    
+      <link rel="canonical" href="http://www.example.com/posts/svm-nonlinear-problem/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.9836c03fe5c87d102278a33e86d0591ef36c89b1e17e8e547ebf84c05cee010e.css" integrity="sha256-mDbAP&#43;XIfRAieKM&#43;htBZHvNsibHhfo5Ufr&#43;EwFzuAQ4=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.717236c74e0a5208ef73964a9f44c6b443b689a95b270d8b2a40d0c012460dac.css" integrity="sha256-cXI2x04KUgjvc5ZKn0TGtEO2ialbJw2LKkDQwBJGDaw=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.76.5" />
+  </head>
+
+  
+  
+    
+  
+  <body class="colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      jonnyshao
+    </a>
+    
+      
+        <span id="dark-mode-toggle" class="float-right">
+          <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        </span>
+      
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact me</a>
+            </li>
+          
+        
+        
+        
+          <li class="navigation-item separator">
+            <span>|</span>
+          </li>
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">SVM-nonlinear separable</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2020-10-25T00:00:00Z'>
+                October 25, 2020
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              2-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/machine-learning/">Machine Learning</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <a href="/tags/machine-learning/">machine learning</a>
+      <span class="separator">•</span>
+    <a href="/tags/classification/">classification</a>
+      <span class="separator">•</span>
+    <a href="/tags/svm/">SVM</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="1-svm处理非线性可分问题">1. SVM处理非线性可分问题</h2>
+<h3 id="用软间隔和正则项改写基本型">用软间隔和正则项改写基本型</h3>
+<p>先前在处理线性可分问题时，是基于“硬间隔”的，一直假定训练样本在样本空间中是线性可分的，且要求所有样本都必须分类正确。然而现实任务中，往往很难确定某个函数是否是真正准确地分类，还是由于过拟合所造成的。</p>
+<p>解决这个问题就是通过“软间隔”，引入了松弛变量（slack variable）和正则项（regularization term），表现为如下的优化目标命题：</p>
+<p>$\min\limits_{w,b,\xi_i} $  $\frac{1}{2}||w||^2 + C\sum\limits_{i=0}^m\xi_i$ ,   $s.t.$   $y_i[w^Tx+b]\geqslant 1-\xi_i,$   $\xi_i \geqslant 0, i=1,2,&hellip;,m$</p>
+<p>其中 $\xi_i$ 就是松弛变量， 整个 $C\sum\limits_{i=0}^m\xi_i$ 是正则项，$C$ 是事先设定好的参数（通过尝试得到最优的设置值）。 这样的效果是允许SVM在一些样本上出错，从而解决“硬间隔”的一些问题。</p>
+<h3 id="非线性可分问题处理">非线性可分问题处理</h3>
+<p>对于非线性可分的问题，通常的处理如下：在低维情况下展现出非线性不可分，但若将其升维至高维，就有可能实现线性可分。</p>
+<p>即通过 $x\rightarrow \varphi(x)$， 使低维上非线性可分在高维上大概率线性可分。</p>
+<p>以一个异或问题分类说明：</p>
+<ul>
+<li>
+<p>有四个样本点： $x_1=\begin{bmatrix} 0\ 0 \end{bmatrix},x_2=\begin{bmatrix} 1 \1\end{bmatrix},x_3=\begin{bmatrix}1\0 \end{bmatrix},x_4=\begin{bmatrix}0 \1 \end{bmatrix}$</p>
+</li>
+<li>
+<p>要将其按异或结果进行分类，很显然，$x_1,x_2 \in C1,x_3,x_4\in C2$ , 然而表示在二维坐标下，很显然这是一个非线性可分的问题，即无法找到 $(w,b) \rightarrow y_i(w^Tx+b) \geqslant 0$</p>
+</li>
+<li>
+<p>这时进行升维度，令 $\varphi(x)：x_i=\begin{bmatrix}a \b\end{bmatrix} \longrightarrow \varphi(x_i)=\begin{bmatrix}a^2\b^2\a\b\ab \end{bmatrix}$</p>
+</li>
+<li>
+<p>此时是可以找到这样的 $(w,b)$ ，使得 $w^T\varphi(x_1)+b\geqslant 0 ,\quad w^T\varphi(x_2)+b\geqslant0,\quad, w^T\varphi(x_3)+b&lt;0,\quad w^T\varphi(x_4)+b&lt;0$ 。代入进去计算，可以找到这样的 $w=\begin{bmatrix}-1\-1\-1\-1\6\end{bmatrix},\quad b=1$ 。（不止一个）</p>
+</li>
+</ul>
+<p>如何取 $\varphi$ ？通过证明，可知无限维的 $\varphi$ 一定是符合要求的，然而不现实。而事实上，在SVM处理非线性可分问题时，不一定需要知道 $\varphi$ 的具体表达式，而通过知道<strong>核函数</strong> $K: K(x_1,x_2)=\varphi(x_1)^T\varphi(x_2)$， 这样上述方式就可以解决。</p>
+<h2 id="2-svm推导">2. SVM推导</h2>
+<h3 id="1-核函数确定">1. 核函数确定</h3>
+<p>不是所有函数都可以成为核函数 $K$ 的，他需要满足<strong>Mercer‘s Theorem</strong>。</p>
+<p>$K(x_1,x_2)=\varphi^T(x_1)\varphi(x_2) \Longleftrightarrow$</p>
+<ul>
+<li>$K(x_1,x_2)=K(x_2,x_1)$ ， 对称性</li>
+<li>$\forall C_i, x_i, \quad \sum\limits_{i=0}^N \sum\limits_{j=0}^N C_iC_jK(x_i,x_j) \geqslant 0$， 半正定性</li>
+</ul>
+<p>满足这样要求的核函数有很多现成的，如高斯核，多项式核等。<strong>因此下一步是，不知道</strong> $\varphi$  <strong>只知道</strong>$K$<strong>，而要实现优化目标。</strong></p>
+<h3 id="2-一些数学基础">2. 一些数学基础</h3>
+<h4 id="原问题">原问题</h4>
+<p>原问题prime problem，是一个非常普适的问题，可以发现SVM的基本型就是一个原问题。其描述：
+$$
+\min \quad f(w) \<br>
+s.t. \quad g_i(w) \leqslant 0 , \quad i=1,2&hellip;,k\ \qquad \quad h_j(w) = 0, \quad j=1,2,&hellip;.,m
+$$</p>
+<h4 id="对偶问题">对偶问题</h4>
+<ul>
+<li>$L$ 定义：</li>
+</ul>
+<p>$$
+L(w,\alpha,\beta)=f(w)+\sum\limits_{i=1}^k\alpha_ig_i(w)+\sum\limits_{i=1}^m\beta_ih_i(w) \ \quad=f(w)+\alpha^Tg(w)+\beta^Th(w))
+$$</p>
+<ul>
+<li>对偶问题描述</li>
+</ul>
+<p>$$
+\max \quad \theta(\alpha,\beta)=\inf\limits_{w}{L(w,\alpha,\beta)} \<br>
+s.t. \quad \alpha_i\geqslant 0, i=1,2,&hellip;,k
+$$</p>
+<ul>
+<li>分析
+<ul>
+<li>这里面相当于首先固定了 $\alpha,\beta$ ，遍历 $w$ 求得一个最小的 $L$ 值</li>
+<li>然后通过更改 $\alpha,\beta$ ，最大化最小</li>
+</ul>
+</li>
+</ul>
+<h4 id="原问题与对偶问题关系">原问题与对偶问题关系</h4>
+<p>$Lemma$：
+$$
+若w^<em>是原问题的解，\alpha^</em>  和  \beta^* 是 对偶问题的解，那么一定有： \<br>
+f(w^*) \geqslant \theta(\alpha^*,\beta^*)
+$$
+$proof.$
+$$
+\theta(\alpha^*,\beta^*)=\inf\limits_{w}{L(w,\alpha^*,\beta^*)}\<br>
+\quad \quad \leqslant L(w^*,\alpha^*,\beta^*)\<br>
+\qquad \qquad\qquad\qquad\qquad\qquad=f(w^*)+\sum\limits_{i=1}^k\alpha_i^*g_i(w^*)+\sum\limits_{i=1}^m\beta_i^*h_i(w^*)
+\ \quad \quad \quad \quad\because \alpha_i \geqslant 0, g_i(w^*)\leqslant 0,h_i(w^*)=0
+\\therefore \quad \theta(\alpha^*,\beta^*) \leqslant f(w^*)
+$$</p>
+<ul>
+<li>定义 $G$ 是原问题和对偶问题的间隔   (duality gap):</li>
+</ul>
+<p>$$
+G=f(w^<em>)-\theta(\alpha^</em>,\beta^*) \geqslant 0
+$$</p>
+<ul>
+<li>对于某些特定条件的优化问题，可以证明这个间隔等于0，即原问题和对偶问题间隔为0，互相转化。（<strong>Slater条件</strong>）</li>
+<li>哪些特定条件的优化问题？</li>
+<li><strong>强对偶定理</strong>：</li>
+</ul>
+<p>$$
+若f(w)是凸的（convex），g(w)是线性函数，h(w)=cw+d，则此时 G=0，即 f(w^<em>) = \theta(\alpha^</em>,\beta^*)
+$$</p>
+<ul>
+<li>强对偶定理又能推出<strong>KKT条件</strong>：</li>
+</ul>
+<p>$$
+\forall i=1-k, 或者\alpha^<em>=0，或者g_i(w^</em>)=0
+$$</p>
+<p><strong>下一步就是把SVM改写后的基本型（prime problem），转化成对偶问题（dual problem）（用slater条件，G=0），然后用KKT条件求参数结果</strong></p>
+<h3 id="3-转化基本型">3. 转化基本型</h3>
+<h4 id="重新改写目标">重新改写目标</h4>
+<h4 id="一些基础知识">一些基础知识</h4>
+<h4 id="lagrange-multipliers推导">Lagrange multipliers推导</h4>
+<h4 id="确定参数">确定参数</h4>
+<h2 id="3-svm最终流程">3. SVM最终流程</h2>
+<h2 id="4-svm处理多分类问题">4. SVM处理多分类问题</h2>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js" id="MathJax-script"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );">
+  </script>
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>You are my priority</p>
+      
+      
+        ©
+        
+          2018 -
+        
+        2020
+         Jonny Shao 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+        
+      
+    </section>
+  </footer>
+
+    </main>
+
+    
+      
+      <script src="/js/dark-mode.min.0213e1773e6d1c5a644f847c67a6f8abac49a3776e2976f6008038af8c5b76a1.js"></script>
+    
+
+    
+
+    
+
+    <script>
+(function(f, a, t, h, o, m){
+	a[h]=a[h]||function(){
+		(a[h].q=a[h].q||[]).push(arguments)
+	};
+	o=f.createElement('script'),
+	m=f.getElementsByTagName('script')[0];
+	o.async=1; o.src=t; o.id='fathom-script';
+	m.parentNode.insertBefore(o,m)
+})(document, window, '//analytics.example.com/tracker.js', 'fathom');
+fathom('set', 'siteId', 'ABCDE');
+fathom('trackPageview');
+</script>
+
+
+    <script async defer data-domain="example.com" src="https://analytics.example.com/js/plausible.js"></script>
+
+
+    <script data-goatcounter="https://code.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+  </body>
+
+</html>
