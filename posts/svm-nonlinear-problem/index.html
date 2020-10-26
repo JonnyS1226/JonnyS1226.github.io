@@ -45,8 +45,8 @@ $\min\limits_{w,b,\xi_i} $ $\frac{1}{2}||w||^2 &#43; C\sum\limits_{i=0}^m\xi_i$ 
   这时进行升维度，令 $\varphi(x)：x_i=\begin{bmatrix}a \\ b\end{bmatrix} \longrightarrow \varphi(x_i)=\begin{bmatrix} a^2 \\ b^2 \\ a \\ b \\ ab \end{bmatrix}$" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://www.example.com/posts/svm-nonlinear-problem/" />
-<meta property="article:published_time" content="2020-10-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-10-25T00:00:00+00:00" />
+<meta property="article:published_time" content="2020-10-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-26T00:00:00+00:00" />
 
 
     <title>
@@ -165,13 +165,13 @@ $\min\limits_{w,b,\xi_i} $ $\frac{1}{2}||w||^2 &#43; C\sum\limits_{i=0}^m\xi_i$ 
           <div class="date">
             <span class="posted-on">
               <i class="fa fa-calendar" aria-hidden="true"></i>
-              <time datetime='2020-10-25T00:00:00Z'>
-                October 25, 2020
+              <time datetime='2020-10-26T00:00:00Z'>
+                October 26, 2020
               </time>
             </span>
             <span class="reading-time">
               <i class="fa fa-clock-o" aria-hidden="true"></i>
-              2-minute read
+              3-minute read
             </span>
           </div>
           
@@ -289,14 +289,123 @@ $$</p>
 <p>$$
 \forall i=1-k, \alpha^*  =0，or \quad g_i(w^*  )=0
 $$</p>
-<p><strong>下一步就是把SVM改写后的基本型（prime problem），转化成对偶问题（dual problem）（用slater条件，G=0），然后用KKT条件求参数结果</strong></p>
-<h3 id="3-转化基本型">3. 转化基本型</h3>
-<h4 id="重新改写目标">重新改写目标</h4>
+<p><strong>下一步就是把SVM改写后的基本型（改写为prime problem），转化成对偶问题（dual problem）（用slater条件，G=0），然后用KKT条件求参数结果</strong></p>
+<h3 id="3-基本型转化为对偶问题">3. 基本型转化为对偶问题</h3>
+<h4 id="重新改写目标并转换为对偶问题">重新改写目标并转换为对偶问题</h4>
+<ul>
+<li>首先看一下原来的SVM基本型：</li>
+</ul>
+<p>$\min\limits_{w,b,\xi_i} $  $\frac{1}{2}||w||^2 + C\sum\limits_{i=0}^m\xi_i$ ,   $s.t.$   $y_i[w^Tx+b]\geqslant 1-\xi_i,$   $\xi_i \geqslant 0, i=1,2,&hellip;,n$</p>
+<ul>
+<li>为了将其描述为原问题，所以通过取负 $\xi_i$，移项，改写成如下的形式：</li>
+</ul>
+<p>$$
+\min \quad \frac{1}{2}||w||^2-C\sum\limits_{i=0}^n\xi_i \\
+s.t. \quad \quad 1+\xi_i-y_i[w^T\varphi(x_i)+b] \leqslant 0 \\
+\quad \xi_i \leqslant 0, \quad i=1,2,&hellip;n
+$$</p>
+<ul>
+<li>对比原问题，这个新的目标就是原问题中有两个 $g$ 函数，没有 $h$ 函数。$f$ 很显然是convex的，判断后发现符合强对偶定理。因此可以直接转换为对偶问题：</li>
+</ul>
+<p>$$
+\max \quad \theta(\alpha,\beta)=\inf\limits_{w,\xi_i,b}{ \frac{1}{2}||w||^2-C\sum\limits_{i=1}^n\xi_i+\sum\limits_{i=1}^n\beta_i\xi_i + \sum\limits_{i=1}^n\alpha_i[1+\xi_i-y_iw^T\varphi(x_i)-y_ib] } \\
+s.t. \quad \alpha_i \geqslant 0, \quad \beta_i \geqslant 0, \quad i=1,2,&hellip;,n
+$$</p>
+<ul>
+<li>必须要解释的是，这里的 $\alpha$ ，$\beta$ 并不是对偶问题中的 $\alpha$ ，$\beta$ ，而仅仅是对偶问题中的 $\alpha$（因为事实上SVM原问题有两个 $g$，应该对应两个不同的 $\alpha$， 而此处相当于记成了 $\alpha$ 和 $\beta$ 而已 ），对偶问题中的  $\beta$ 在此处是不存在的，因为 $h$ 函数不存在（或认为恒为0）。</li>
+</ul>
 <h4 id="一些基础知识">一些基础知识</h4>
+<p>矩阵（或向量）中求导，如 $w$ 是一个向量，则 $\frac{\partial f(w)}{\partial w}$ 是对向量中每个分量都求偏导，从而形成的新的向量。</p>
+<p>因此有：</p>
+<ul>
+<li>若 $f(w)=\frac{1}{2}||w||^2, \quad \frac{df}{dw}=w$</li>
+<li>若 $f(w)=w^Tx, \quad \frac{df}{dw}=x$</li>
+</ul>
+<p>最终想要实现的测试流程：</p>
+<ul>
+<li>若 $w^T\varphi(x)+b \geqslant 0, \quad y=+1$</li>
+<li>若 $w^T\varphi(x)+b &lt; 0, \quad y=-1$</li>
+</ul>
+<p>因此不需要特别算出 $w$，只要算整体就可以了，这在后续推导中很有作用。</p>
 <h4 id="lagrange-multipliers推导">Lagrange multipliers推导</h4>
-<h4 id="确定参数">确定参数</h4>
+<p>记转换后的对偶问题的最大化目标式子记为 $L$，$L=\frac{1}{2}||w||^2-C\sum\limits_{i=1}^n\xi_i+\sum\limits_{i=1}^n\beta_i\xi_i + \sum\limits_{i=1}^n\alpha_i[1+\xi_i-y_iw^T\varphi(x_i)-y_ib]$</p>
+<ol>
+<li>
+<p>$\frac{\partial L}{\partial w}=0 \quad \longrightarrow \quad w-\sum\limits_{i=1}^n \alpha_i y_i \varphi(x_i)=0$</p>
+</li>
+<li>
+<p>$\frac{\partial L}{\partial b}=0 \quad \longrightarrow \quad \sum\limits_{i=1}^n \alpha_iy_i=0$</p>
+</li>
+<li>
+<p>$\frac{\partial L}{\partial \xi_i}=0 \quad \longrightarrow \quad -C+\beta_i+\alpha_i=0$</p>
+</li>
+</ol>
+<p>将2，3代入回 $L, \quad L=\frac{1}{2}||w||^2+\sum\limits_{i=1}^n\alpha_i-\sum\limits_{i=1}^n\alpha_iy_iw^T\varphi(x_i)$</p>
+<p>再将1代入:</p>
+<p>$||w||^2=w^Tw$</p>
+<p>$\quad \qquad = (\sum\limits_{i=1}^n \alpha_i y_i \varphi(x_i))^T(\sum\limits_{j=1}^n \alpha_j y_j \varphi(x_j))$</p>
+<p>$\qquad \quad = \sum\limits_{i=1}^n \sum\limits_{j=1}^n \alpha_i \alpha_j y_i y_j \varphi^T(x_i) \varphi(x_j)$</p>
+<p>$\qquad \quad = \sum\limits_{i=1}^n \sum\limits_{j=1}^n \alpha_i \alpha_j y_i y_j K(x_i,x_j)$</p>
+<p>$-\sum\limits_{i=1}^n\alpha_iy_iw^T\varphi(x_i)=-\sum\limits_{i=1}^n \sum\limits_{j=1}^n \alpha_i \alpha_j y_i y_j \varphi(x_i) \varphi^T(x_j)$</p>
+<p>$\qquad \qquad \qquad \qquad = -\sum\limits_{i=1}^n \sum\limits_{j=1}^n \alpha_i \alpha_j y_i y_j K(x_j,x_i)$</p>
+<p>$\qquad \qquad \qquad \qquad = -\sum\limits_{i=1}^n \sum\limits_{j=1}^n \alpha_i \alpha_j y_i y_j K(x_i,x_j)$</p>
+<p>所以 $L=\sum\limits_{i=1}^n \alpha_i-\frac{1}{2}\sum\limits_{i=1}^n \sum\limits_{j=1}^n \alpha_i \alpha_j y_i y_j K(x_i,x_j)$</p>
+<p>这样的目标函数是convex的，使用凸优化理论和<strong>SMO</strong>算法进行求解出 $\alpha_i,\beta_i$，然后代入求解出参数 $w^T\varphi(x)$，使用KKT条件求解出 $b$</p>
+<h4 id="确定参数和限制条件">确定参数和限制条件</h4>
+<ul>
+<li>将1代入，求解参数 $w^T\varphi(x)$</li>
+</ul>
+<p>$w^T\varphi(x) = \sum\limits_{i=1}^n \alpha_iy_iK(x,x_i)$</p>
+<ul>
+<li>KKT条件求解b
+<ul>
+<li>在此时，KKT条件表示为：
+<ul>
+<li>要么 $\beta_i=0$，要么 $\xi_i=0$</li>
+<li>要么 $\alpha_i=0$，要么 $1+\xi_i-y_i[w^T\varphi(x_i)+b]=0$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>我们可以取一个 $0&lt;\alpha_i&lt;C$，</p>
+<p>$\because \beta=C-\alpha &gt; 0 \Rightarrow \xi_i=0$</p>
+<p>$\because \alpha_i \neq 0 \Rightarrow 1=y_i[w^T\varphi(x_i)+b]$</p>
+<p>$\therefore b=\frac{1-y_iw^T\varphi(x_i)}{y_i}=\frac{1-y_i\sum\limits_{i=1}^n\alpha_iy_iK(x_j,x_i)}{y_i}$</p>
+<ul>
+<li>确定限制条件，根据1，2，3条件可以确定：</li>
+</ul>
+<p>$s.t. \quad 0 \leqslant \alpha_i \leqslant C, \\ \qquad \sum\limits_{i=1}^n\alpha_iy_i=0,\quad  i=1,2,&hellip;,n$</p>
 <h2 id="3-svm最终流程">3. SVM最终流程</h2>
+<ul>
+<li><strong>训练流程</strong></li>
+</ul>
+<ol>
+<li>输入 ${(x_i,y_i)},i=1,2,&hellip;,N$</li>
+<li>用SMO算法（非重点）解优化问题：</li>
+</ol>
+<p>$$
+\max \qquad \theta(\alpha)=\sum\limits_{i=1}^n \alpha_i-\frac{1}{2}\sum\limits_{i=1}^n \sum\limits_{j=1}^n \alpha_i \alpha_j y_i y_j K(x_i,x_j) \\ s.t. \quad 0 \leqslant \alpha_i \leqslant C, \\ \qquad \qquad \qquad \sum\limits_{i=1}^n\alpha_iy_i=0,\quad  i=1,2,&hellip;,n
+$$</p>
+<ol start="3">
+<li>算b，$b=\frac{1-y_iw^T\varphi(x_i)}{y_i}=\frac{1-y_i\sum\limits_{i=1}^n\alpha_iy_iK(x_j,x_i)}{y_i}$</li>
+</ol>
+<ul>
+<li><strong>测试流程</strong></li>
+</ul>
+<ol>
+<li>输入测试样本 $x$</li>
+<li>进行检验</li>
+<li>若 $\sum\limits_{i=1}^N\alpha_iy_iK(x_i,x)+b\geqslant 0,y=+1$ ; 若 $\sum\limits_{i=1}^N\alpha_iy_iK(x_i,x)+b &lt; 0,y=-1$</li>
+</ol>
 <h2 id="4-svm处理多分类问题">4. SVM处理多分类问题</h2>
+<p>SVM天生用于处理二分类问题，但对于多分类问题也可以进行处理，主要有以下三种方式</p>
+<ul>
+<li>改造目标函数和策略</li>
+<li>一类 v.s. 其他类 （若要n-multiclass，则要进行n次SVM）</li>
+<li>一类 v.s. 另一类 （若要n-multiclass，则要进行 $\binom{n}{2}$ 次SVM投票）</li>
+</ul>
+<p>第三种方式虽然进行SVM次数多，但是实践结果更优。</p>
 
       </div>
 

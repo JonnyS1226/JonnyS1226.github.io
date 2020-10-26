@@ -6,11 +6,11 @@
     <description>Recent content in classification on jonnyshao</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 25 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/tags/classification/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/tags/classification/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>SVM-nonlinear separable</title>
       <link>http://www.example.com/posts/svm-nonlinear-problem/</link>
-      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 26 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>http://www.example.com/posts/svm-nonlinear-problem/</guid>
       <description>1. SVM处理非线性可分问题 用软间隔和正则项改写基本型 先前在处理线性可分问题时，是基于“硬间隔”的，一直假定训练样本在样本空间中是线性可分的，且要求所有样本都必须分类正确。然而现实任务中，往往很难确定某个函数是否是真正准确地分类，还是由于过拟合所造成的。
