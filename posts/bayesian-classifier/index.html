@@ -223,13 +223,12 @@ $P(w_1|x)=\frac{P(w_2,x)}{P(x)}=\frac{P(x|w_2)P(w_2)}{P(x)}$
 <p>假设 ${x_i } \in C,i=1,2,&hellip;,N，x_i$ 是一维情况：
 $$
 \left{
-\begin{array}{<strong>lr</strong>}
-P(x|c)=\frac{1}{\sqrt{2\pi}\delta}e^{-\frac{(x-\mu)^2}{2\delta^2}}	\\
-\mu=\frac{1}{N}\sum\limits_{i=1}^Nx_i \\
-\delta^2=\frac{1}{N-1}\sum\limits_{i=1}^N(x_i-\mu)^2</p>
-<pre><code>            \end{array}
-</code></pre>
-<p>\right.
+\begin{aligned}
+P(x|c)&amp;=\frac{1}{\sqrt{2\pi}\delta}e^{-\frac{(x-\mu)^2}{2\delta^2}}	\\
+\mu&amp;=\frac{1}{N}\sum\limits_{i=1}^Nx_i \\
+\delta^2&amp;=\frac{1}{N-1}\sum\limits_{i=1}^N(x_i-\mu)^2
+\end{aligned}
+\right.
 $$</p>
 <h4 id="多维情况下极大似然法">多维情况下极大似然法</h4>
 <p>多维情况下，我们使用极大似然估计，来求高斯分布的参数情况。</p>
@@ -247,23 +246,21 @@ $$</p>
 </ol>
 <p>$$
 \left{
-\begin{array}{<strong>lr</strong>}
-\mu=\frac{1}{N}\sum\limits_{i=1}^Nx_i \\
-\sum=\frac{1}{N}\sum\limits_{i=1}^N(x_i-\mu)(x_i-\mu)^T</p>
-<pre><code>            \end{array}
-</code></pre>
-<p>\right.
+\begin{aligned}
+\mu&amp;=\frac{1}{N}\sum\limits_{i=1}^Nx_i \\
+\sum&amp;=\frac{1}{N}\sum\limits_{i=1}^N(x_i-\mu)(x_i-\mu)^T
+\end{aligned}
+\right.
 $$</p>
 <p><strong>但是这种方式不是万能的，对于一些情况，极大似然法有可能求不出（非convex），如对于混合高斯模型，就要使用新的方法去求解。</strong></p>
 <h2 id="4-em算法">4. EM算法</h2>
 <p>对于混合高斯模型，有如下：
 $$
-\left{
-\begin{array}{}
-P(x|c)=\sum\limits_{i=1}^K\pi_kN(x|\mu_k,\sum_k) \\
-N(x|\mu_k,\sum_k)=\frac{1}{\sqrt{(2\pi)^d|\sum_k|}}exp{-\frac{1}{2}(x-\mu_k)\sum_k^{-1}(x-\mu_k)} \\
-\sum\limits_{k=1}^K\pi_k=1
-\end{array}
+\left{ \begin{aligned}
+P(x|c)&amp;=\sum\limits_{i=1}^K\pi_kN(x|\mu_k,\sum_k) \\
+N(x|\mu_k,\sum_k)&amp;=\frac{1}{\sqrt{(2\pi)^d|\sum_k|}}exp{-\frac{1}{2}(x-\mu_k)\sum_k^{-1}(x-\mu_k)} \\
+\sum\limits_{k=1}^K\pi_k&amp;=1
+\end{aligned}
 \right.
 $$
 使用极大似然法发现非凸函数，只能求局部极值，因此要使用其他算法，如启发式算法（遗传，模拟退火等）、梯度下降等方法。</p>
@@ -285,11 +282,11 @@ $$
 </ol>
 <p>$$
 \left{
-\begin{array}{}
-\pi_k^{new}=\frac{N_k}{N} \\
-\mu_k^{new}=\frac{1}{N_k}\sum\limits_{n=1}^N\gamma_{nk}x_n \\
-\sum_k^{new}=\frac{1}{N_k}\sum\limits_{n=1}^N\gamma_{nk}(x_n-\mu_k^{new})(x_n-\mu_k^{new})^T
-\end{array}
+\begin{aligned}
+\pi_k^{new}&amp;=\frac{N_k}{N} \\
+\mu_k^{new}&amp;=\frac{1}{N_k}\sum\limits_{n=1}^N\gamma_{nk}x_n \\
+\sum_k^{new}&amp;=\frac{1}{N_k}\sum\limits_{n=1}^N\gamma_{nk}(x_n-\mu_k^{new})(x_n-\mu_k^{new})^T
+\end{aligned}
 \right.
 $$</p>
 <ul>
