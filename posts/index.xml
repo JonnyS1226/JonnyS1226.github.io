@@ -6,7 +6,25 @@
     <description>Recent content in Posts on jonnyshao</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 26 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bayes classifier and EM algo.</title>
+      <link>http://www.example.com/posts/bayesian-classifier/</link>
+      <pubDate>Tue, 27 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/bayesian-classifier/</guid>
+      <description>1. 概率论角度分类 基本问题：假设有两个类 $w_1,w_2$， 有某样本 $x$， 对其进行分类
+那么可以转换成求：$P(w_1|x)$ 和 $P(w_2|x)$ ，其中 $P(w_1|x)+P(w_2|x)=1$
+那么分类问题结果判定就是：若$P(w_1|x)&amp;gt;P(w_2|x)\rightarrow x\in w_1$，反之 $x \in w_2$
+而可以使用贝叶斯公式拆开条件概率：
+$P(w_1|x)=\frac{P(w_1,x)}{P(x)}=\frac{P(x|w_1)P(w_1)}{P(x)}$
+$P(w_1|x)=\frac{P(w_2,x)}{P(x)}=\frac{P(x|w_2)P(w_2)}{P(x)}$
+因此分类问题结果判定转换为：若 $P(x|w_1)P(w_1)&amp;gt;P(x|w_2)P(w_2)\rightarrow x \in w_1$，反之 $x \in w_2$
+ $P(w_1),P(w_2)$ 是 $w$ 的先验概率 $P(x|w_1),P(x|w_2)$ 是 $x$ 在 $w$ 上的条件概率 $P(w_1|x),P(w_2|x)$ 是 $x$ 在 $w$ 上的后验概率  2. 朴素贝叶斯分类器 朴素贝叶斯分类器，限制条件：
+ $x = \begin{bmatrix} x_1 \\ x_2 \\ &amp;hellip; \\ x_m \end{bmatrix}$， 每个维度都是离散的 $x$ 的每个维度都是独立的  这样, $P(c|x)=\frac{P(c)P(x|c)}{P(x)}=\frac{P(c)}{P(x)} \prod\limits_{i=1}^dP(x_i|c)$
+比较不同类概率时，只需要比较 $P(c) \prod\limits_{i=1}^dP(x_i|c)$</description>
+    </item>
+    
     <item>
       <title>SVM-nonlinear separable</title>
       <link>http://www.example.com/posts/svm-nonlinear-problem/</link>
