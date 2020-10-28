@@ -220,8 +220,8 @@ $P(w_1|x)=\frac{P(w_2,x)}{P(x)}=\frac{P(x|w_2)P(w_2)}{P(x)}$
 <h2 id="3-高斯概率密度估计">3. 高斯概率密度估计</h2>
 <p>很多时候，当我们知道样本所服从的概率分布类型，就可以方便的计算概率。此处以高斯分布为例。</p>
 <h4 id="一维情况下">一维情况下</h4>
-<p>假设 ${x_i } \in C,i=1,2,&hellip;,N，x_i$ 是一维情况：
-$$
+<p>假设 ${x_i } \in C,i=1,2,&hellip;,N，x_i$ 是一维情况：</p>
+<p>$$
 \left{ \begin{aligned} P(x|c)&amp;=\frac{1}{\sqrt{2\pi}\delta}e^{-\frac{(x-\mu)^2}{2\delta^2}}	\\ \mu&amp;=\frac{1}{N}\sum\limits_{i=1}^Nx_i \\ \delta^2&amp;=\frac{1}{N-1}\sum\limits_{i=1}^N(x_i-\mu)^2 \end{aligned} \right.
 $$</p>
 <h4 id="多维情况下极大似然法">多维情况下极大似然法</h4>
