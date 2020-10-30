@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>clustering on jonnyshao</title>
+    <link>http://www.example.com/tags/clustering/</link>
+    <description>Recent content in clustering on jonnyshao</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 30 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/tags/clustering/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>unsupervised learning: clustering</title>
+      <link>http://www.example.com/posts/unsupervised-learning-clustering/</link>
+      <pubDate>Fri, 30 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/unsupervised-learning-clustering/</guid>
+      <description>无监督学习和聚类  无监督学习和监督学习的最大区别就是：在无监督学习中，我们的数据没有附带任何标签。 聚类和降维是两种典型的无监督学习算法 聚类算法就是根据输入的一系列无标签的训练数据，去寻找这个数据的内在结构，形成一系列簇。 聚类算法广泛应用在包括market segmentation，social network analysis等方面。  K-means算法 K-means是最普及的聚类算法，也是之前所述的EM算法中的一个典型，整体通过迭代来完成将数据聚类成若干个簇。
+算法流程和原理 用文字描述其流程：
+ 首先选择 $K$ 个随机点（$K$ 是输入的聚类数目），称为聚类中心 对于数据集中的每一个数据，按照距离 $K$ 个中心点的距离，将其与距离最近的中心点关联起来，这些点聚成一簇 计算这一个簇的所有点的均值，然后将该组的中心点移动到均值的地方 重复2，3，直至收敛（中心点不再变化）  进一步描述：
+  随机化 $\mu_1,\mu_2,&amp;hellip;,\mu_K$
+  E-step：优化目标 $Z_i=argmin||x_i-\mu_k||$
+  M-step：
+$N_k=\sum\limits_{i=1}^NI(Z_i=k)$，表示N个样本中有多少属于第k类
+$M_k=\frac{1}{N_k}\sum\limits_{i=1,Z_i=k}^Nx_i$，表示第k类样本的均值
+  重复2-3，直至收敛
+  优化目标 K-means最小化问题，是要最小化所有的数据点和它关联的聚类中心点之间的距离之和，因此，K-means的代价函数（畸变函数Distortion function）：
+$J(c^{(1)},c^{(2)},&amp;hellip;,c^{(m)},\mu_1,\mu_2,&amp;hellip;,\mu_k)=\frac{1}{m}\sum\limits_{i=1}^m||x^{(i)}-\mu_{c^{(i)}}||^2$
+其中 ，$c^{(i)}$ 表示 $x^{(i)}$ 被指派关联的那个聚类的索引，$\mu_k$ 表示聚类中心 $k$ ，$\mu_{c^{(i)}}$ 表示与 $x^{(i)}$ 最近的聚类中心点。
+随机初始化 在运行K-means算法前，需要随机初始化所有的聚类中心点，正确的初始化方式是：
+ 首先选择 $K &amp;lt; m$，即聚类中心要小于所有训练集实例的数量 随机选择 $K$ 个训练实例，然后令 $K$ 个聚类中心分别和这 $K$ 个训练实例相等。  这样会带来的问题是，有可能因为随机初始化的原因，导致最终停留在local optima。</description>
+    </item>
+    
+  </channel>
+</rss>
