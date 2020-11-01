@@ -246,18 +246,18 @@ $$
 为便于讨论，令降维后的样本 $Z$ 被中心化，有 $\sum\limits_{i=1}^mz_i=0$ 。显然，矩阵 $B$ 的行与列之和均为0，即 $\sum\limits_{i=1}^mb_{ij}=\sum\limits_{j=1}^mb_{ij}=0$ 。$tr(\cdot)$ 表示矩阵的迹。这样有：
 $$
 \begin{aligned}
-\sum\limits_{i=1}^mdist_{ij}^2&amp;=\sum\limits_{i=1}^m(b_{ii}+b_{jj}-2b_{ij}) \\
-&amp;=tr(B)+mb_{jj} \\</p>
-<p>\sum\limits_{i=1}^mdist_{ij}^2&amp;=tr(B)+mb_{ii} \\
-\sum\limits_{i=1}^m \sum\limits_{j=1}^m dist_{ij}^2 &amp;=\sum\limits_{i=1}^m \sum\limits_{j=1}^m (||z_i||^2+||z_j||^2-2z_i^Tz_j) \\
-&amp;=2mtr(B) \\
-\\
-dist_{i.}^2&amp;=\frac{1}{m}\sum\limits_{j=1}^m dist_{ij}^2 \\
-dist_{.j}^2&amp;=\frac{1}{m}\sum\limits_{i=1}^mdist_{ij}^2 \\
-dist_{..}^2&amp;=\frac{1}{m^2}\sum\limits_{i=1}^m \sum\limits_{j=1}^mdist_{ij}^2 \\
-tr(b)&amp;=\sum\limits_{i=1}^M||z_i||^2 \\
-&amp;=\frac{1}{2m}\sum\limits_{i=1}^m \sum\limits_{j=1}^mdist_{ij}^2 \\
-&amp;=\frac{m}{2}dist^2_{..}
+\sum\limits_{i=1}^mdist_{ij}^2&amp;=\sum\limits_{i=1}^m(b_{ii}+b_{jj}-2b_{ij}) \
+&amp;=tr(B)+mb_{jj} \</p>
+<p>\sum\limits_{i=1}^mdist_{ij}^2&amp;=tr(B)+mb_{ii} \
+\sum\limits_{i=1}^m \sum\limits_{j=1}^m dist_{ij}^2 &amp;=\sum\limits_{i=1}^m \sum\limits_{j=1}^m (||z_i||^2+||z_j||^2-2z_i^Tz_j) \
+&amp;=2mtr(B) \
+\
+dist_{i.}^2&amp;=\frac{1}{m}\sum\limits_{j=1}^m dist_{ij}^2 \
+dist_{.j}^2&amp;=\frac{1}{m}\sum\limits_{i=1}^mdist_{ij}^2 \
+dist_{..}^2&amp;=\frac{1}{m^2}\sum\limits_{i=1}^m \sum\limits_{j=1}^mdist_{ij}^2 \
+tr(b)&amp;=\sum\limits_{i=1}^M||z_i||^2 \
+&amp;=\frac{1}{2m}\sum\limits_{i=1}^m \sum\limits_{j=1}^mdist_{ij}^2 \<br>
+&amp;=\frac{m}{2}dist^2_{..} \
 \end{aligned}
 $$
 由上述式子可得： $b_{ij}=-\frac{1}{2}(dist_{ij}^2-dist_{i.}^2-dist_{.j}^2+dist_{..}^2)$</p>
