@@ -243,26 +243,42 @@ dist^2_{ij}&amp;=||z_i-z_j||^2 \\
 &amp;=b_{ii}+b_{jj}-2b_{ij}
 \end{aligned}
 $$
-为便于讨论，令降维后的样本 $Z$ 被中心化，有 $\sum\limits_{i=1}^mz_i=0$ 。显然，矩阵 $B$ 的行与列之和均为0，即 $\sum\limits_{i=1}^mb_{ij}=\sum\limits_{j=1}^mb_{ij}=0$ 。$tr(\cdot)$ 表示矩阵的迹。这样有：
-$$
-\begin{aligned}
-\sum\limits_{i=1}^mdist_{ij}^2&amp;=\sum\limits_{i=1}^m(b_{ii}+b_{jj}-2b_{ij}) \
-&amp;=tr(B)+mb_{jj} \</p>
-<p>\sum\limits_{i=1}^mdist_{ij}^2&amp;=tr(B)+mb_{ii} \
-\sum\limits_{i=1}^m \sum\limits_{j=1}^m dist_{ij}^2 &amp;=\sum\limits_{i=1}^m \sum\limits_{j=1}^m (||z_i||^2+||z_j||^2-2z_i^Tz_j) \
-&amp;=2mtr(B) \
-\
-dist_{i.}^2&amp;=\frac{1}{m}\sum\limits_{j=1}^m dist_{ij}^2 \
-dist_{.j}^2&amp;=\frac{1}{m}\sum\limits_{i=1}^mdist_{ij}^2 \
-dist_{..}^2&amp;=\frac{1}{m^2}\sum\limits_{i=1}^m \sum\limits_{j=1}^mdist_{ij}^2 \
-tr(b)&amp;=\sum\limits_{i=1}^M||z_i||^2 \
-&amp;=\frac{1}{2m}\sum\limits_{i=1}^m \sum\limits_{j=1}^mdist_{ij}^2 \<br>
-&amp;=\frac{m}{2}dist^2_{..} \
-\end{aligned}
-$$
-由上述式子可得： $b_{ij}=-\frac{1}{2}(dist_{ij}^2-dist_{i.}^2-dist_{.j}^2+dist_{..}^2)$</p>
+为便于讨论，令降维后的样本 $Z$ 被中心化，有 $\sum\limits_{i=1}^mz_i=0$ 。显然，矩阵 $B$ 的行与列之和均为0，即 $\sum\limits_{i=1}^mb_{ij}=\sum\limits_{j=1}^mb_{ij}=0$ 。$tr(\cdot)$ 表示矩阵的迹。这样有：</p>
+<figure>
+    <img src="/images/%e5%85%ac%e5%bc%8f1.png" width="50%" height="50%"/> 
+</figure>
+
+<p>由上述式子可得： $b_{ij}=-\frac{1}{2}(dist_{ij}^2-dist_{i.}^2-dist_{.j}^2+dist_{..}^2)$</p>
 <p>这样就可以直接根据原始的距离矩阵 $D$ 求出这个内积矩阵 $B$</p>
-<h2 id="pca主成分分析法">PCA主成分分析法</h2>
+<p>对矩阵 $B$ 进行特征值分解，$B=V\Lambda V^T$，而 $B=Z^TZ$ ，因此可以取 $Z=\Lambda^{1/2}V^T$ 作为样本的低维描述。</p>
+<ul>
+<li>因此该算法可以描述为：</li>
+</ul>
+<p><strong>输入</strong>：高维情况下（原始情况）的距离矩阵 $D$，低维空间维数 $d^{'}$</p>
+<p><strong>过程</strong>：</p>
+<ol>
+<li>计算$dist$</li>
+<li>计算内积矩阵 $B$</li>
+<li>对 $B$ 特征值分解，取$\Lambda$ 为 $d^{'}$ 个最大特征值构成的对角阵，$V$ 为相应的特征向量矩阵。</li>
+</ol>
+<p><strong>输出</strong>：矩阵  $V\Lambda^{1/2} \in R^{m \times d^{'}}$ ，每行是一个样本的低维坐标。</p>
+<h2 id="pca主成分分析法直观分析">PCA主成分分析法—直观分析</h2>
+<p>主成分分析说通过分析向量空间的主成分，将主成分提取出来，不重要的成分略去，从而达到降维压缩信息的目的。</p>
+<p>直观上来说，PCA的基本想法是投影+方差最大化。在二维图中，就相当于将二维坐标系的点，投影到某条直线上，然而为了使信息尽可能地保存，就需要投影后的点尽可能地分开，因此就需要方差最大化。找到这样一条直线，就相当于将一个二维样本尽可能好地降维到了一维。</p>
+<p>考虑协方差矩阵，它计算了不同维度之间的协方差，其主对角线的是表示方差，非主对角线是协方差。我们要使得主对角线上的值尽可能大，而非主对角线上的值尽可能为0（即让不同维度间的相关性尽可能小，降噪）。</p>
+<p>因此只需要对协方差矩阵做特征值分解，然后选取最大的若干个特征值对应的特征向量组合即可。</p>
+<ul>
+<li>流程</li>
+</ul>
+<p><strong>输入</strong>：样本集 $D={x_1,x_2&hellip;,x_m}$，低维空间维数 $d^{ &lsquo;}$</p>
+<p><strong>过程</strong>：</p>
+<ol>
+<li>对所有样本进行中心化</li>
+<li>计算样本的协方差矩阵 $XX^T$</li>
+<li>对协方差矩阵做特征值分解</li>
+<li>选取最大的 $d^{'}$ 个特征值所对应的特征向量 $w_1,w_2,&hellip;,w_{d^{'}}$</li>
+</ol>
+<p><strong>输出</strong>： 投影矩阵 $W^{ * }=(w_1,w_2,&hellip;,w_{d^{'}})$</p>
 
       </div>
 
