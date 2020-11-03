@@ -26,10 +26,10 @@
   感知器算法是两层神经网络（输入层$x_1,x_2$, 系数$w_1,w_2$, 偏置b, 输出层$y$）
   activation function 取阶跃函数
   感知器算法能实现逻辑与、或、非运算
- $\bigcap$	$w_1=w_2=1,b=-2 \rightarrow y=\varphi(x_1+x_2-2)$; only if $x_1=x_2=1$, $y=1$ $\bigcup$ $w_1=w_2=1,b=-0.5\rightarrow y=\varphi(x_1+x_2-0.5)$; only if $x_1=1 $ OR $x_2=1,y=1$ $～$ $w_1=-0.6,w_2=0,b=0.5\rightarrow y=\varphi(-0.6x_1+0.6)$; only if $x_1=1,y=0$; only if $x_1=0,y=1$    感知器算法可以区分与或非，然而无法对异或问题进行分类
-  即对于非线性可分的问题（生活中大多数都是非线性可分问题），就要使用多层功能神经元，且同样要保证激活函数是非线性的，本文第3点将简单证明使用三层神经网络能模拟任意决策面
-  3. 多层神经网络   以如下的多层神经网络为例
-      激活函数取阶跃函数（如果取了线性函数，可以证明最终同样无法处理线性不可分的），我们可以写出以下的式子：</description>
+ $\bigcap$	$w_1=w_2=1,b=-2 \rightarrow y=\varphi(x_1+x_2-2)$; only if $x_1=x_2=1$, $y=1$ $\bigcup$ $w_1=w_2=1,b=-0.5\rightarrow y=\varphi(x_1+x_2-0.5)$; only if $x_1=1 $ OR $x_2=1,y=1$ $～$ $w_1=-0.6,w_2=0,b=0.5\rightarrow y=\varphi(-0.6x_1+0.6)$; only if $x_1=1,y=0$; only if $x_1=0,y=1$    感知器模型
+输入数据集 ${ (x_i,y_i)},i=1-N$，学习率 $\eta \in (0,1]$
+输出 $w,b;\quad f(x)=sign(wx+b)$
+ 随机选取初值 $w_0,b_0$ 在训练集中选取数据 $(x_i,y_i)$ 如果 $y_i(wx_i+b) \leqslant 0$ ，使用学习率进行更新 $w,b$ 转至2，直至训练集中没有误差  正常算的时候，就相当于构建最优化问题：$\min\limits_{w,b} \quad L(w,b)=-\sum\limits_{x_i \in M} y_i(wx+b)$</description>
     </item>
     
   </channel>
