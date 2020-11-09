@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+
+    <meta name="author" content="Jonny Shao">
+    <meta name="description" content="1. 决策树建树-Hunt算法 Hunt算法是决策树学习生成的基础算法，是一个递归的过程，算法如下：
+  2. 特征选择 根据上述建树算法可以看到，决策树建树的关键在于如何进行特征选择。我们希望的特征选择是能够让决策树的分支结点所包含的样本尽可能属于同一类别，即结点的“纯度”越来越高。通常有以下几种特征选择指标。
+1. 信息增益 Information Gain ID3决策树通常使用信息增益来划分属性。
+假定当前样本集合$D$ 中第 $k$ 类样本所占的比例是 $p_k（k=1,2,&hellip;,|c|）$，则信息熵定义为： $Ent(D)=-\sum\limits_{k=1}^{|c|}p_k log_2 p_k$
+$Ent$ 越小，则纯度越高。
+假设离散属性 $a$ 有以下的取值 ${a^1,a^2,&hellip;,a^V}$ ，若使用 $a$ 来进行对样本集划分，那么会产生 $V$ 个分支，其中第 $v$ 个分支结点包含了 $D$ 中所有在 $a$ 属性上取到 $a^v$ 的样本，我们记为 $D^v$ ，这样就可以计算出使用属性 $a$ 对样本集 $D$ 进行分类的信息增益 : $Gain(D,a)=Ent(D)-\sum\limits_{v=1}^V\frac{|D^v|}{D} Ent(D^v)$
+按照这种方式计算出每一个属性的信息增益，然后取最大的作为选择的特征。
+2. 信息增益比 Gain Ratio C4.5决策树 使用信息增益比来划分属性。
+我们看到使用信息增益来划分属性会带来一个问题，就是当每个样本的这个属性的取值都不一样，那么很显然在信息增益为指标的情况下会选取这个属性作为分支结点，但这样的决策树没有很好的泛化能力。即，信息增益对可取值数目较多的属性有所偏好。
+那么信息增益率就为了解决这种问题。
+$Gain_ratio(D,a)=\frac{Gain(D,a)}{IV(a)}$
+$IV(a)=-\sum\limits_{v=1}^V\frac{|D^v|}{|D|}log_2\frac{|D^v|}{|D|}$
+当然，信息增益率会对取值数目较少的有偏好。所以C4.5决策树也并不是直接选择最大的信息增益率作为分支结点，而是使用启发式的算法，从候选属性中选择信息增益高于平均水平的，然后再从这里面选取信息增益率最高的。
+3. 基尼指数 Gini index CART决策树使用Gini指数来选择划分属性。
+相关定义和上面一样，基尼指数直观上反映了选取两个样本，其类别标记不一致的概率。这里给出计算公式。
+$Gini(D)=1-\sum\limits_{k}^{|c|}p_k^2$
+$Gini_index=\sum\limits_{v=1}^V\frac{|D^v|}{|D|}Gini(D^v)$
+选取最小的基尼指数作为选择的特征。">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="decision tree"/>
+<meta name="twitter:description" content="1. 决策树建树-Hunt算法 Hunt算法是决策树学习生成的基础算法，是一个递归的过程，算法如下：
+  2. 特征选择 根据上述建树算法可以看到，决策树建树的关键在于如何进行特征选择。我们希望的特征选择是能够让决策树的分支结点所包含的样本尽可能属于同一类别，即结点的“纯度”越来越高。通常有以下几种特征选择指标。
+1. 信息增益 Information Gain ID3决策树通常使用信息增益来划分属性。
+假定当前样本集合$D$ 中第 $k$ 类样本所占的比例是 $p_k（k=1,2,&hellip;,|c|）$，则信息熵定义为： $Ent(D)=-\sum\limits_{k=1}^{|c|}p_k log_2 p_k$
+$Ent$ 越小，则纯度越高。
+假设离散属性 $a$ 有以下的取值 ${a^1,a^2,&hellip;,a^V}$ ，若使用 $a$ 来进行对样本集划分，那么会产生 $V$ 个分支，其中第 $v$ 个分支结点包含了 $D$ 中所有在 $a$ 属性上取到 $a^v$ 的样本，我们记为 $D^v$ ，这样就可以计算出使用属性 $a$ 对样本集 $D$ 进行分类的信息增益 : $Gain(D,a)=Ent(D)-\sum\limits_{v=1}^V\frac{|D^v|}{D} Ent(D^v)$
+按照这种方式计算出每一个属性的信息增益，然后取最大的作为选择的特征。
+2. 信息增益比 Gain Ratio C4.5决策树 使用信息增益比来划分属性。
+我们看到使用信息增益来划分属性会带来一个问题，就是当每个样本的这个属性的取值都不一样，那么很显然在信息增益为指标的情况下会选取这个属性作为分支结点，但这样的决策树没有很好的泛化能力。即，信息增益对可取值数目较多的属性有所偏好。
+那么信息增益率就为了解决这种问题。
+$Gain_ratio(D,a)=\frac{Gain(D,a)}{IV(a)}$
+$IV(a)=-\sum\limits_{v=1}^V\frac{|D^v|}{|D|}log_2\frac{|D^v|}{|D|}$
+当然，信息增益率会对取值数目较少的有偏好。所以C4.5决策树也并不是直接选择最大的信息增益率作为分支结点，而是使用启发式的算法，从候选属性中选择信息增益高于平均水平的，然后再从这里面选取信息增益率最高的。
+3. 基尼指数 Gini index CART决策树使用Gini指数来选择划分属性。
+相关定义和上面一样，基尼指数直观上反映了选取两个样本，其类别标记不一致的概率。这里给出计算公式。
+$Gini(D)=1-\sum\limits_{k}^{|c|}p_k^2$
+$Gini_index=\sum\limits_{v=1}^V\frac{|D^v|}{|D|}Gini(D^v)$
+选取最小的基尼指数作为选择的特征。"/>
+
+    <meta property="og:title" content="decision tree" />
+<meta property="og:description" content="1. 决策树建树-Hunt算法 Hunt算法是决策树学习生成的基础算法，是一个递归的过程，算法如下：
+  2. 特征选择 根据上述建树算法可以看到，决策树建树的关键在于如何进行特征选择。我们希望的特征选择是能够让决策树的分支结点所包含的样本尽可能属于同一类别，即结点的“纯度”越来越高。通常有以下几种特征选择指标。
+1. 信息增益 Information Gain ID3决策树通常使用信息增益来划分属性。
+假定当前样本集合$D$ 中第 $k$ 类样本所占的比例是 $p_k（k=1,2,&hellip;,|c|）$，则信息熵定义为： $Ent(D)=-\sum\limits_{k=1}^{|c|}p_k log_2 p_k$
+$Ent$ 越小，则纯度越高。
+假设离散属性 $a$ 有以下的取值 ${a^1,a^2,&hellip;,a^V}$ ，若使用 $a$ 来进行对样本集划分，那么会产生 $V$ 个分支，其中第 $v$ 个分支结点包含了 $D$ 中所有在 $a$ 属性上取到 $a^v$ 的样本，我们记为 $D^v$ ，这样就可以计算出使用属性 $a$ 对样本集 $D$ 进行分类的信息增益 : $Gain(D,a)=Ent(D)-\sum\limits_{v=1}^V\frac{|D^v|}{D} Ent(D^v)$
+按照这种方式计算出每一个属性的信息增益，然后取最大的作为选择的特征。
+2. 信息增益比 Gain Ratio C4.5决策树 使用信息增益比来划分属性。
+我们看到使用信息增益来划分属性会带来一个问题，就是当每个样本的这个属性的取值都不一样，那么很显然在信息增益为指标的情况下会选取这个属性作为分支结点，但这样的决策树没有很好的泛化能力。即，信息增益对可取值数目较多的属性有所偏好。
+那么信息增益率就为了解决这种问题。
+$Gain_ratio(D,a)=\frac{Gain(D,a)}{IV(a)}$
+$IV(a)=-\sum\limits_{v=1}^V\frac{|D^v|}{|D|}log_2\frac{|D^v|}{|D|}$
+当然，信息增益率会对取值数目较少的有偏好。所以C4.5决策树也并不是直接选择最大的信息增益率作为分支结点，而是使用启发式的算法，从候选属性中选择信息增益高于平均水平的，然后再从这里面选取信息增益率最高的。
+3. 基尼指数 Gini index CART决策树使用Gini指数来选择划分属性。
+相关定义和上面一样，基尼指数直观上反映了选取两个样本，其类别标记不一致的概率。这里给出计算公式。
+$Gini(D)=1-\sum\limits_{k}^{|c|}p_k^2$
+$Gini_index=\sum\limits_{v=1}^V\frac{|D^v|}{|D|}Gini(D^v)$
+选取最小的基尼指数作为选择的特征。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.example.com/posts/decision-tree/" />
+<meta property="article:published_time" content="2020-11-09T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-11-09T00:00:00+00:00" />
+
+
+    <title>
+  decision tree · jonnyshao
+</title>
+
+    
+      <link rel="canonical" href="http://www.example.com/posts/decision-tree/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.9836c03fe5c87d102278a33e86d0591ef36c89b1e17e8e547ebf84c05cee010e.css" integrity="sha256-mDbAP&#43;XIfRAieKM&#43;htBZHvNsibHhfo5Ufr&#43;EwFzuAQ4=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.717236c74e0a5208ef73964a9f44c6b443b689a95b270d8b2a40d0c012460dac.css" integrity="sha256-cXI2x04KUgjvc5ZKn0TGtEO2ialbJw2LKkDQwBJGDaw=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.76.5" />
+  </head>
+
+  
+  
+    
+  
+  <body class="colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      jonnyshao
+    </a>
+    
+      
+        <span id="dark-mode-toggle" class="float-right">
+          <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        </span>
+      
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact me</a>
+            </li>
+          
+        
+        
+        
+          <li class="navigation-item separator">
+            <span>|</span>
+          </li>
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">decision tree</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2020-11-09T00:00:00Z'>
+                November 9, 2020
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/machine-learning/">Machine Learning</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <a href="/tags/machine-learning/">machine learning</a>
+      <span class="separator">•</span>
+    <a href="/tags/classification/">classification</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="1-决策树建树-hunt算法">1. 决策树建树-Hunt算法</h2>
+<p>Hunt算法是决策树学习生成的基础算法，是一个递归的过程，算法如下：</p>
+<figure>
+    <img src="/images/%e5%86%b3%e7%ad%96%e6%a0%91hunt.png" width="50%" height="50%"/> 
+</figure>
+
+<h2 id="2-特征选择">2. 特征选择</h2>
+<p>根据上述建树算法可以看到，决策树建树的关键在于如何进行特征选择。我们希望的特征选择是能够让决策树的分支结点所包含的样本尽可能属于同一类别，即结点的“纯度”越来越高。通常有以下几种特征选择指标。</p>
+<h4 id="1-信息增益-information-gain">1. 信息增益 Information Gain</h4>
+<p><strong>ID3</strong>决策树通常使用信息增益来划分属性。</p>
+<p>假定当前样本集合$D$ 中第 $k$ 类样本所占的比例是 $p_k（k=1,2,&hellip;,|c|）$，则信息熵定义为： $Ent(D)=-\sum\limits_{k=1}^{|c|}p_k log_2 p_k$</p>
+<p>$Ent$ 越小，则纯度越高。</p>
+<p>假设离散属性 $a$ 有以下的取值 ${a^1,a^2,&hellip;,a^V}$ ，若使用 $a$ 来进行对样本集划分，那么会产生 $V$ 个分支，其中第 $v$ 个分支结点包含了 $D$ 中所有在 $a$ 属性上取到 $a^v$ 的样本，我们记为 $D^v$ ，这样就可以计算出使用属性 $a$ 对样本集 $D$ 进行分类的<strong>信息增益</strong> : $Gain(D,a)=Ent(D)-\sum\limits_{v=1}^V\frac{|D^v|}{D} Ent(D^v)$</p>
+<p>按照这种方式计算出每一个属性的信息增益，然后取最大的作为选择的特征。</p>
+<h4 id="2-信息增益比-gain-ratio">2. 信息增益比 Gain Ratio</h4>
+<p><strong>C4.5</strong>决策树 使用信息增益比来划分属性。</p>
+<p>我们看到使用信息增益来划分属性会带来一个问题，就是当每个样本的这个属性的取值都不一样，那么很显然在信息增益为指标的情况下会选取这个属性作为分支结点，但这样的决策树没有很好的泛化能力。即，信息增益对可取值数目较多的属性有所偏好。</p>
+<p>那么信息增益率就为了解决这种问题。</p>
+<p>$Gain_ratio(D,a)=\frac{Gain(D,a)}{IV(a)}$</p>
+<p>$IV(a)=-\sum\limits_{v=1}^V\frac{|D^v|}{|D|}log_2\frac{|D^v|}{|D|}$</p>
+<p>当然，信息增益率会对取值数目较少的有偏好。所以C4.5决策树也并不是直接选择最大的信息增益率作为分支结点，而是使用启发式的算法，从候选属性中选择信息增益高于平均水平的，然后再从这里面选取信息增益率最高的。</p>
+<h4 id="3-基尼指数-gini-index">3. 基尼指数 Gini index</h4>
+<p><strong>CART</strong>决策树使用Gini指数来选择划分属性。</p>
+<p>相关定义和上面一样，基尼指数直观上反映了选取两个样本，其类别标记不一致的概率。这里给出计算公式。</p>
+<p>$Gini(D)=1-\sum\limits_{k}^{|c|}p_k^2$</p>
+<p>$Gini_index=\sum\limits_{v=1}^V\frac{|D^v|}{|D|}Gini(D^v)$</p>
+<p>选取最小的基尼指数作为选择的特征。</p>
+<h4 id="4-误分类误差-misclassification-error">4. 误分类误差 misclassification error</h4>
+<p>误分类误差定义如下：</p>
+<p>$Error(D)=1-\max(p_k,1-p_k)$</p>
+<p>选择最小的误分类误差作为选择的属性。</p>
+<h2 id="3-决策树剪枝">3. 决策树剪枝</h2>
+<h4 id="过拟合现象">过拟合现象</h4>
+<p>在决策树学习过程中，有可能会出现决策树分支过多，泛化能力变弱，即过拟合现象。而剪枝就用于解决过拟合现象。决策树中的剪枝分为预剪枝和后剪枝两种。</p>
+<h4 id="预剪枝">预剪枝</h4>
+<p>预剪枝是指在决策树生成过程中，对每个结点在划分前先进行估计，如果当前结点的划分不能带来决策树泛化性能的提升，则停止以该结点来划分。</p>
+<p>判断的方式就是用测试集去检验。预剪枝很可能造成很多分支都没有被展开，这样显著降低了过拟合的风险，也减少了训练、测试时间和开销。然而有可能造成欠拟合。</p>
+<h4 id="后剪枝">后剪枝</h4>
+<p>后剪枝是在建立了一颗完整的决策树后，自底向上地对非叶子结点进行考察，若将该结点对应的子树替换为叶子结点能够带来决策树泛化性能的提升，则将该子树替换为叶子结点。</p>
+<p>同样是使用测试集去检验。后剪枝决策树欠拟合风险小，并且泛化性能也往往优于预剪枝决策树，但是后剪枝过程是在决策树生成之后进行的，并且要自底向上逐一考察，因此开销和时间会比较大。</p>
+<h2 id="4-连续和缺失值">4. 连续和缺失值</h2>
+<h4 id="1-对于连续值的处理">1. 对于连续值的处理</h4>
+<p>对于连续值的处理，往往是通过连续的取相邻的数据中位点来作为划分依据，然后遍历，通过之前的方法，找到最合适的划分点数据。</p>
+<p>值得注意的是，若当前结点划分属性为连续属性，该属性还可以作为其后代结点的划分属性。这与离散情况下不同。</p>
+<h4 id="2-对于缺失值的处理">2. 对于缺失值的处理</h4>
+<p>对于缺失值的处理，直观上来说，就是将这个缺失的值，通过不同的概率，划入到不同的子结点中。</p>
+<p>按照上面方法计算指标时，将样本权值 $w_x$ 更新为 $\bar r_v w_x$ ，其中 $\bar r_v=\frac{\sum_{x \in \bar D^v }w_x}{\sum_{x \in \bar D}w_x}, 1\leqslant v \leqslant V$</p>
+<p>C4.5决策树就是使用了这种处理缺失值的方式。</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js" id="MathJax-script"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );">
+  </script>
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>You are my priority</p>
+      
+      
+        ©
+        
+          2018 -
+        
+        2020
+         Jonny Shao 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+        
+      
+    </section>
+  </footer>
+
+    </main>
+
+    
+      
+      <script src="/js/dark-mode.min.0213e1773e6d1c5a644f847c67a6f8abac49a3776e2976f6008038af8c5b76a1.js"></script>
+    
+
+    
+
+    
+
+    <script>
+(function(f, a, t, h, o, m){
+	a[h]=a[h]||function(){
+		(a[h].q=a[h].q||[]).push(arguments)
+	};
+	o=f.createElement('script'),
+	m=f.getElementsByTagName('script')[0];
+	o.async=1; o.src=t; o.id='fathom-script';
+	m.parentNode.insertBefore(o,m)
+})(document, window, '//analytics.example.com/tracker.js', 'fathom');
+fathom('set', 'siteId', 'ABCDE');
+fathom('trackPageview');
+</script>
+
+
+    <script async defer data-domain="example.com" src="https://analytics.example.com/js/plausible.js"></script>
+
+
+    <script data-goatcounter="https://code.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+  </body>
+
+</html>

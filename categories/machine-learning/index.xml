@@ -6,7 +6,33 @@
     <description>Recent content in Machine Learning on jonnyshao</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 31 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/categories/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 09 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/categories/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>decision tree</title>
+      <link>http://www.example.com/posts/decision-tree/</link>
+      <pubDate>Mon, 09 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/decision-tree/</guid>
+      <description>1. 决策树建树-Hunt算法 Hunt算法是决策树学习生成的基础算法，是一个递归的过程，算法如下：
+  2. 特征选择 根据上述建树算法可以看到，决策树建树的关键在于如何进行特征选择。我们希望的特征选择是能够让决策树的分支结点所包含的样本尽可能属于同一类别，即结点的“纯度”越来越高。通常有以下几种特征选择指标。
+1. 信息增益 Information Gain ID3决策树通常使用信息增益来划分属性。
+假定当前样本集合$D$ 中第 $k$ 类样本所占的比例是 $p_k（k=1,2,&amp;hellip;,|c|）$，则信息熵定义为： $Ent(D)=-\sum\limits_{k=1}^{|c|}p_k log_2 p_k$
+$Ent$ 越小，则纯度越高。
+假设离散属性 $a$ 有以下的取值 ${a^1,a^2,&amp;hellip;,a^V}$ ，若使用 $a$ 来进行对样本集划分，那么会产生 $V$ 个分支，其中第 $v$ 个分支结点包含了 $D$ 中所有在 $a$ 属性上取到 $a^v$ 的样本，我们记为 $D^v$ ，这样就可以计算出使用属性 $a$ 对样本集 $D$ 进行分类的信息增益 : $Gain(D,a)=Ent(D)-\sum\limits_{v=1}^V\frac{|D^v|}{D} Ent(D^v)$
+按照这种方式计算出每一个属性的信息增益，然后取最大的作为选择的特征。
+2. 信息增益比 Gain Ratio C4.5决策树 使用信息增益比来划分属性。
+我们看到使用信息增益来划分属性会带来一个问题，就是当每个样本的这个属性的取值都不一样，那么很显然在信息增益为指标的情况下会选取这个属性作为分支结点，但这样的决策树没有很好的泛化能力。即，信息增益对可取值数目较多的属性有所偏好。
+那么信息增益率就为了解决这种问题。
+$Gain_ratio(D,a)=\frac{Gain(D,a)}{IV(a)}$
+$IV(a)=-\sum\limits_{v=1}^V\frac{|D^v|}{|D|}log_2\frac{|D^v|}{|D|}$
+当然，信息增益率会对取值数目较少的有偏好。所以C4.5决策树也并不是直接选择最大的信息增益率作为分支结点，而是使用启发式的算法，从候选属性中选择信息增益高于平均水平的，然后再从这里面选取信息增益率最高的。
+3. 基尼指数 Gini index CART决策树使用Gini指数来选择划分属性。
+相关定义和上面一样，基尼指数直观上反映了选取两个样本，其类别标记不一致的概率。这里给出计算公式。
+$Gini(D)=1-\sum\limits_{k}^{|c|}p_k^2$
+$Gini_index=\sum\limits_{v=1}^V\frac{|D^v|}{|D|}Gini(D^v)$
+选取最小的基尼指数作为选择的特征。</description>
+    </item>
+    
     <item>
       <title>KNN and dimensionality reduction</title>
       <link>http://www.example.com/posts/knn-dimensionality-reduction/</link>
