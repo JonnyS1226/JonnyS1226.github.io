@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+
+    <meta name="author" content="Jonny Shao">
+    <meta name="description" content="1. docker 相关命令  虚拟化是一种资源管理技术，是将计算机的各种实体资源，如服务器，网络，内存以及存储等，予以抽象转换后呈现出来，打破实体结构间的不可切割的障碍，使用户可以用一定方式直接使用这些资源 与传统虚拟机不同的是，容器是在操作系统层面实现虚拟化，直接复用主机的操作系统。而传统方式是在硬件层面实现。与传统方式相比，docker的优势在于启动速度快，占用体积小。 以下命令是mac上的，windows或者linux上可能有略微不同。并且部分操作也可以通过客户端完成。  1.1. docker启动 launchctl start docker 1.2. 镜像相关命令  docker images 查看镜像情况 docker search xxx 搜索镜像情况 docker pull xxx 拉取某个镜像，默认使用latest版本 docker rmi id/name 根据id或者name删除镜像，这个镜像不能被容器正在使用  1.3. 容器相关命令  docker ps 查看正在运行的容器 docker ps -a 查看所有运行过的容器 docker run 镜像名:版本号 启动容器  -i：表示运行容器 -t： 表示容器启动后会直接进入其命令行 -name xxx / &ndash;name=xxx：为创建的容器命名 -v：表示目录映射关系（前者是宿主机目录，后者是映射到宿主机上的目录） -d：创建守护式容器在后台运行 -p：端口映射，前者是宿主机端口，后者是容器内的映射端口   交互式方式运行 -it：使用exit退出时就自动关闭了容器 守护式方式运行 -id：使用docker exec -it id 进入容器，使用exit退出时不会自动关闭容器 docker stop id/name 停止容器 docker start id/name 启动已停止的容器 docker cp 需要拷贝的文件或目录 容器名称：容器目录： 拷贝文件到容器里 docker cp 容器名称：容器目录 需要拷贝到的文件或目录：从容器中拷贝文件出来 docker inspect 容器名称/id 可以查看容器相关信息，包括其ip docker inspect --format=&#39;{{.">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="1. docker 相关命令  虚拟化是一种资源管理技术，是将计算机的各种实体资源，如服务器，网络，内存以及存储等，予以抽象转换后呈现出来，打破实体结构间的不可切割的障碍，使用户可以用一定方式直接使用这些资源 与传统虚拟机不同的是，容器是在操作系统层面实现虚拟化，直接复用主机的操作系统。而传统方式是在硬件层面实现。与传统方式相比，docker的优势在于启动速度快，占用体积小。 以下命令是mac上的，windows或者linux上可能有略微不同。并且部分操作也可以通过客户端完成。  1.1. docker启动 launchctl start docker 1.2. 镜像相关命令  docker images 查看镜像情况 docker search xxx 搜索镜像情况 docker pull xxx 拉取某个镜像，默认使用latest版本 docker rmi id/name 根据id或者name删除镜像，这个镜像不能被容器正在使用  1.3. 容器相关命令  docker ps 查看正在运行的容器 docker ps -a 查看所有运行过的容器 docker run 镜像名:版本号 启动容器  -i：表示运行容器 -t： 表示容器启动后会直接进入其命令行 -name xxx / &ndash;name=xxx：为创建的容器命名 -v：表示目录映射关系（前者是宿主机目录，后者是映射到宿主机上的目录） -d：创建守护式容器在后台运行 -p：端口映射，前者是宿主机端口，后者是容器内的映射端口   交互式方式运行 -it：使用exit退出时就自动关闭了容器 守护式方式运行 -id：使用docker exec -it id 进入容器，使用exit退出时不会自动关闭容器 docker stop id/name 停止容器 docker start id/name 启动已停止的容器 docker cp 需要拷贝的文件或目录 容器名称：容器目录： 拷贝文件到容器里 docker cp 容器名称：容器目录 需要拷贝到的文件或目录：从容器中拷贝文件出来 docker inspect 容器名称/id 可以查看容器相关信息，包括其ip docker inspect --format=&#39;{{."/>
+
+    <meta property="og:title" content="" />
+<meta property="og:description" content="1. docker 相关命令  虚拟化是一种资源管理技术，是将计算机的各种实体资源，如服务器，网络，内存以及存储等，予以抽象转换后呈现出来，打破实体结构间的不可切割的障碍，使用户可以用一定方式直接使用这些资源 与传统虚拟机不同的是，容器是在操作系统层面实现虚拟化，直接复用主机的操作系统。而传统方式是在硬件层面实现。与传统方式相比，docker的优势在于启动速度快，占用体积小。 以下命令是mac上的，windows或者linux上可能有略微不同。并且部分操作也可以通过客户端完成。  1.1. docker启动 launchctl start docker 1.2. 镜像相关命令  docker images 查看镜像情况 docker search xxx 搜索镜像情况 docker pull xxx 拉取某个镜像，默认使用latest版本 docker rmi id/name 根据id或者name删除镜像，这个镜像不能被容器正在使用  1.3. 容器相关命令  docker ps 查看正在运行的容器 docker ps -a 查看所有运行过的容器 docker run 镜像名:版本号 启动容器  -i：表示运行容器 -t： 表示容器启动后会直接进入其命令行 -name xxx / &ndash;name=xxx：为创建的容器命名 -v：表示目录映射关系（前者是宿主机目录，后者是映射到宿主机上的目录） -d：创建守护式容器在后台运行 -p：端口映射，前者是宿主机端口，后者是容器内的映射端口   交互式方式运行 -it：使用exit退出时就自动关闭了容器 守护式方式运行 -id：使用docker exec -it id 进入容器，使用exit退出时不会自动关闭容器 docker stop id/name 停止容器 docker start id/name 启动已停止的容器 docker cp 需要拷贝的文件或目录 容器名称：容器目录： 拷贝文件到容器里 docker cp 容器名称：容器目录 需要拷贝到的文件或目录：从容器中拷贝文件出来 docker inspect 容器名称/id 可以查看容器相关信息，包括其ip docker inspect --format=&#39;{{." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.example.com/posts/docker%E5%AD%A6%E4%B9%A0/" />
+
+
+
+    <title>
+   · jonnyshao
+</title>
+
+    
+      <link rel="canonical" href="http://www.example.com/posts/docker%E5%AD%A6%E4%B9%A0/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.9836c03fe5c87d102278a33e86d0591ef36c89b1e17e8e547ebf84c05cee010e.css" integrity="sha256-mDbAP&#43;XIfRAieKM&#43;htBZHvNsibHhfo5Ufr&#43;EwFzuAQ4=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.717236c74e0a5208ef73964a9f44c6b443b689a95b270d8b2a40d0c012460dac.css" integrity="sha256-cXI2x04KUgjvc5ZKn0TGtEO2ialbJw2LKkDQwBJGDaw=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.76.5" />
+  </head>
+
+  
+  
+    
+  
+  <body class="colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      jonnyshao
+    </a>
+    
+      
+        <span id="dark-mode-toggle" class="float-right">
+          <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        </span>
+      
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact me</a>
+            </li>
+          
+        
+        
+        
+          <li class="navigation-item separator">
+            <span>|</span>
+          </li>
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title"></h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='0001-01-01T00:00:00Z'>
+                January 1, 0001
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="1-docker-相关命令">1. docker 相关命令</h2>
+<ul>
+<li>虚拟化是一种资源管理技术，是将计算机的各种实体资源，如服务器，网络，内存以及存储等，予以抽象转换后呈现出来，打破实体结构间的不可切割的障碍，使用户可以用一定方式直接使用这些资源</li>
+<li>与传统虚拟机不同的是，容器是在操作系统层面实现虚拟化，直接复用主机的操作系统。而传统方式是在硬件层面实现。与传统方式相比，docker的优势在于启动速度快，占用体积小。</li>
+<li>以下命令是mac上的，windows或者linux上可能有略微不同。并且部分操作也可以通过客户端完成。</li>
+</ul>
+<h4 id="11-docker启动">1.1. docker启动</h4>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">launchctl start docker
+</code></pre></div><h4 id="12-镜像相关命令">1.2. 镜像相关命令</h4>
+<ul>
+<li><code>docker images</code> 查看镜像情况</li>
+<li><code>docker search xxx</code> 搜索镜像情况</li>
+<li><code>docker pull xxx</code> 拉取某个镜像，默认使用latest版本</li>
+<li><code>docker rmi id/name</code> 根据id或者name删除镜像，这个镜像不能被容器正在使用</li>
+</ul>
+<h4 id="13-容器相关命令">1.3. 容器相关命令</h4>
+<ul>
+<li><code>docker ps</code> 查看正在运行的容器</li>
+<li><code>docker ps -a</code> 查看所有运行过的容器</li>
+<li><code>docker run 镜像名:版本号</code> 启动容器
+<ul>
+<li>-i：表示运行容器</li>
+<li>-t： 表示容器启动后会直接进入其命令行</li>
+<li>-name xxx / &ndash;name=xxx：为创建的容器命名</li>
+<li>-v：表示目录映射关系（前者是宿主机目录，后者是映射到宿主机上的目录）</li>
+<li>-d：创建守护式容器在后台运行</li>
+<li>-p：端口映射，前者是宿主机端口，后者是容器内的映射端口</li>
+</ul>
+</li>
+<li><strong>交互式方式运行 -it</strong>：使用exit退出时就自动关闭了容器</li>
+<li><strong>守护式方式运行 -id</strong>：使用<code>docker exec -it id</code> 进入容器，使用exit退出时不会自动关闭容器</li>
+<li><code>docker stop id/name</code> 停止容器</li>
+<li><code>docker start id/name</code> 启动已停止的容器</li>
+<li><code>docker cp 需要拷贝的文件或目录 容器名称：容器目录</code>： 拷贝文件到容器里</li>
+<li><code>docker cp 容器名称：容器目录 需要拷贝到的文件或目录</code>：从容器中拷贝文件出来</li>
+<li><code>docker inspect 容器名称/id</code> 可以查看容器相关信息，包括其ip</li>
+<li><code>docker inspect --format='{{.NetworkSettings.IPAddress}}' name/id</code> 可以通过format参数提取具体的信息，如这条命令就可以直接输出ip地址</li>
+<li><code>docker rm id/name</code> 删除容器（容器不能正在运行）</li>
+</ul>
+<h4 id="14-目录挂载">1.4. 目录挂载</h4>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker run -di -v /usr/local/myhtml:/usr/local/myhtml --name=mycentos centos:7
+</code></pre></div><ul>
+<li>这样可以在创建容器的时候，将宿主机的目录与容器内的目录进行映射，这样就可以通过修改宿主机的某个目录的文件从而去影响容器</li>
+<li>若共享多级目录，可能会出现权限不足的提示，需要根据不同的os去添加参数，如centos需要添加<code>--privileged=true</code> 参数</li>
+</ul>
+<h4 id="15-迁移和备份">1.5 迁移和备份</h4>
+<ul>
+<li><code>docker commit 容器名 保存为的镜像名</code>： 将容器保存为镜像</li>
+<li><code>docker save -o xxx.tar 镜像名</code>： 备份，将镜像保存为tar文件</li>
+<li><code>docker load -i xxx.tar</code> ：从tar文件中导入镜像</li>
+</ul>
+<h2 id="2-dockerfile">2. Dockerfile</h2>
+<ul>
+<li>Dockerfile是由一系列命令和参数构成的脚本，这些命令应用于基础镜像（OS层面的， 如已经有了ubuntu或者centos）并最终创建一个新的镜像。</li>
+</ul>
+<h4 id="21-常用命令">2.1 常用命令</h4>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FROM image_name:tag</td>
+<td>定义了基于的基础镜像，启动构建流程</td>
+</tr>
+<tr>
+<td>MAINTAINER user_name</td>
+<td>声明镜像的创建者</td>
+</tr>
+<tr>
+<td>ENV key value</td>
+<td>设置环境变量</td>
+</tr>
+<tr>
+<td>RUN command</td>
+<td>是Dockerfile核心部分</td>
+</tr>
+<tr>
+<td>ADD source_dir/file dest_dir/file</td>
+<td>将宿主机的文件复制到容器内，如果是一个压缩文件，会自动解压</td>
+</tr>
+<tr>
+<td>COPY source_dir/file dest_dir/file</td>
+<td>和ADD相似，但是不自动解压</td>
+</tr>
+<tr>
+<td>WORKDIR path_dir</td>
+<td>设置工作目录</td>
+</tr>
+</tbody>
+</table>
+<h4 id="22-使用脚本构建镜像以构建jdk为例">2.2 使用脚本构建镜像（以构建JDK为例）</h4>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#fff;font-weight:bold">FROM</span><span style="color:#0ff;font-weight:bold"> centos:7</span><span style="color:#f00">
+</span><span style="color:#f00"></span><span style="color:#fff;font-weight:bold">MAINTAINER</span><span style="color:#0ff;font-weight:bold"> xxx</span><span style="color:#f00">
+</span><span style="color:#f00"></span><span style="color:#fff;font-weight:bold">WORKDIR</span><span style="color:#0ff;font-weight:bold"> /usr</span><span style="color:#f00">
+</span><span style="color:#f00"></span><span style="color:#fff;font-weight:bold">RUN</span> mkdir /usr/local/java<span style="color:#f00">
+</span><span style="color:#f00"></span><span style="color:#fff;font-weight:bold">ADD</span> jdk-linux-x64.tar.gz /usr/local/java<span style="color:#f00">
+</span><span style="color:#f00">
+</span><span style="color:#f00"></span><span style="color:#fff;font-weight:bold">ENV</span> JAVA_HOME=/usr/local/java/jdk1.8.0.171<span style="color:#f00">
+</span><span style="color:#f00"></span><span style="color:#fff;font-weight:bold">ENV</span> JRE_HOME $JAVA_HOME/jre<span style="color:#f00">
+</span><span style="color:#f00"></span><span style="color:#fff;font-weight:bold">ENV</span> CLASSPATH $JAVA_HOME/bin/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib:$CLASSPATH<span style="color:#f00">
+</span><span style="color:#f00"></span><span style="color:#fff;font-weight:bold">ENV</span> PATH $JAVA_HOME/bin:$PATH<span style="color:#f00">
+</span></code></pre></div><ul>
+<li>写好Dockerfile后，执行<code>docker build -t='jdk1.8' .</code>，开始构建</li>
+</ul>
+<h2 id="3-docker私有仓库">3. Docker私有仓库</h2>
+<h4 id="31-私有仓库搭建与配置">3.1 私有仓库搭建与配置</h4>
+<ul>
+<li>作用于局域网下（内部）的镜像共享</li>
+<li><code>docker pull registry</code> 拉取私有仓库镜像</li>
+<li><code>docker run -di --name=registry -p 5000:5000 registry</code> 根据私有仓库镜像构建容器</li>
+<li>访问ip:5000/v2/_catalog， 可以看到一个json表示的内部镜像情况</li>
+<li>修改daemon.json，添加配置，<code>insecure-registry:[&quot;ip:5000&quot;]</code>，这样配置使得信任这个ip的docker私有仓库，便于后续私有仓库镜像上传</li>
+</ul>
+<h4 id="32-上传和下载私有仓库镜像">3.2 上传和下载私有仓库镜像</h4>
+<ul>
+<li><code>docker tag name/id ip:5000/name</code> 给镜像打一个标签</li>
+<li><code>docker push ip:5000/name</code> 上传私有仓库镜像，需要先把registry容器启动</li>
+<li>如果需要下载，也需要按照上述进行配置，然后直接<code>docker pull ip:5000/name</code> 即可</li>
+</ul>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );">
+  </script>
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>You are my priority</p>
+      
+      
+        ©
+        
+          2018 -
+        
+        2020
+         Jonny Shao 
+      
+      
+         · 
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+        
+      
+    </section>
+  </footer>
+
+    </main>
+
+    
+      
+      <script src="/js/dark-mode.min.0213e1773e6d1c5a644f847c67a6f8abac49a3776e2976f6008038af8c5b76a1.js"></script>
+    
+
+    
+
+    
+
+    <script>
+(function(f, a, t, h, o, m){
+	a[h]=a[h]||function(){
+		(a[h].q=a[h].q||[]).push(arguments)
+	};
+	o=f.createElement('script'),
+	m=f.getElementsByTagName('script')[0];
+	o.async=1; o.src=t; o.id='fathom-script';
+	m.parentNode.insertBefore(o,m)
+})(document, window, '//analytics.example.com/tracker.js', 'fathom');
+fathom('set', 'siteId', 'ABCDE');
+fathom('trackPageview');
+</script>
+
+
+    <script async defer data-domain="example.com" src="https://analytics.example.com/js/plausible.js"></script>
+
+
+    <script data-goatcounter="https://code.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+  </body>
+
+</html>

@@ -222,6 +222,15 @@ Java中的多线程基础 1. 多线程编程 1) 多线程类的创建与运行
     </item>
     
     <item>
+      <title>算法数据量和复杂度</title>
+      <link>http://www.example.com/posts/%E6%9C%AA%E5%91%BD%E5%90%8D/</link>
+      <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/%E6%9C%AA%E5%91%BD%E5%90%8D/</guid>
+      <description>估算时间复杂度    复杂度 数据量 常见算法/问题距离     O(logn) 10^20以上 简单二分   O(n^1/2) 10^14 判断是否是素数等   O(n) 10^7 - 10^8 简单遍历   O(nlogn) 10^5 - 10^6 内置排序   O(n sqrt(n)) 10^5    O(n^2) 5000    O(n^3) 300    O(n^4) 50    O(2^n) 25 穷举   O(n!) 10     估算空间复杂度  一般空间复杂度要求不超过32MB或者64MB 对于申请空间：比如int a[100]，大致需要100 * 4 Byte 简单计算可以知道，32MB对于int数组可以开到1e7以上的空间  </description>
+    </item>
+    
+    <item>
       <title>深入理解Java虚拟机</title>
       <link>http://www.example.com/posts/2020-2-11-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
       <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
@@ -308,6 +317,15 @@ private static int methodNum = 0; public static void solveNQueenBackTrack(int ro
       
       <guid>http://www.example.com/posts/2020-2-5-%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0-%E4%B8%80%E4%BA%9B%E8%BF%9B%E9%98%B6%E7%AE%97%E6%B3%95/</guid>
       <description>前言  KMP算法用来解决字符串匹配问题，O(n)，本质上是对暴力字符串匹配的加速优化。 Manacher算法用来求解最长回文串问题，O(n)，本质上同样是对暴力法求最长回文串的加速优化。 BFPTR是用来解决TopK问题，最坏情况是O(n)，本质上是对于双指针解决Topk问题时的pivot选取进行处理，避免pivot选择过于偏而出现最坏情况  KMP算法及其应用 要点：  next数组的建立  next数组存放的是其前面的序列中的，最长的前缀和后缀相等的长度值 next数组的建立是通过递推，类似dp思想，辅以反证证明   根据next数组进行加速  简单来说就是对于长的那个数组的指针，一直前进 当匹配到某个字符不相等时，长的数组指针不变，短的数组指针直接回退到next值上，而非起点（可数学证明起点到这个next值之间 不可能匹配）   代码要点  判断str1中是否有str2为子串 KMP算法的要点  next数组的建立根据 next数组 在匹配的时候起到加速效果      代码 public static int Kmp(String str1, String str2){ int length1 = str1.length(); int length2 = str2.length(); if (length1 == 0 || length2 == 0 || length1 &amp;lt; length2) { return -1; } int index1 = 0; int index2 = 0; char[] chars1 = str1.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://www.example.com/posts/docker%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/docker%E5%AD%A6%E4%B9%A0/</guid>
+      <description>1. docker 相关命令  虚拟化是一种资源管理技术，是将计算机的各种实体资源，如服务器，网络，内存以及存储等，予以抽象转换后呈现出来，打破实体结构间的不可切割的障碍，使用户可以用一定方式直接使用这些资源 与传统虚拟机不同的是，容器是在操作系统层面实现虚拟化，直接复用主机的操作系统。而传统方式是在硬件层面实现。与传统方式相比，docker的优势在于启动速度快，占用体积小。 以下命令是mac上的，windows或者linux上可能有略微不同。并且部分操作也可以通过客户端完成。  1.1. docker启动 launchctl start docker 1.2. 镜像相关命令  docker images 查看镜像情况 docker search xxx 搜索镜像情况 docker pull xxx 拉取某个镜像，默认使用latest版本 docker rmi id/name 根据id或者name删除镜像，这个镜像不能被容器正在使用  1.3. 容器相关命令  docker ps 查看正在运行的容器 docker ps -a 查看所有运行过的容器 docker run 镜像名:版本号 启动容器  -i：表示运行容器 -t： 表示容器启动后会直接进入其命令行 -name xxx / &amp;ndash;name=xxx：为创建的容器命名 -v：表示目录映射关系（前者是宿主机目录，后者是映射到宿主机上的目录） -d：创建守护式容器在后台运行 -p：端口映射，前者是宿主机端口，后者是容器内的映射端口   交互式方式运行 -it：使用exit退出时就自动关闭了容器 守护式方式运行 -id：使用docker exec -it id 进入容器，使用exit退出时不会自动关闭容器 docker stop id/name 停止容器 docker start id/name 启动已停止的容器 docker cp 需要拷贝的文件或目录 容器名称：容器目录： 拷贝文件到容器里 docker cp 容器名称：容器目录 需要拷贝到的文件或目录：从容器中拷贝文件出来 docker inspect 容器名称/id 可以查看容器相关信息，包括其ip docker inspect --format=&#39;{{.</description>
     </item>
     
     <item>

@@ -168,6 +168,21 @@
   </url>
   
   <url>
+    <loc>http://www.example.com/posts/%E6%9C%AA%E5%91%BD%E5%90%8D/</loc>
+    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.example.com/tags/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.example.com/categories/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2020-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.example.com/tags/jvm/</loc>
     <lastmod>2020-02-08T00:00:00+00:00</lastmod>
   </url>
@@ -179,16 +194,6 @@
   
   <url>
     <loc>http://www.example.com/posts/%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</loc>
-    <lastmod>2020-01-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.example.com/tags/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/</loc>
-    <lastmod>2020-01-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.example.com/categories/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/</loc>
     <lastmod>2020-01-18T00:00:00+00:00</lastmod>
   </url>
   
@@ -225,6 +230,10 @@
   <url>
     <loc>http://www.example.com/posts/2020-2-5-%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0-%E4%B8%80%E4%BA%9B%E8%BF%9B%E9%98%B6%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2019-12-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.example.com/posts/docker%E5%AD%A6%E4%B9%A0/</loc>
   </url>
   
   <url>
