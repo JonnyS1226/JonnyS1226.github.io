@@ -191,7 +191,7 @@ $\min\limits_{w,b,\xi_i} $ $\frac{1}{2}||w||^2 + C\sum\limits_{i=0}^m\xi_i$ , $s
       <pubDate>Wed, 02 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>http://www.example.com/posts/introduction/</guid>
-      <description> model or function set  Linear Model Non-linear Model  deep-learning neural networks SVM, K-NN, Decision tree, e.t.c     Supervised Learning（监督学习）: label, input, output  regression（回归） classification（分类）  binary classification multi-class classification     semi-supervised Learning（半监督学习）: partly labeled data, partly unlabeled data Unsupervised Learning（非监督学习）: unlabeled data Structured Learning（结构化学习）: like GAN, get a structured object other frontier  anomaly detection（异常检测）: how can AI know that it don&amp;rsquo;t know transfer learning（迁移学习）: what can irrelevant data contribute to the results meta learning（元机器学习）: learn to learn life-long learning（持续学习）: continual learning Reinforcement Learning（强化学习） : learning from critics explainable AI（可解释性）: reason for AI results adversarial attack（对抗攻击）: how to address malicious attack to AI network compression（网络剪枝）: how to prune large model    </description>
+      <description> model or function set  Linear Model Non-linear Model  deep-learning neural networks SVM, K-NN, Decision tree, e.t.c     Supervised Learning（监督学习）: label, input, output  regression（回归） classification（分类）  binary classification multi-class classification     semi-supervised Learning（半监督学习）: partly labeled data, partly unlabeled data Unsupervised Learning（非监督学习）: unlabeled data Structured Learning（结构化学习）: like GAN, get a structured object other frontier  anomaly detection（异常检测）: how can AI know that it don&amp;rsquo;t know transfer learning（迁移学习）: what can irrelevant data contribute to the results meta learning（元机器学习）: learn to learn life-long learning（持续学习）: continual learning Reinforcement Learning（强化学习） : learning from critics explainable AI（可解释性）: reason for AI results adversarial attack（对抗攻击）: how to address malicious attack to AI network compression（网络剪枝）: how to prune large model     </description>
     </item>
     
     <item>
@@ -223,10 +223,10 @@ Java中的多线程基础 1. 多线程编程 1) 多线程类的创建与运行
     
     <item>
       <title>算法数据量和复杂度</title>
-      <link>http://www.example.com/posts/%E6%9C%AA%E5%91%BD%E5%90%8D/</link>
+      <link>http://www.example.com/posts/%E6%97%B6%E9%97%B4%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/</link>
       <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://www.example.com/posts/%E6%9C%AA%E5%91%BD%E5%90%8D/</guid>
+      <guid>http://www.example.com/posts/%E6%97%B6%E9%97%B4%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/</guid>
       <description>估算时间复杂度    复杂度 数据量 常见算法/问题距离     O(logn) 10^20以上 简单二分   O(n^1/2) 10^14 判断是否是素数等   O(n) 10^7 - 10^8 简单遍历   O(nlogn) 10^5 - 10^6 内置排序   O(n sqrt(n)) 10^5    O(n^2) 5000    O(n^3) 300    O(n^4) 50    O(2^n) 25 穷举   O(n!) 10     估算空间复杂度  一般空间复杂度要求不超过32MB或者64MB 对于申请空间：比如int a[100]，大致需要100 * 4 Byte 简单计算可以知道，32MB对于int数组可以开到1e7以上的空间  </description>
     </item>
     

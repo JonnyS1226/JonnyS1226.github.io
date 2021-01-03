@@ -9,10 +9,10 @@
     <lastBuildDate>Tue, 18 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/tags/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>算法数据量和复杂度</title>
-      <link>http://www.example.com/posts/%E6%9C%AA%E5%91%BD%E5%90%8D/</link>
+      <link>http://www.example.com/posts/%E6%97%B6%E9%97%B4%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/</link>
       <pubDate>Tue, 18 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://www.example.com/posts/%E6%9C%AA%E5%91%BD%E5%90%8D/</guid>
+      <guid>http://www.example.com/posts/%E6%97%B6%E9%97%B4%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/</guid>
       <description>估算时间复杂度    复杂度 数据量 常见算法/问题距离     O(logn) 10^20以上 简单二分   O(n^1/2) 10^14 判断是否是素数等   O(n) 10^7 - 10^8 简单遍历   O(nlogn) 10^5 - 10^6 内置排序   O(n sqrt(n)) 10^5    O(n^2) 5000    O(n^3) 300    O(n^4) 50    O(2^n) 25 穷举   O(n!) 10     估算空间复杂度  一般空间复杂度要求不超过32MB或者64MB 对于申请空间：比如int a[100]，大致需要100 * 4 Byte 简单计算可以知道，32MB对于int数组可以开到1e7以上的空间  </description>
     </item>
     
