@@ -34,9 +34,9 @@ Jiayi Shao (邵嘉毅) is now a Third-Year Master’s student (expected to gradu
 - 3rd place of Moment Queries Challenge in Ego4D Workshop by ECCV 2022. [[Tech Report](https://arxiv.org/abs/2211.09558)][[code](https://github.com/JonnyS1226/Ego4d_mq_3rd_solution)].
   
 # 🎖 Honors and Awards
-- Outstanding Graduate Student(2023) in Zhejiang University.
-- Excellent Undergraduate in Harbin Institute of Technology.
-- First Prize of Renmin Scholarship in Harbin Institute of Technology.
+- Outstanding Graduate Student (2023) in Zhejiang University.
+- Excellent Undergraduate (2021) in Harbin Institute of Technology.
+- First Prize of Renmin Scholarship (2017, 2019) in Harbin Institute of Technology.
 
 # 💻 Internships
 - *2023.05 - 2023.09*, Algoirthm Intern in Alipay BG, Antgroup, Hangzhou, China.
