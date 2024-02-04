@@ -22,9 +22,9 @@ Jiayi Shao (邵嘉毅) is now a Third-Year Master’s student (expected to gradu
 
 # 📝 Publications 
 
-- [Learning to Follow and Generate Instructions for Vision-Language Navigator](https://www.computer.org/csdl/journal/tp/5555/01/10359152/1SQHF9m0wHm). Xiaohan Wang, Wenguan Wang, **Jiayi Shao**, Yi Yang. &nbsp; Transactions on Pattern Analysis and Machine Intelligence (TPAMI). 2023.
-- [Action Sensitivity Learning for Temporal Action Localization](https://openaccess.thecvf.com/content/ICCV2023/papers/Shao_Action_Sensitivity_Learning_for_Temporal_Action_Localization_ICCV_2023_paper.pdf). **Jiayi Shao**, Xiaohan Wang, Ruijie Quan, Junjun Zheng, Jiang Yang, Yi Yang. &nbsp; International Conference on Computer Vision (ICCV). 2023.
-- [LANA: A Language-Capable Navigator for Vision-Language Navigation](https://openaccess.thecvf.com/content/CVPR2023/papers/Wang_LANA_A_Language-Capable_Navigator_for_Instruction_Following_and_Generation_CVPR_2023_paper.pdf). Xiaohan Wang, Wenguan Wang, **Jiayi Shao**, Yi Yang. &nbsp; Computer Vision and Pattern Recognition (CVPR). 2023.
+- [Learning to Follow and Generate Instructions for Vision-Language Navigator](https://www.computer.org/csdl/journal/tp/5555/01/10359152/1SQHF9m0wHm). Xiaohan Wang, Wenguan Wang, **Jiayi Shao**, Yi Yang. &nbsp; Transactions on Pattern Analysis and Machine Intelligence (**TPAMI**). 2023.
+- [Action Sensitivity Learning for Temporal Action Localization](https://openaccess.thecvf.com/content/ICCV2023/papers/Shao_Action_Sensitivity_Learning_for_Temporal_Action_Localization_ICCV_2023_paper.pdf). **Jiayi Shao**, Xiaohan Wang, Ruijie Quan, Junjun Zheng, Jiang Yang, Yi Yang. &nbsp; International Conference on Computer Vision (**ICCV**). 2023.
+- [LANA: A Language-Capable Navigator for Vision-Language Navigation](https://openaccess.thecvf.com/content/CVPR2023/papers/Wang_LANA_A_Language-Capable_Navigator_for_Instruction_Following_and_Generation_CVPR_2023_paper.pdf). Xiaohan Wang, Wenguan Wang, **Jiayi Shao**, Yi Yang. &nbsp; Computer Vision and Pattern Recognition (**CVPR**). 2023.
 - [Action Sensitivity Learning for the Ego4D Episodic Memory Challenge](https://arxiv.org/abs/2306.09172). **Jiayi Shao**, Xiaohan Wang, Ruijie Quan, Yi Yang. &nbsp; Arxiv. 2023.
 - [ReLER@ ZJU Submission to the Ego4D Moment Queries Challenge 2022](https://arxiv.org/abs/2211.09558). **Jiayi Shao**, Xiaohan Wang, Ruijie Quan, Yi Yang. &nbsp; Arxiv. 2022.
 
