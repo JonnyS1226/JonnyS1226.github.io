@@ -17,42 +17,29 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. Suspendisse condimentum, libero vel tempus mattis, risus risus vulputate libero, elementum fermentum mi neque vel nisl. Maecenas facilisis maximus dignissim. Curabitur mattis vulputate dui, tincidunt varius libero luctus eu. Mauris mauris nulla, scelerisque eget massa id, tincidunt congue felis. Sed convallis tempor ipsum rhoncus viverra. Pellentesque nulla orci, accumsan volutpat fringilla vitae, maximus sit amet tortor. Aliquam ultricies odio ut volutpat scelerisque. Donec nisl nisl, porttitor vitae pharetra quis, fringilla sed mi. Fusce pretium dolor ut aliquam consequat. Cras volutpat, tellus accumsan mattis molestie, nisl lacus tempus massa, nec malesuada tortor leo vel quam. Aliquam vel ex consectetur, vehicula leo nec, efficitur eros. Donec convallis non urna quis feugiat.
+Jiayi Shao (邵嘉毅) is now a Third-Year Master’s student (expected to graduate at 2024.03) in the College of Computer Science and Software at Zhejiang University, Hangzhou, China, supervised by [Prof. Yi Yang](https://scholar.google.com/citations?user=RMSuNFwAAAAJ&hl=zh-CN) and [Dr. Xiaohan Wang](https://scholar.google.com/citations?user=iGA10XoAAAAJ&hl=zh-CN). He obtained Bachelor’s degree at Harbin Institute of Technology.
 
-My research interest includes neural machine translation and computer vision. I have published more than 100 papers at the top international AI conferences with total <a href='https://scholar.google.com/citations?user=DhtAFkwAAAAJ'>google scholar citations <strong><span id='total_cit'>260000+</span></strong></a> (You can also use google scholar badge <a href='https://scholar.google.com/citations?user=DhtAFkwAAAAJ'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&logo=Google%20Scholar&labelColor=f6f6f6&color=9cf&style=flat&label=citations"></a>).
-
-
-# 🔥 News
-- *2022.02*: &nbsp;🎉🎉 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2022.02*: &nbsp;🎉🎉 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
 
 # 📝 Publications 
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2016</div><img src='images/500x300.png' alt="sym" width="100%"></div></div>
-<div class='paper-box-text' markdown="1">
+- [Learning to Follow and Generate Instructions for Vision-Language Navigator](https://www.computer.org/csdl/journal/tp/5555/01/10359152/1SQHF9m0wHm). Xiaohan Wang, Wenguan Wang, **Jiayi Shao**, Yi Yang. &nbsp; Transactions on Pattern Analysis and Machine Intelligence (TPAMI). 2023.
+- [Action Sensitivity Learning for Temporal Action Localization](https://openaccess.thecvf.com/content/ICCV2023/papers/Shao_Action_Sensitivity_Learning_for_Temporal_Action_Localization_ICCV_2023_paper.pdf). **Jiayi Shao**, Xiaohan Wang, Ruijie Quan, Junjun Zheng, Jiang Yang, Yi Yang. &nbsp; International Conference on Computer Vision (ICCV). 2023.
+- [LANA: A Language-Capable Navigator for Vision-Language Navigation](https://openaccess.thecvf.com/content/CVPR2023/papers/Wang_LANA_A_Language-Capable_Navigator_for_Instruction_Following_and_Generation_CVPR_2023_paper.pdf). Xiaohan Wang, Wenguan Wang, **Jiayi Shao**, Yi Yang. &nbsp; Computer Vision and Pattern Recognition (CVPR). 2023.
+- [Action Sensitivity Learning for the Ego4D Episodic Memory Challenge](https://arxiv.org/abs/2306.09172). **Jiayi Shao**, Xiaohan Wang, Ruijie Quan, Yi Yang. &nbsp; Arxiv. 2023.
+- [ReLER@ ZJU Submission to the Ego4D Moment Queries Challenge 2022](https://arxiv.org/abs/2211.09558). **Jiayi Shao**, Xiaohan Wang, Ruijie Quan, Yi Yang. &nbsp; Arxiv. 2022.
 
-[Deep Residual Learning for Image Recognition](https://openaccess.thecvf.com/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf)
-
-**Kaiming He**, Xiangyu Zhang, Shaoqing Ren, Jian Sun
-
-[**Project**](https://scholar.google.com/citations?view_op=view_citation&hl=zh-CN&user=DhtAFkwAAAAJ&citation_for_view=DhtAFkwAAAAJ:ALROH1vI_8AC) <strong><span class='show_paper_citations' data='DhtAFkwAAAAJ:ALROH1vI_8AC'></span></strong>
-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-</div>
-</div>
-
-- [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet](https://github.com), A, B, C, **CVPR 2020**
-
+# 💬 Challenges
+- 1st place of Moment Queries Challenge in Ego4D & EPIC Workshop by CVPR 2023. [[Tech Report](https://arxiv.org/abs/2306.09172)][[code](https://github.com/JonnyS1226/ego4d_asl)].
+- 2nd place of Natural Language Queries Challenge in Ego4D & EPIC Workshop by CVPR 2023. [[Tech Report](https://arxiv.org/abs/2306.09172)][[code](https://github.com/JonnyS1226/ego4d_asl)].
+- 3rd place of Moment Queries Challenge in Ego4D Workshop by ECCV 2022. [[Tech Report](https://arxiv.org/abs/2211.09558)][[code](https://github.com/JonnyS1226/Ego4d_mq_3rd_solution)].
+  
 # 🎖 Honors and Awards
-- *2021.10* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2021.09* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-
-# 📖 Educations
-- *2019.06 - 2022.04 (now)*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2015.09 - 2019.06*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-
-# 💬 Invited Talks
-- *2021.06*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2021.03*, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet.  \| [\[video\]](https://github.com/)
+- Outstanding Graduate Student(2023) in Zhejiang University.
+- Excellent Undergraduate in Harbin Institute of Technology.
+- First Prize of Renmin Scholarship in Harbin Institute of Technology.
 
 # 💻 Internships
-- *2019.05 - 2020.02*, [Lorem](https://github.com/), China.
+- *2023.05 - 2023.09*, Algoirthm Intern in Alipay BG, Antgroup, Hangzhou, China.
+- *2022.11 - 2023.05*, Algoirthm Intern in Taobao, Alibaba, Hangzhou, China.
+- *2021.05 - 2021.08*, Research Intern in OpenMMLab, Shanghai AI Lab, Shanghai, China.
+- *2020.07 - 2020.09*, Software Engineering Intern in PCG, Tencent, Shenzhen, China.
