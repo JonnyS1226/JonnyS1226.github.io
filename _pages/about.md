@@ -17,7 +17,7 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-Jiayi Shao (邵嘉毅) is now a Third-Year Master’s student (expected to graduate at 2024.03) in CCAI, College of Computer Science and Software at Zhejiang University, supervised by [Prof. Yi Yang](https://scholar.google.com/citations?user=RMSuNFwAAAAJ&hl=zh-CN) and [Dr. Xiaohan Wang](https://scholar.google.com/citations?user=iGA10XoAAAAJ&hl=zh-CN). I obtained Bachelor’s degree in Harbin Institute of Technology. My research interests in Computer Vision include Video Analysis, AIGC and Multimodal Learning.
+I'm now a Third-Year Master’s student (expected to graduate at 2024.03) in CCAI, College of Computer Science and Software at Zhejiang University, supervised by [Prof. Yi Yang](https://scholar.google.com/citations?user=RMSuNFwAAAAJ&hl=zh-CN) and [Dr. Xiaohan Wang](https://scholar.google.com/citations?user=iGA10XoAAAAJ&hl=zh-CN). Before that I obtained Bachelor’s degree at Harbin Institute of Technology. My research interests in Computer Vision include Video Analysis, AIGC and Multimodal Learning.
 
 
 # 📝 Publications 
