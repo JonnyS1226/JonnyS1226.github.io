@@ -17,7 +17,7 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-I obtain Master’s degree in CCAI, College of Computer Science and Software at Zhejiang University, supervised by [Prof. Yi Yang](https://scholar.google.com/citations?user=RMSuNFwAAAAJ&hl=zh-CN) and [Dr. Xiaohan Wang](https://scholar.google.com/citations?user=iGA10XoAAAAJ&hl=zh-CN). Before that I obtained Bachelor’s degree at Harbin Institute of Technology. My research interests in Computer Vision include Video Analysis, AIGC and Multimodal Learning.
+I obtain Master’s degree at Zhejiang University, in CCAI, supervised by [Prof. Yi Yang](https://scholar.google.com/citations?user=RMSuNFwAAAAJ&hl=zh-CN) and [Dr. Xiaohan Wang](https://scholar.google.com/citations?user=iGA10XoAAAAJ&hl=zh-CN). Before that I obtained Bachelor’s degree at Harbin Institute of Technology. My research interests in Computer Vision include Video Analysis, AIGC and Multimodal Learning.
 
 
 # 📝 Publications 
