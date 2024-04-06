@@ -17,7 +17,7 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-I'm now a Third-Year Master’s student (expected to graduate at 2024.03) in CCAI, College of Computer Science and Software at Zhejiang University, supervised by [Prof. Yi Yang](https://scholar.google.com/citations?user=RMSuNFwAAAAJ&hl=zh-CN) and [Dr. Xiaohan Wang](https://scholar.google.com/citations?user=iGA10XoAAAAJ&hl=zh-CN). Before that I obtained Bachelor’s degree at Harbin Institute of Technology. My research interests in Computer Vision include Video Analysis, AIGC and Multimodal Learning.
+I obtain Master’s degree in CCAI, College of Computer Science and Software at Zhejiang University, supervised by [Prof. Yi Yang](https://scholar.google.com/citations?user=RMSuNFwAAAAJ&hl=zh-CN) and [Dr. Xiaohan Wang](https://scholar.google.com/citations?user=iGA10XoAAAAJ&hl=zh-CN). Before that I obtained Bachelor’s degree at Harbin Institute of Technology. My research interests in Computer Vision include Video Analysis, AIGC and Multimodal Learning.
 
 
 # 📝 Publications 
@@ -34,7 +34,7 @@ I'm now a Third-Year Master’s student (expected to graduate at 2024.03) in CCA
 - 3rd place of Moment Queries Challenge in Ego4D Workshop by ECCV 2022. [[Tech Report](https://arxiv.org/abs/2211.09558)][[code](https://github.com/JonnyS1226/Ego4d_mq_3rd_solution)].
 
 # 📖 Educations
-- *2021.09 - 2024.03*, Pursuing Master's degree in Computer Science and Software School of Zhejiang University.
+- *2021.09 - 2024.03*, Obtained Master's degree in Computer Science and Software School of Zhejiang University.
 - *2017.09 - 2021.06*, Obtained Bachelor's degree in Computer Science School of Harbin Institute of Technology. 
 
 # 🎖 Honors and Awards
@@ -43,7 +43,7 @@ I'm now a Third-Year Master’s student (expected to graduate at 2024.03) in CCA
 - First Prize of Renmin Scholarship (2017, 2019) at Harbin Institute of Technology.
 
 # 💻 Internships
-- *2023.05 - 2023.09*, Algorithm Intern in Alipay BG, Antgroup, Hangzhou, China.
-- *2022.11 - 2023.05*, Algorithm Intern in Taobao, Alibaba, Hangzhou, China.
+- *2023.05 - 2023.09*, Algorithm Intern (AIGC) in Alipay BG, Antgroup, Hangzhou, China.
+- *2022.11 - 2023.05*, Algorithm Intern (Multimodal Learning) in Taobao, Alibaba, Hangzhou, China.
 - *2021.05 - 2021.08*, Research Intern in OpenMMLab, Shanghai AI Lab, Shanghai, China.
 - *2020.07 - 2020.09*, Software Engineering Intern in PCG, Tencent, Shenzhen, China.
